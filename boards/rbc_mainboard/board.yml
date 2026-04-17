@@ -1,0 +1,6 @@
+board:
+  name: rbc_mainboard
+  full_name: RBC2026 Mainboard
+  vendor: custom
+  socs:
+    - name: stm32f407xx

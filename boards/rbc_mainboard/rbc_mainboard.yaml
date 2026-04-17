@@ -1,0 +1,21 @@
+identifier: rbc_mainboard
+name: RBC2026 Mainboard
+type: mcu
+arch: arm
+toolchain:
+  - zephyr
+  - gnuarmemb
+ram: 128
+flash: 1024
+supported:
+  - gpio
+  - i2c
+  - spi
+  - uart
+  - can
+  - pwm
+  - counter
+  - adc
+  - usb_device
+  - qdec
+vendor: custom

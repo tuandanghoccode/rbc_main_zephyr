@@ -1,0 +1,464 @@
+/*
+ * RBC2026 Mainboard - Custom board definition
+ * Chip: STM32F407VGT6, LQFP100, HSE 8MHz
+ * Chuyen tu file: RBC2026_MAINBOARD_OK.ioc
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/dts-v1/;
+#include <st/f4/stm32f407Xg.dtsi>
+#include <st/f4/stm32f407v(e-g)tx-pinctrl.dtsi>
+#include <zephyr/dt-bindings/input/input-event-codes.h>
+#include <zephyr/dt-bindings/pwm/pwm.h>
+
+/ {
+	model = "RBC2026 Mainboard";
+	compatible = "custom,rbc-mainboard";
+
+	chosen {
+		zephyr,console = &usart1;
+		zephyr,shell-uart = &usart1;
+		zephyr,sram = &sram0;
+		zephyr,flash = &flash0;
+		zephyr,dtcm = &ccm0;
+		zephyr,canbus = &can1;
+	};
+
+	/*
+	 * ====================
+	 *  LEDs (PC13, PC14, PC15) - active LOW
+	 * ====================
+	 */
+	leds {
+		compatible = "gpio-leds";
+
+		led0: led_pc13 {
+			gpios = <&gpioc 13 GPIO_ACTIVE_LOW>;
+			label = "LED PC13";
+		};
+
+		led1: led_pc14 {
+			gpios = <&gpioc 14 GPIO_ACTIVE_LOW>;
+			label = "LED PC14";
+		};
+
+		led2: led_pc15 {
+			gpios = <&gpioc 15 GPIO_ACTIVE_LOW>;
+			label = "LED PC15";
+		};
+	};
+
+	/*
+	 * ====================
+	 *  Buttons (PE4 = btn1, PE5 = btn2)
+	 * ====================
+	 */
+	gpio_keys {
+		compatible = "gpio-keys";
+
+		btn1: button_1 {
+			label = "BTN1";
+			gpios = <&gpioe 4 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+			zephyr,code = <INPUT_KEY_0>;
+		};
+
+		btn2: button_2 {
+			label = "BTN2";
+			gpios = <&gpioe 5 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+			zephyr,code = <INPUT_KEY_1>;
+		};
+	};
+
+	/*
+	 * ====================
+	 *  Digital Inputs (in1..in10)
+	 *  Dung cho limit switch, sensor, v.v.
+	 * ====================
+	 */
+	digital_inputs {
+		compatible = "gpio-keys";
+
+		in1: input_1 {
+			gpios = <&gpiob 8 GPIO_ACTIVE_LOW>;
+			label = "IN1";
+			zephyr,code = <INPUT_KEY_2>;
+		};
+		in2: input_2 {
+			gpios = <&gpiob 9 GPIO_ACTIVE_LOW>;
+			label = "IN2";
+			zephyr,code = <INPUT_KEY_3>;
+		};
+		in3: input_3 {
+			gpios = <&gpioe 0 GPIO_ACTIVE_LOW>;
+			label = "IN3";
+			zephyr,code = <INPUT_KEY_4>;
+		};
+		in4: input_4 {
+			gpios = <&gpioe 1 GPIO_ACTIVE_LOW>;
+			label = "IN4";
+			zephyr,code = <INPUT_KEY_5>;
+		};
+		in5: input_5 {
+			gpios = <&gpioe 2 GPIO_ACTIVE_LOW>;
+			label = "IN5";
+			zephyr,code = <INPUT_KEY_6>;
+		};
+		in6: input_6 {
+			gpios = <&gpioe 3 GPIO_ACTIVE_LOW>;
+			label = "IN6";
+			zephyr,code = <INPUT_KEY_7>;
+		};
+		in7: input_7 {
+			gpios = <&gpioc 0 GPIO_ACTIVE_LOW>;
+			label = "IN7";
+			zephyr,code = <INPUT_KEY_8>;
+		};
+		in8: input_8 {
+			gpios = <&gpioc 1 GPIO_ACTIVE_LOW>;
+			label = "IN8";
+			zephyr,code = <INPUT_KEY_9>;
+		};
+		in9: input_9 {
+			gpios = <&gpioc 2 GPIO_ACTIVE_LOW>;
+			label = "IN9";
+			zephyr,code = <INPUT_KEY_A>;
+		};
+		in10: input_10 {
+			gpios = <&gpioc 3 GPIO_ACTIVE_LOW>;
+			label = "IN10";
+			zephyr,code = <INPUT_KEY_B>;
+		};
+	};
+
+	/*
+	 * ====================
+	 *  Digital Outputs (s0..s3, o1..o12)
+	 *  Dung cho relay, solenoid, motor direction, v.v.
+	 * ====================
+	 */
+	digital_outputs {
+		compatible = "gpio-leds";
+
+		/* Multiplexer select lines */
+		s0: mux_s0 { gpios = <&gpioa 1 GPIO_ACTIVE_HIGH>; label = "S0"; };
+		s1: mux_s1 { gpios = <&gpioa 2 GPIO_ACTIVE_HIGH>; label = "S1"; };
+		s2: mux_s2 { gpios = <&gpioa 3 GPIO_ACTIVE_HIGH>; label = "S2"; };
+		s3: mux_s3 { gpios = <&gpioa 4 GPIO_ACTIVE_HIGH>; label = "S3"; };
+
+		/* General outputs */
+		o1:  out_1  { gpios = <&gpiob 1 GPIO_ACTIVE_HIGH>;  label = "O1"; };
+		o2:  out_2  { gpios = <&gpioe 7 GPIO_ACTIVE_HIGH>;  label = "O2"; };
+		o3:  out_3  { gpios = <&gpioe 8 GPIO_ACTIVE_HIGH>;  label = "O3"; };
+		o4:  out_4  { gpios = <&gpioe 9 GPIO_ACTIVE_HIGH>;  label = "O4"; };
+		o5:  out_5  { gpios = <&gpioe 10 GPIO_ACTIVE_HIGH>; label = "O5"; };
+		o6:  out_6  { gpios = <&gpioe 11 GPIO_ACTIVE_HIGH>; label = "O6"; };
+		o7:  out_7  { gpios = <&gpioe 12 GPIO_ACTIVE_HIGH>; label = "O7"; };
+		o8:  out_8  { gpios = <&gpioe 13 GPIO_ACTIVE_HIGH>; label = "O8"; };
+		o9:  out_9  { gpios = <&gpioe 14 GPIO_ACTIVE_HIGH>; label = "O9"; };
+		o10: out_10 { gpios = <&gpioe 15 GPIO_ACTIVE_HIGH>; label = "O10"; };
+		o11: out_11 { gpios = <&gpiod 14 GPIO_ACTIVE_HIGH>; label = "O11"; };
+		o12: out_12 { gpios = <&gpiod 15 GPIO_ACTIVE_HIGH>; label = "O12"; };
+
+		/* Misc outputs */
+		out_pb0:  misc_pb0  { gpios = <&gpiob 0 GPIO_ACTIVE_HIGH>;  label = "PB0 OUT"; };
+		out_pb2:  misc_pb2  { gpios = <&gpiob 2 GPIO_ACTIVE_HIGH>;  label = "PB2 OUT"; };
+		out_pb12: misc_pb12 { gpios = <&gpiob 12 GPIO_ACTIVE_HIGH>; label = "PB12 OUT"; };
+		out_pb13: misc_pb13 { gpios = <&gpiob 13 GPIO_ACTIVE_HIGH>; label = "PB13 OUT"; };
+		out_pc4:  misc_pc4  { gpios = <&gpioc 4 GPIO_ACTIVE_HIGH>;  label = "PC4 OUT"; };
+		out_pc5:  misc_pc5  { gpios = <&gpioc 5 GPIO_ACTIVE_HIGH>;  label = "PC5 OUT"; };
+	};
+
+	/*
+	 * ====================
+	 *  ST7735 LCD control pins (SPI1 + GPIO)
+	 * ====================
+	 */
+	st7735_ctrl {
+		compatible = "gpio-leds";
+		mh_rst: lcd_rst { gpios = <&gpiod 2 GPIO_ACTIVE_LOW>;  label = "LCD RST"; };
+		mh_cs:  lcd_cs  { gpios = <&gpiod 3 GPIO_ACTIVE_LOW>;  label = "LCD CS"; };
+		mh_dc:  lcd_dc  { gpios = <&gpiod 4 GPIO_ACTIVE_HIGH>; label = "LCD DC"; };
+	};
+
+	/*
+	 * ====================
+	 *  Aliases
+	 * ====================
+	 */
+	aliases {
+		led0 = &led0;
+		led1 = &led1;
+		led2 = &led2;
+		sw0 = &btn1;
+		sw1 = &btn2;
+	};
+};
+
+/*
+ * ====================
+ *  Clock: HSE 8MHz -> PLL -> SYSCLK 144MHz
+ *  (IOC: PLLM=4, PLLN=144, PLLP=2 -> 8/4*144/2 = 144MHz)
+ *  APB1 = 36MHz (/4), APB2 = 72MHz (/2)
+ * ====================
+ */
+&clk_hse {
+	clock-frequency = <DT_FREQ_M(8)>;
+	status = "okay";
+};
+
+&pll {
+	div-m = <4>;
+	mul-n = <144>;
+	div-p = <2>;
+	div-q = <6>;
+	clocks = <&clk_hse>;
+	status = "okay";
+};
+
+&rcc {
+	clocks = <&pll>;
+	clock-frequency = <DT_FREQ_M(144)>;
+	ahb-prescaler = <1>;
+	apb1-prescaler = <4>;
+	apb2-prescaler = <2>;
+};
+
+/*
+ * ====================
+ *  USART1: PA9(TX) PA10(RX) - Console/Debug
+ * ====================
+ */
+&usart1 {
+	pinctrl-0 = <&usart1_tx_pa9 &usart1_rx_pa10>;
+	pinctrl-names = "default";
+	current-speed = <115200>;
+	status = "okay";
+};
+
+/*
+ * ====================
+ *  USART2: PD5(TX) PD6(RX) - HC12 / ESP
+ * ====================
+ */
+&usart2 {
+	pinctrl-0 = <&usart2_tx_pd5 &usart2_rx_pd6>;
+	pinctrl-names = "default";
+	current-speed = <115200>;
+	status = "okay";
+};
+
+/*
+ * ====================
+ *  USART3: PD8(TX) PD9(RX) - DMA RX
+ * ====================
+ */
+&usart3 {
+	pinctrl-0 = <&usart3_tx_pd8 &usart3_rx_pd9>;
+	pinctrl-names = "default";
+	current-speed = <115200>;
+	status = "okay";
+};
+
+/*
+ * ====================
+ *  CAN1: PD0(RX) PD1(TX)
+ *  IOC: Prescaler=4, BS1=13TQ, BS2=2TQ -> 562.5kbps @ APB1=36MHz
+ * ====================
+ */
+&can1 {
+	pinctrl-0 = <&can1_rx_pd0 &can1_tx_pd1>;
+	pinctrl-names = "default";
+	status = "okay";
+
+	bus-speed = <500000>;
+	sample-point = <875>;
+};
+
+/*
+ * ====================
+ *  I2C1: PB6(SCL) PB7(SDA) - IMU
+ * ====================
+ */
+&i2c1 {
+	pinctrl-0 = <&i2c1_scl_pb6 &i2c1_sda_pb7>;
+	pinctrl-names = "default";
+	clock-frequency = <I2C_BITRATE_FAST>;
+	status = "okay";
+};
+
+/*
+ * ====================
+ *  I2C2: PB10(SCL) PB11(SDA) - PCA9685
+ * ====================
+ */
+&i2c2 {
+	pinctrl-0 = <&i2c2_scl_pb10 &i2c2_sda_pb11>;
+	pinctrl-names = "default";
+	clock-frequency = <I2C_BITRATE_FAST>;
+	status = "okay";
+};
+
+/*
+ * ====================
+ *  SPI1: PA5(SCK) PA6(MISO) PA7(MOSI) - LCD ST7735
+ * ====================
+ */
+&spi1 {
+	pinctrl-0 = <&spi1_sck_pa5 &spi1_miso_pa6 &spi1_mosi_pa7>;
+	pinctrl-names = "default";
+	status = "okay";
+};
+
+/*
+ * ====================
+ *  ADC1: PA0 (IN0) - Analog input
+ * ====================
+ */
+&adc1 {
+	pinctrl-0 = <&adc1_in0_pa0>;
+	pinctrl-names = "default";
+	st,adc-prescaler = <2>;
+	status = "okay";
+};
+
+/*
+ * ====================
+ *  Encoders: TIM2(PA15,PB3), TIM3(PC6,PC7), TIM4(PD12,PD13)
+ *  Dung Encoder mode TI12
+ * ====================
+ */
+&timers2 {
+	status = "okay";
+	st,prescaler = <0>;
+
+	qdec2: qdec {
+		compatible = "st,stm32-qdec";
+		status = "okay";
+		pinctrl-0 = <&tim2_ch1_pa15 &tim2_ch2_pb3>;
+		pinctrl-names = "default";
+		st,encoder-mode = <3>;
+		st,input-filter-level = <0>;
+		st,counts-per-revolution = <65535>;
+	};
+};
+
+&timers3 {
+	status = "okay";
+	st,prescaler = <0>;
+
+	qdec3: qdec {
+		compatible = "st,stm32-qdec";
+		status = "okay";
+		pinctrl-0 = <&tim3_ch1_pc6 &tim3_ch2_pc7>;
+		pinctrl-names = "default";
+		st,encoder-mode = <3>;
+		st,input-filter-level = <0>;
+		st,counts-per-revolution = <65535>;
+	};
+};
+
+&timers4 {
+	status = "okay";
+	st,prescaler = <0>;
+
+	qdec4: qdec {
+		compatible = "st,stm32-qdec";
+		status = "okay";
+		pinctrl-0 = <&tim4_ch1_pd12 &tim4_ch2_pd13>;
+		pinctrl-names = "default";
+		st,encoder-mode = <3>;
+		st,input-filter-level = <0>;
+		st,counts-per-revolution = <65535>;
+	};
+};
+
+/*
+ * ====================
+ *  TIM1: Internal clock, Period=9999, Prescaler=143
+ *  -> IRQ freq = 144MHz / (143+1) / (9999+1) = 100Hz
+ * ====================
+ */
+&timers1 {
+	status = "okay";
+	st,prescaler = <143>;
+
+	counter1: counter {
+		compatible = "st,stm32-counter";
+		status = "okay";
+	};
+};
+
+/*
+ * ====================
+ *  TIM8: Internal clock, Period=9999, Prescaler=2879
+ *  -> IRQ freq = 144MHz / (2879+1) / (9999+1) = 5Hz
+ * ====================
+ */
+&timers8 {
+	status = "okay";
+	st,prescaler = <2879>;
+
+	counter8: counter {
+		compatible = "st,stm32-counter";
+		status = "okay";
+	};
+};
+
+/*
+ * ====================
+ *  TIM9: PWM CH2 on PE6 (Servo / Buzzer)
+ * ====================
+ */
+&timers9 {
+	status = "okay";
+
+	pwm9: pwm {
+		compatible = "st,stm32-pwm";
+		status = "okay";
+		pinctrl-0 = <&tim9_ch2_pe6>;
+		pinctrl-names = "default";
+		#pwm-cells = <3>;
+	};
+};
+
+/*
+ * ====================
+ *  TIM12: PWM CH1(PB14), CH2(PB15) - Motor PWM
+ * ====================
+ */
+&timers12 {
+	status = "okay";
+
+	pwm12: pwm {
+		compatible = "st,stm32-pwm";
+		status = "okay";
+		pinctrl-0 = <&tim12_ch1_pb14 &tim12_ch2_pb15>;
+		pinctrl-names = "default";
+		#pwm-cells = <3>;
+	};
+};
+
+/*
+ * ====================
+ *  USB OTG FS: PA11(DM) PA12(DP) - CDC
+ * ====================
+ */
+zephyr_udc0: &usbotg_fs {
+	pinctrl-0 = <&usb_otg_fs_dm_pa11 &usb_otg_fs_dp_pa12>;
+	pinctrl-names = "default";
+	status = "okay";
+};
+
+/*
+ * ====================
+ *  DMA
+ * ====================
+ */
+&dma1 {
+	status = "okay";
+};
+
+&dma2 {
+	status = "okay";
+};

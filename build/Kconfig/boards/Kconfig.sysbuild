@@ -1,0 +1,2 @@
+# Load Sysbuild board Kconfig descriptions.
+osource "/home/tuangaooo/zephyrproject/rbc_r1/boards/rbc_mainboard/Kconfig.sysbuild"

@@ -1,0 +1,58 @@
+cmake:
+  application:
+    configuration-dir: '/home/tuangaooo/zephyrproject/rbc_r1'
+    source-dir: '/home/tuangaooo/zephyrproject/rbc_r1'
+  board:
+    name: 'rbc_mainboard'
+    path:
+     - '/home/tuangaooo/zephyrproject/rbc_r1/boards/rbc_mainboard'
+    qualifiers: 'stm32f407xx'
+    revision: ''
+  devicetree:
+    bindings-dirs:
+     - '/home/tuangaooo/zephyrproject/zephyr/dts/bindings'
+    files:
+     - '/home/tuangaooo/zephyrproject/rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts'
+    include-dirs:
+     - '/home/tuangaooo/zephyrproject/modules/hal/ambiq/dts'
+     - '/home/tuangaooo/zephyrproject/modules/hal/atmel/include'
+     - '/home/tuangaooo/zephyrproject/modules/hal/bouffalolab/include'
+     - '/home/tuangaooo/zephyrproject/modules/hal/bouffalolab/include/zephyr'
+     - '/home/tuangaooo/zephyrproject/modules/hal/gigadevice/include'
+     - '/home/tuangaooo/zephyrproject/modules/hal/microchip/include'
+     - '/home/tuangaooo/zephyrproject/modules/hal/microchip/dts'
+     - '/home/tuangaooo/zephyrproject/modules/hal/nuvoton/dts'
+     - '/home/tuangaooo/zephyrproject/modules/hal/nxp/dts'
+     - '/home/tuangaooo/zephyrproject/modules/hal/stm32/dts'
+     - '/home/tuangaooo/zephyrproject/modules/hal/ti/dts'
+     - '/home/tuangaooo/zephyrproject/zephyr/include'
+     - '/home/tuangaooo/zephyrproject/zephyr/include/zephyr'
+     - '/home/tuangaooo/zephyrproject/zephyr/dts/common'
+     - '/home/tuangaooo/zephyrproject/zephyr/dts/vendor'
+     - '/home/tuangaooo/zephyrproject/zephyr/dts/rx'
+     - '/home/tuangaooo/zephyrproject/zephyr/dts/x86'
+     - '/home/tuangaooo/zephyrproject/zephyr/dts/xtensa'
+     - '/home/tuangaooo/zephyrproject/zephyr/dts/sparc'
+     - '/home/tuangaooo/zephyrproject/zephyr/dts/riscv'
+     - '/home/tuangaooo/zephyrproject/zephyr/dts/posix'
+     - '/home/tuangaooo/zephyrproject/zephyr/dts/arm64'
+     - '/home/tuangaooo/zephyrproject/zephyr/dts/arm'
+     - '/home/tuangaooo/zephyrproject/zephyr/dts/arc'
+     - '/home/tuangaooo/zephyrproject/zephyr/dts'
+  kconfig:
+    files:
+     - '/home/tuangaooo/zephyrproject/rbc_r1/boards/rbc_mainboard/rbc_mainboard_defconfig'
+     - '/home/tuangaooo/zephyrproject/rbc_r1/prj.conf'
+    user-files:
+     - '/home/tuangaooo/zephyrproject/rbc_r1/prj.conf'
+  toolchain:
+    name: 'zephyr'
+    path: '/home/tuangaooo/zephyr-sdk-1.0.1'
+  zephyr:
+    version: '4.4.99'
+    zephyr-base: '/home/tuangaooo/zephyrproject/zephyr'
+version: '0.1.0'
+west:
+  command: '/home/tuangaooo/zephyrpy/bin/west build -b rbc_mainboard -p always'
+  topdir: '/home/tuangaooo/zephyrproject'
+  version: '1.5.0'
