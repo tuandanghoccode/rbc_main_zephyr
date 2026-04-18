@@ -188,9 +188,6 @@
 /home/tuangaooo/zephyrproject/rbc_r1/build/zephyr/drivers/console/CMakeFiles/drivers__console.dir
 /home/tuangaooo/zephyrproject/rbc_r1/build/zephyr/drivers/console/CMakeFiles/edit_cache.dir
 /home/tuangaooo/zephyrproject/rbc_r1/build/zephyr/drivers/console/CMakeFiles/rebuild_cache.dir
-/home/tuangaooo/zephyrproject/rbc_r1/build/zephyr/drivers/dma/CMakeFiles/drivers__dma.dir
-/home/tuangaooo/zephyrproject/rbc_r1/build/zephyr/drivers/dma/CMakeFiles/edit_cache.dir
-/home/tuangaooo/zephyrproject/rbc_r1/build/zephyr/drivers/dma/CMakeFiles/rebuild_cache.dir
 /home/tuangaooo/zephyrproject/rbc_r1/build/zephyr/drivers/gpio/CMakeFiles/drivers__gpio.dir
 /home/tuangaooo/zephyrproject/rbc_r1/build/zephyr/drivers/gpio/CMakeFiles/edit_cache.dir
 /home/tuangaooo/zephyrproject/rbc_r1/build/zephyr/drivers/gpio/CMakeFiles/rebuild_cache.dir

@@ -1832,7 +1832,7 @@ set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_PROP|/soc/can@40006400
 set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_PROP|/soc/can@40006400|interrupts" "19;0;20;0;21;0;22;0")
 set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_PROP|/soc/can@40006400|pinctrl-0" "/soc/pin-controller@40020000/can1_rx_pd0;/soc/pin-controller@40020000/can1_tx_pd1")
 set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_PROP|/soc/can@40006400|pinctrl-names" "default")
-set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_PROP|/soc/can@40006400|bus-speed" "500000")
+set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_PROP|/soc/can@40006400|bus-speed" "562500")
 set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_PROP|/soc/can@40006400|sample-point" "875")
 set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_PROP|/soc/can@40006400|status" "okay")
 set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_PROP|/soc/can@40006400|compatible" "st,stm32-bxcan")

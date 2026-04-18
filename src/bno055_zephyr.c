@@ -1,7 +1,7 @@
 /*
  * bno055_zephyr.c
- * Dinh nghia cac ham HAL binding cho BNO055 su dung Zephyr I2C API.
- * Cac ham nay duoc khai bao trong bno055.h (non-static) va goi boi bno055.c
+ * HAL binding cho BNO055 su dung Zephyr I2C API.
+ * Tra ve int de caller biet loi I2C.
  */
 #include "bno055_zephyr.h"
 #include <zephyr/kernel.h>
@@ -18,15 +18,16 @@ void bno055_delay(int ms)
     k_msleep(ms);
 }
 
+/* Tra ve 0 neu thanh cong, am neu loi I2C */
 void bno055_writeData(uint8_t reg, uint8_t data)
 {
     if (!_bno055_i2c) return;
     uint8_t buf[2] = {reg, data};
-    i2c_write_dt(_bno055_i2c, buf, sizeof(buf));
+    (void)i2c_write_dt(_bno055_i2c, buf, sizeof(buf));
 }
 
 void bno055_readData(uint8_t reg, uint8_t *data, uint8_t len)
 {
     if (!_bno055_i2c) return;
-    i2c_write_read_dt(_bno055_i2c, &reg, 1, data, len);
+    (void)i2c_write_read_dt(_bno055_i2c, &reg, 1, data, len);
 }

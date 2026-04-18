@@ -271,7 +271,7 @@
 	pinctrl-names = "default";
 	status = "okay";
 
-	bus-speed = <500000>;
+	bus-speed = <562500>;
 	sample-point = <875>;
 };
 

@@ -12708,7 +12708,7 @@
 #define DT_N_S_soc_S_can_40006400_P_pinctrl_names_FOREACH_PROP_ELEM_SEP_VARGS(fn, sep, ...) fn(DT_N_S_soc_S_can_40006400, pinctrl_names, 0, __VA_ARGS__)
 #define DT_N_S_soc_S_can_40006400_P_pinctrl_names_LEN 1
 #define DT_N_S_soc_S_can_40006400_P_pinctrl_names_EXISTS 1
-#define DT_N_S_soc_S_can_40006400_P_bus_speed 500000
+#define DT_N_S_soc_S_can_40006400_P_bus_speed 562500
 #define DT_N_S_soc_S_can_40006400_P_bus_speed_EXISTS 1
 #define DT_N_S_soc_S_can_40006400_P_sample_point 875
 #define DT_N_S_soc_S_can_40006400_P_sample_point_EXISTS 1

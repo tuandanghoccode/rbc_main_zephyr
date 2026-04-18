@@ -48,7 +48,6 @@ case K_OBJ_SENSOR_DECODER_API: ret = "sensor_decoder_api"; break;
 /* Driver subsystems */
 case K_OBJ_DRIVER_ADC: ret = "adc driver"; break;
 case K_OBJ_DRIVER_CAN: ret = "can driver"; break;
-case K_OBJ_DRIVER_DMA: ret = "dma driver"; break;
 case K_OBJ_DRIVER_GPIO: ret = "gpio driver"; break;
 case K_OBJ_DRIVER_I2C: ret = "i2c driver"; break;
 case K_OBJ_DRIVER_I2C_TARGET: ret = "i2c_target driver"; break;
@@ -70,6 +69,7 @@ case K_OBJ_DRIVER_CRC: ret = "crc driver"; break;
 case K_OBJ_DRIVER_DAC: ret = "dac driver"; break;
 case K_OBJ_DRIVER_DAI: ret = "dai driver"; break;
 case K_OBJ_DRIVER_DISPLAY: ret = "display driver"; break;
+case K_OBJ_DRIVER_DMA: ret = "dma driver"; break;
 case K_OBJ_DRIVER_EDAC: ret = "edac driver"; break;
 case K_OBJ_DRIVER_EEPROM: ret = "eeprom driver"; break;
 case K_OBJ_DRIVER_EMUL_BBRAM: ret = "emul_bbram driver"; break;

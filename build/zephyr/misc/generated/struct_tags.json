@@ -11,7 +11,6 @@
     "__subsystem": [
         "adc_driver_api",
         "can_driver_api",
-        "dma_driver_api",
         "gpio_driver_api",
         "i2c_driver_api",
         "i2c_target_driver_api",
@@ -33,6 +32,7 @@
         "dac_driver_api",
         "dai_driver_api",
         "display_driver_api",
+        "dma_driver_api",
         "edac_driver_api",
         "eeprom_driver_api",
         "emul_bbram_driver_api",

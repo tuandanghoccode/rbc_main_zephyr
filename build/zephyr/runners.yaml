@@ -27,6 +27,7 @@ args:
   stm32cubeprogrammer:
     - --port=swd
     - --reset-mode=hw
+    - --tool-opt=freq=1800
   openocd:
     - --cmd-load
     - flash write_image erase

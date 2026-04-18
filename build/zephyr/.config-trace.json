@@ -448,11 +448,11 @@
     "CONFIG_MAIN_STACK_SIZE",
     "y",
     "int",
-    "4096",
+    "1024",
     "assign",
     [
       "/home/tuangaooo/zephyrproject/rbc_r1/prj.conf",
-      30
+      33
     ]
   ],
   [
@@ -523,7 +523,7 @@
     "assign",
     [
       "/home/tuangaooo/zephyrproject/rbc_r1/prj.conf",
-      20
+      19
     ]
   ],
   [
@@ -554,11 +554,11 @@
     "CONFIG_UART_INTERRUPT_DRIVEN",
     "y",
     "bool",
-    "n",
+    "y",
     "assign",
     [
       "/home/tuangaooo/zephyrproject/rbc_r1/prj.conf",
-      11
+      10
     ]
   ],
   [
@@ -1132,9 +1132,12 @@
     "CONFIG_LOG",
     "y",
     "bool",
-    null,
-    "unset",
-    null
+    "n",
+    "assign",
+    [
+      "/home/tuangaooo/zephyrproject/rbc_r1/prj.conf",
+      44
+    ]
   ],
   [
     "CONFIG_PM_CPU_OPS",
@@ -2552,16 +2555,6 @@
     ]
   ],
   [
-    "CONFIG_USE_STM32_LL_DMA",
-    "n",
-    "bool",
-    "y",
-    "select",
-    [
-      "DMA_STM32 && (DT_HAS_ST_STM32_DMA_V1_ENABLED || DT_HAS_ST_STM32_DMA_V2_ENABLED || DT_HAS_ST_STM32_DMA_V2BIS_ENABLED || DT_HAS_ST_STM32_BDMA_ENABLED) && DMA"
-    ]
-  ],
-  [
     "CONFIG_USE_STM32_LL_RCC",
     "n",
     "bool",
@@ -3808,12 +3801,9 @@
     "CONFIG_SCHED_SIMPLE",
     "y",
     "bool",
-    "y",
-    "default",
-    [
-      "/home/tuangaooo/zephyrproject/zephyr/kernel/Kconfig",
-      258
-    ]
+    null,
+    "unset",
+    null
   ],
   [
     "CONFIG_SCHED_SCALABLE",
@@ -3827,8 +3817,8 @@
     "CONFIG_SCHED_MULTIQ",
     "y",
     "bool",
-    null,
-    "unset",
+    "y",
+    "assign",
     null
   ],
   [
@@ -3943,9 +3933,23 @@
     "CONFIG_THREAD_NAME",
     "y",
     "bool",
-    null,
-    "unset",
-    null
+    "y",
+    "assign",
+    [
+      "/home/tuangaooo/zephyrproject/rbc_r1/prj.conf",
+      41
+    ]
+  ],
+  [
+    "CONFIG_THREAD_MAX_NAME_LEN",
+    "y",
+    "int",
+    "32",
+    "default",
+    [
+      "/home/tuangaooo/zephyrproject/zephyr/kernel/Kconfig",
+      455
+    ]
   ],
   [
     "CONFIG_THREAD_RUNTIME_STATS",
@@ -4118,7 +4122,7 @@
     "assign",
     [
       "/home/tuangaooo/zephyrproject/rbc_r1/prj.conf",
-      31
+      34
     ]
   ],
   [
@@ -4361,7 +4365,7 @@
     "assign",
     [
       "/home/tuangaooo/zephyrproject/rbc_r1/prj.conf",
-      23
+      22
     ]
   ],
   [
@@ -4465,7 +4469,7 @@
     "assign",
     [
       "/home/tuangaooo/zephyrproject/rbc_r1/prj.conf",
-      14
+      13
     ]
   ],
   [
@@ -4809,63 +4813,9 @@
     "CONFIG_DMA",
     "y",
     "bool",
-    "y",
-    "select",
-    [
-      "UART_STM32 && UART_ASYNC_API && DT_HAS_ST_STM32_UART_ENABLED && SERIAL"
-    ]
-  ],
-  [
-    "CONFIG_DMA_64BIT",
-    "y",
-    "bool",
     null,
     "unset",
     null
-  ],
-  [
-    "CONFIG_DMA_INIT_PRIORITY",
-    "y",
-    "int",
-    "40",
-    "default",
-    [
-      "/home/tuangaooo/zephyrproject/zephyr/drivers/dma/Kconfig",
-      21
-    ]
-  ],
-  [
-    "CONFIG_DMA_MCUX_MAX_DATA_SIZE",
-    "n",
-    "int",
-    "32",
-    "default",
-    [
-      "/home/tuangaooo/zephyrproject/zephyr/drivers/dma/Kconfig.mcux_edma",
-      47
-    ]
-  ],
-  [
-    "CONFIG_DMA_STM32",
-    "y",
-    "bool",
-    "y",
-    "default",
-    [
-      "/home/tuangaooo/zephyrproject/zephyr/drivers/dma/Kconfig.stm32",
-      11
-    ]
-  ],
-  [
-    "CONFIG_DMA_STM32_V1",
-    "n",
-    "bool",
-    "y",
-    "default",
-    [
-      "/home/tuangaooo/zephyrproject/zephyr/drivers/dma/Kconfig.stm32",
-      32
-    ]
   ],
   [
     "CONFIG_DP_DRIVER",
@@ -5006,7 +4956,7 @@
     "assign",
     [
       "/home/tuangaooo/zephyrproject/rbc_r1/prj.conf",
-      17
+      16
     ]
   ],
   [
@@ -5491,12 +5441,9 @@
     "CONFIG_UART_ASYNC_API",
     "y",
     "bool",
-    "y",
-    "assign",
-    [
-      "/home/tuangaooo/zephyrproject/rbc_r1/prj.conf",
-      10
-    ]
+    null,
+    "unset",
+    null
   ],
   [
     "CONFIG_UART_LINE_CTRL",

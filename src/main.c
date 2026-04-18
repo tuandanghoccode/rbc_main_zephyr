@@ -1,16 +1,23 @@
 /*
- * main.c - RBC2026 Mainboard - Zephyr OS Port
+ * main.c - RBC2026 Mainboard - Zephyr OS Port (Optimized)
  * Port tu STM32 HAL: RBC2026_MAINBOARD_OK
  *
  * Peripheral map:
- *   UART3 (PD8/PD9)  - HC12 thu khong day, async
- *   CAN1  (PD0/PD1)  - Gui lenh toc do motor, ID=0x123
- *   I2C1  (PB6/PB7)  - BNO055 IMU (Euler)
- *   I2C2  (PB10/B11) - PCA9685 servo driver
+ *   UART3 (PD8/PD9)  - HC12 thu khong day (IRQ-driven)
+ *   CAN1  (PD0/PD1)  - Gui lenh toc do motor, ID=0x123, 500kbps
+ *   I2C1  (PB6/PB7)  - BNO055 IMU 400kHz (Euler, ~200us/read)
+ *   I2C2  (PB10/B11) - PCA9685 servo driver 400kHz
  *   ADC1  (PA0)      - Analog MUX x4 kenh (s0-s3 tren PA1-PA4)
- *   Timer 100Hz      - Vong dieu khien chinh (IMU + tinh motor + CAN TX)
- *   Timer 5Hz        - Watchdog ket noi HC12
- *   GPIO             - LED, output relay, input sensor
+ *
+ * Thread architecture (do tre thap):
+ *   ctrl_thread      prio=2, 100Hz: k_sem <- timer ISR -> no queue overhead
+ *   watchdog_thread  prio=6,   5Hz: kiem tra ket noi HC12
+ *   adc_thread       prio=8,  50Hz: doc ADC MUX, khong anh huong ctrl
+ *   main (idle)      prio=14       : LED blink
+ *
+ * ISR safety:
+ *   rx_x, rx_y: atomic_t (int x10) - an toan chia se ISR <-> ctrl_thread
+ *   hc12_seq:   atomic_t           - tang moi packet, watchdog so sanh
  */
 
 #include <zephyr/kernel.h>
@@ -19,6 +26,7 @@
 #include <zephyr/drivers/can.h>
 #include <zephyr/drivers/i2c.h>
 #include <zephyr/drivers/adc.h>
+#include <zephyr/sys/atomic.h>
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
@@ -32,6 +40,9 @@
  * ================================================================ */
 #define UART3_NODE  DT_NODELABEL(usart3)
 static const struct device *uart3_dev = DEVICE_DT_GET(UART3_NODE);
+
+#define UART2_NODE  DT_NODELABEL(usart2)
+static const struct device *uart2_dev = DEVICE_DT_GET(UART2_NODE);
 
 #define CAN1_NODE   DT_NODELABEL(can1)
 static const struct device *can1_dev = DEVICE_DT_GET(CAN1_NODE);
@@ -50,6 +61,9 @@ static const struct i2c_dt_spec pca_i2c = {
 static const struct device *adc1_dev = DEVICE_DT_GET(ADC1_NODE);
 
 static const struct gpio_dt_spec led0 = GPIO_DT_SPEC_GET(DT_ALIAS(led0), gpios);
+static const struct gpio_dt_spec led1 = GPIO_DT_SPEC_GET(DT_ALIAS(led1), gpios);
+/* LED2 (PC15): nhay moi khi nhan duoc 1 packet HC12 tu tay dieu khien */
+static const struct gpio_dt_spec led2 = GPIO_DT_SPEC_GET(DT_NODELABEL(led2), gpios);
 
 static const struct gpio_dt_spec mux_s[] = {
     GPIO_DT_SPEC_GET(DT_NODELABEL(s0), gpios),
@@ -65,72 +79,134 @@ static const struct gpio_dt_spec mux_s[] = {
 #define SERVOMAX  490
 
 /* ================================================================
- *  Bien toan cuc
+ *  Thread stacks & handles
+ * ================================================================ */
+#define CTRL_STACK_SIZE     2048
+#define WATCHDOG_STACK_SIZE 512
+#define ADC_STACK_SIZE      512
+#define TELEM_STACK_SIZE    1024
+
+#define CTRL_THREAD_PRIO     2
+#define WATCHDOG_THREAD_PRIO 6
+#define ADC_THREAD_PRIO      8
+#define TELEM_THREAD_PRIO    10
+
+K_THREAD_STACK_DEFINE(ctrl_stack,     CTRL_STACK_SIZE);
+K_THREAD_STACK_DEFINE(watchdog_stack, WATCHDOG_STACK_SIZE);
+K_THREAD_STACK_DEFINE(adc_stack,      ADC_STACK_SIZE);
+K_THREAD_STACK_DEFINE(telem_stack,    TELEM_STACK_SIZE);
+
+static struct k_thread ctrl_thread_data;
+static struct k_thread watchdog_thread_data;
+static struct k_thread adc_thread_data;
+static struct k_thread telem_thread_data;
+
+/* ================================================================
+ *  Semaphores - timer ISR wake threads (do tre thap nhat)
+ * ================================================================ */
+K_SEM_DEFINE(ctrl_sem,     0, 1);
+K_SEM_DEFINE(watchdog_sem, 0, 1);
+K_SEM_DEFINE(adc_sem,      0, 1);
+K_SEM_DEFINE(telem_sem,    0, 1);
+
+/* ================================================================
+ *  Timers - chi goi k_sem_give (ISR-safe, khong queue overhead)
+ * ================================================================ */
+static struct k_timer ctrl_timer;
+static struct k_timer watchdog_timer;
+static struct k_timer adc_timer;
+static struct k_timer telem_timer;
+
+static void ctrl_timer_expiry(struct k_timer *t)
+{
+    k_sem_give(&ctrl_sem);       /* wake ctrl_thread ngay lap tuc */
+}
+
+static void watchdog_timer_expiry(struct k_timer *t)
+{
+    k_sem_give(&watchdog_sem);
+}
+
+static void adc_timer_expiry(struct k_timer *t)
+{
+    k_sem_give(&adc_sem);
+}
+
+static void telem_timer_expiry(struct k_timer *t)
+{
+    k_sem_give(&telem_sem);  /* 10Hz telemetry wake */
+}
+
+/* ================================================================
+ *  Bien toan cuc - IMU
  * ================================================================ */
 typedef struct {
     int goc_ht[2];
     int goc_trc[2];
     int delta_goc[2];
     int goc_tong[2];
-    int goc_offset[2];
-    int goc_ok[2];
 } IMU_t;
 
-static IMU_t BNO055_data;
+static IMU_t imu;   /* chi ctrl_thread doc/ghi -> khong can mutex */
 
-/* HC12 */
-static volatile uint8_t rx_hc12[5];
-static volatile uint8_t id_hc12    = 0;
-static volatile uint8_t check_hc12 = 0;
-static volatile uint8_t pre_check  = 0;
-static volatile uint8_t flag_ok    = 0;
-static volatile uint8_t pre_bt3    = 0;
+/* ================================================================
+ *  Atomic: chia se du lieu ISR <-> ctrl_thread an toan
+ *
+ *  X, Y: luu dang int*10 de tranh float trong atomic
+ *        vi du: X_raw = -350 => X = -35.0f
+ *  hc12_seq: tang moi packet, watchdog so sanh
+ *  hc12_connected: 1 = dang nhan, 0 = mat tin hieu
+ *  btn_byte3/byte2: byte dieu khien tu HC12
+ * ================================================================ */
+static atomic_t rx_x10        = ATOMIC_INIT(0);   /* X * 10, range -1000..1000 */
+static atomic_t rx_y10        = ATOMIC_INIT(0);   /* Y * 10 */
+static atomic_t hc12_seq      = ATOMIC_INIT(0);   /* tang moi packet */
+static atomic_t hc12_conn     = ATOMIC_INIT(0);   /* 1=connected, 0=lost */
+static atomic_t rx_btn3       = ATOMIC_INIT(0);   /* rx_hc12[3] */
+static atomic_t rx_btn2       = ATOMIC_INIT(0);   /* rx_hc12[2] */
 
-/* Dieu khien */
-static volatile float X = 0, Y = 0;
-static float pii  = 3.141592f;
-static float pi4  = 0.7854f;
-static float pi34 = 2.3562f;
-static float rad_dh = 0, add_rad = 0;
-static float goc_bu = 0;
+/* ================================================================
+ *  Dieu khien
+ * ================================================================ */
+static const float pii  = 3.141592f;
+static const float pi4  = 0.7854f;
+static const float pi34 = 2.3562f;
+
+static float rad_dh = 0.0f;
+static float add_rad = 0.0f;
+static float goc_bu  = 0.0f;
 static int   goc_quay = 0;
 static uint8_t db = 9;
 
-/* CAN */
-static uint8_t TxData[8] = {100, 100, 100, 100, 100, 100, 100, 100};
+/* CAN frame: pre-allocated, chi update data bytes moi frame */
+static struct can_frame can1_tx = {
+    .id  = 0x123,
+    .dlc = 8,
+    .data = {100, 100, 100, 100, 100, 100, 100, 100},
+};
 
 /* ADC */
 static volatile float adc_list[4];
-static volatile uint8_t mux_channel = 0;
-
-/* UART double-buffer */
-/* UART RX - interrupt-driven, xu ly tung byte trong IRQ callback */
-static uint8_t uart3_rx_buf[1]; /* Placeholder, khong dung trong IRQ mode */
+static uint8_t mux_channel = 0;
 
 /* ================================================================
  *  Ham tien ich
  * ================================================================ */
-static uint8_t Chuan_hoa(float x)
+
+static inline uint8_t f_clamp_u8(float x)
 {
-    if (x >= 255.0f) x = 255.0f;
-    if (x <= 0.0f)   x = 0.0f;
-    return (uint8_t)roundf(x);
+    if (x >= 255.0f) return 255;
+    if (x <=   0.0f) return 0;
+    return (uint8_t)x;
 }
 
-static uint16_t AngleToPWM(uint8_t angle)
+static inline uint16_t AngleToPWM(uint8_t angle)
 {
     if (angle > 180) angle = 180;
-    return (uint16_t)((float)SERVOMIN +
-                      ((float)angle * (SERVOMAX - SERVOMIN) / 180.0f));
+    return (uint16_t)(SERVOMIN + ((uint32_t)angle * (SERVOMAX - SERVOMIN) / 180U));
 }
 
-static void SetServoAngle(uint8_t num, float angle)
-{
-    uint16_t pwm = AngleToPWM((uint8_t)angle);
-    PCA9685_SetPWM_Z(&pca_i2c, PCA9685_I2C_ADDRESS_1, num, 0, pwm);
-}
-
-static void MUX_Channel(uint8_t ch)
+static inline void MUX_Channel(uint8_t ch)
 {
     gpio_pin_set_dt(&mux_s[0], (ch >> 0) & 1);
     gpio_pin_set_dt(&mux_s[1], (ch >> 1) & 1);
@@ -139,144 +215,141 @@ static void MUX_Channel(uint8_t ch)
 }
 
 /* ================================================================
- *  Doc IMU
+ *  Doc IMU - goi trong ctrl_thread (I2C1 @ 400kHz, ~200us)
  * ================================================================ */
 static void Read_IMU(void)
 {
     bno055_vector_t d = bno055_getVectorEuler();
 
-    BNO055_data.goc_ht[0] = (int)d.x;
-    BNO055_data.delta_goc[0] = BNO055_data.goc_ht[0] - BNO055_data.goc_trc[0];
-    if (BNO055_data.delta_goc[0] >  180) BNO055_data.delta_goc[0] -= 360;
-    if (BNO055_data.delta_goc[0] < -180) BNO055_data.delta_goc[0] += 360;
-    BNO055_data.goc_tong[0] += BNO055_data.delta_goc[0];
-    BNO055_data.goc_trc[0]   = BNO055_data.goc_ht[0];
+    imu.goc_ht[0]     = (int)d.x;
+    imu.delta_goc[0]  = imu.goc_ht[0] - imu.goc_trc[0];
+    if (imu.delta_goc[0] >  180) imu.delta_goc[0] -= 360;
+    if (imu.delta_goc[0] < -180) imu.delta_goc[0] += 360;
+    imu.goc_tong[0]  += imu.delta_goc[0];
+    imu.goc_trc[0]    = imu.goc_ht[0];
 
-    BNO055_data.goc_ht[1] = (int)d.z;
-    BNO055_data.delta_goc[1] = BNO055_data.goc_ht[1] - BNO055_data.goc_trc[1];
-    if (BNO055_data.delta_goc[1] >  180) BNO055_data.delta_goc[1] -= 360;
-    if (BNO055_data.delta_goc[1] < -180) BNO055_data.delta_goc[1] += 360;
-    BNO055_data.goc_tong[1] += BNO055_data.delta_goc[1];
-    BNO055_data.goc_trc[1]   = BNO055_data.goc_ht[1];
+    imu.goc_ht[1]     = (int)d.z;
+    imu.delta_goc[1]  = imu.goc_ht[1] - imu.goc_trc[1];
+    if (imu.delta_goc[1] >  180) imu.delta_goc[1] -= 360;
+    if (imu.delta_goc[1] < -180) imu.delta_goc[1] += 360;
+    imu.goc_tong[1]  += imu.delta_goc[1];
+    imu.goc_trc[1]    = imu.goc_ht[1];
 }
 
 /* ================================================================
- *  Vong dieu khien 100Hz
+ *  ctrl_thread - 100Hz, priority 2 (cao nhat userspace)
+ *  Wake: k_sem_give tu timer ISR, KHONG qua work queue
  * ================================================================ */
-static void control_loop_100Hz(void)
+static void ctrl_thread_fn(void *p1, void *p2, void *p3)
 {
-    Read_IMU();
+    ARG_UNUSED(p1); ARG_UNUSED(p2); ARG_UNUSED(p3);
 
-    /* Button: rx_hc12[3] = du.button[0] (UP/DN/Triangle/Circle...)
-     *         rx_hc12[2] = du.button[1] (L1/R1/L2/R2) */
-    if (rx_hc12[3] == 8) {          /* UP (button[0] bit) */
-        goc_bu -= 0.5f;
-    } else if (rx_hc12[3] == 4) {   /* DN */
-        goc_bu += 0.5f;
-    } else {
-        if      (rx_hc12[3] == 16)  add_rad = 0;
-        else if (rx_hc12[3] == 32)  add_rad = 2 * pi4;
-        else if (rx_hc12[3] == 64)  add_rad = pii;
-        else if (rx_hc12[3] == 128) add_rad = -2 * pi4;
-        pre_bt3 = rx_hc12[2];
-        rad_dh += (add_rad - rad_dh) * 0.1f;
+    while (1) {
+        /* Block cho den khi timer ISR keu - do tre ~10us */
+        k_sem_take(&ctrl_sem, K_FOREVER);
 
-        goc_quay = BNO055_data.goc_tong[0] + (int)goc_bu
-                   - (int)(rad_dh / pii * 180.0f);
-        if (goc_quay >  20) goc_quay =  20;
-        if (goc_quay < -20) goc_quay = -20;
+        Read_IMU();
 
-        float goc_rad = ((goc_quay + BNO055_data.goc_tong[0] + goc_bu)
-                         * pii) / 180.0f;
+        /* Doc trang thai phim tu atomic (ISR da ghi) */
+        uint8_t btn3  = (uint8_t)atomic_get(&rx_btn3);
+        uint8_t btn2  = (uint8_t)atomic_get(&rx_btn2);
+        bool connected = (atomic_get(&hc12_conn) != 0);
 
-        TxData[2] = Chuan_hoa(X * sinf(goc_rad + pi34) + Y * cosf(goc_rad + pi34) + 100) + goc_quay;
-        TxData[3] = Chuan_hoa(X * sinf(goc_rad - pi34) + Y * cosf(goc_rad - pi34) + 100) + goc_quay;
-        TxData[4] = Chuan_hoa(X * sinf(goc_rad - pi4)  + Y * cosf(goc_rad - pi4)  + 100) + goc_quay;
-        TxData[5] = Chuan_hoa(X * sinf(goc_rad + pi4)  + Y * cosf(goc_rad + pi4)  + 100) + goc_quay;
-    }
-
-    TxData[6] = db;
-
-    struct can_frame frame = { .id = 0x123, .dlc = 8 };
-    memcpy(frame.data, TxData, 8);
-    int r = can_send(can1_dev, &frame, K_NO_WAIT, NULL, NULL);
-    (void)r;
-}
-
-/* ================================================================
- *  Watchdog HC12 - 5Hz
- * ================================================================ */
-static void watchdog_5Hz(void)
-{
-    if (check_hc12 != pre_check) {
-        flag_ok = 0;
-        gpio_pin_toggle_dt(&led0);
-    } else {
-        flag_ok = 1;
-        X = 0;
-        Y = 0;
-    }
-    pre_check = check_hc12;
-}
-
-/* ================================================================
- *  k_timer
- * ================================================================ */
-static struct k_timer tim1_timer;
-static struct k_timer tim8_timer;
-
-static void tim1_work_handler(struct k_work *work);
-static K_WORK_DEFINE(tim1_work, tim1_work_handler);
-static void tim1_work_handler(struct k_work *work) { control_loop_100Hz(); }
-static void tim1_expiry(struct k_timer *t)          { k_work_submit(&tim1_work); }
-
-static void tim8_work_handler(struct k_work *work);
-static K_WORK_DEFINE(tim8_work, tim8_work_handler);
-static void tim8_work_handler(struct k_work *work) { watchdog_5Hz(); }
-static void tim8_expiry(struct k_timer *t)          { k_work_submit(&tim8_work); }
-
-/* ================================================================
- *  UART3 IRQ callback - HC12 (interrupt-driven, khong can DMA)
- * ================================================================ */
-static void uart3_irq_cb(const struct device *dev, void *user_data)
-{
-    if (!uart_irq_update(dev)) {
-        return;
-    }
-
-    while (uart_irq_rx_ready(dev)) {
-        uint8_t byte;
-        int n = uart_fifo_read(dev, &byte, 1);
-        if (n != 1) break;
-
-        if (byte == 255) {
-            /* Sync byte: reset index, bat dau frame moi */
-            id_hc12 = 0;
-        } else {
-            if (id_hc12 < 5) {
-                rx_hc12[id_hc12++] = byte;
-            }
-            if (id_hc12 >= 5) {
-                id_hc12 = 0;
-                check_hc12 = rx_hc12[4]; /* cnt - checkbyte */
-
-                /* Packet sau sync byte: [val_x][val_y][btn1][btn0][cnt]
-                 * val_x: 0-255, center=100
-                 * val_y: 0-255, center=100 */
-                if (flag_ok == 0) {
-                    X =  (float)rx_hc12[0] - 100.0f;
-                    Y = -(float)rx_hc12[1] + 100.0f;
-                } else {
-                    X = 0;
-                    Y = 0;
-                }
-            }
+        float X = 0.0f, Y = 0.0f;
+        if (connected) {
+            X = (float)atomic_get(&rx_x10) / 10.0f;
+            Y = (float)atomic_get(&rx_y10) / 10.0f;
         }
+
+        if (btn3 == 8) {            /* UP */
+            goc_bu -= 0.5f;
+        } else if (btn3 == 4) {     /* DN */
+            goc_bu += 0.5f;
+        } else {
+            if      (btn3 == 16)  add_rad = 0.0f;
+            else if (btn3 == 32)  add_rad = 2.0f * pi4;
+            else if (btn3 == 64)  add_rad = pii;
+            else if (btn3 == 128) add_rad = -2.0f * pi4;
+            (void)btn2; /* reserved */
+
+            rad_dh += (add_rad - rad_dh) * 0.1f;
+
+            goc_quay = imu.goc_tong[0] + (int)goc_bu
+                       - (int)(rad_dh / pii * 180.0f);
+            if (goc_quay >  20) goc_quay =  20;
+            if (goc_quay < -20) goc_quay = -20;
+
+            float goc_rad = ((goc_quay + imu.goc_tong[0] + goc_bu) * pii) / 180.0f;
+
+            /* Toi uu: chi goi sinf/cosf 1 lan, suy ra 4 banh
+             * sin(a+135) =  sin(a)*cos135 + cos(a)*sin135 = (-sinA + cosA)*K
+             * cos(a+135) =  cos(a)*cos135 - sin(a)*sin135 = (-cosA - sinA)*K
+             * sin(a-135) = (-sinA - cosA)*K, cos(a-135) = (-cosA + sinA)*K
+             * sin(a-45)  = ( sinA - cosA)*K, cos(a-45)  = ( cosA + sinA)*K
+             * sin(a+45)  = ( sinA + cosA)*K, cos(a+45)  = ( cosA - sinA)*K
+             * voi K = 0.7071f (sin45 = cos45)
+             */
+            float sG = sinf(goc_rad);
+            float cG = cosf(goc_rad);
+            static const float K = 0.7071f;
+
+            /* Banh 1 (ID3): goc_rad + 135° */
+            float s135 = (-sG + cG) * K;
+            float c135 = (-cG - sG) * K;
+            /* Banh 2 (ID4): goc_rad - 135° */
+            float sm135 = (-sG - cG) * K;
+            float cm135 = (-cG + sG) * K;
+            /* Banh 3 (ID5): goc_rad - 45° */
+            float sm45 = (sG - cG) * K;
+            float cm45 = (cG + sG) * K;
+            /* Banh 4 (ID6): goc_rad + 45° */
+            float s45 = (sG + cG) * K;
+            float c45 = (cG - sG) * K;
+
+            can1_tx.data[2] = f_clamp_u8(X * s135  + Y * c135  + 100.0f) + goc_quay;
+            can1_tx.data[3] = f_clamp_u8(X * sm135 + Y * cm135 + 100.0f) + goc_quay;
+            can1_tx.data[4] = f_clamp_u8(X * sm45  + Y * cm45  + 100.0f) + goc_quay;
+            can1_tx.data[5] = f_clamp_u8(X * s45   + Y * c45   + 100.0f) + goc_quay;
+        }
+
+        can1_tx.data[6] = db;
+
+        /* CAN TX - non-blocking (K_NO_WAIT), khong doi ACK */
+        can_send(can1_dev, &can1_tx, K_NO_WAIT, NULL, NULL);
     }
 }
 
 /* ================================================================
- *  ADC MUX
+ *  watchdog_thread - 5Hz, priority 6
+ *  Kiem tra hc12_seq thay doi -> conn/lost
+ * ================================================================ */
+static void watchdog_thread_fn(void *p1, void *p2, void *p3)
+{
+    ARG_UNUSED(p1); ARG_UNUSED(p2); ARG_UNUSED(p3);
+
+    atomic_val_t prev_seq = atomic_get(&hc12_seq);
+
+    while (1) {
+        k_sem_take(&watchdog_sem, K_FOREVER);
+
+        atomic_val_t cur_seq = atomic_get(&hc12_seq);
+
+        if (cur_seq != prev_seq) {
+            /* Dang nhan duoc packet */
+            atomic_set(&hc12_conn, 1);
+        } else {
+            /* Khong co packet moi -> mat ket noi */
+            atomic_set(&hc12_conn, 0);
+            atomic_set(&rx_x10, 0);
+            atomic_set(&rx_y10, 0);
+        }
+        prev_seq = cur_seq;
+    }
+}
+
+/* ================================================================
+ *  adc_thread - 50Hz, priority 8
+ *  Tach khoi ctrl_thread -> khong anh huong control loop
  * ================================================================ */
 static struct adc_channel_cfg adc_ch_cfg = {
     .gain             = ADC_GAIN_1,
@@ -294,90 +367,226 @@ static struct adc_sequence adc_seq = {
     .resolution  = 12,
 };
 
-static void ADC_Read_MUX(void)
+static void adc_thread_fn(void *p1, void *p2, void *p3)
 {
-    MUX_Channel(mux_channel);
-    k_usleep(100);
-    if (adc_read(adc1_dev, &adc_seq) == 0) {
-        adc_list[mux_channel] = (float)adc_raw_buf;
+    ARG_UNUSED(p1); ARG_UNUSED(p2); ARG_UNUSED(p3);
+
+    while (1) {
+        k_sem_take(&adc_sem, K_FOREVER);
+
+        MUX_Channel(mux_channel);
+        k_usleep(100);   /* cho MUX on dinh */
+
+        if (adc_read(adc1_dev, &adc_seq) == 0) {
+            adc_list[mux_channel] = (float)adc_raw_buf;
+        }
+        mux_channel = (mux_channel + 1) & 0x03;
     }
-    mux_channel = (mux_channel + 1) % 4;
 }
 
 /* ================================================================
- *  MAIN
+ *  uart2_send_str - gui chuoi qua UART2 (blocking tung byte)
+ * ================================================================ */
+static void uart2_send_str(const char *s)
+{
+    while (*s) {
+        uart_poll_out(uart2_dev, *s++);
+    }
+}
+
+/* ================================================================
+ *  telem_thread - 10Hz, priority 10
+ *  Gui telemetry qua UART2 (PD5/PD6) format CSV:
+ *  $X,Y,HEADING,M2,M3,M4,M5,CONN\n
+ *  Vi du: $-35.0,20.0,123,145,132,118,140,1\n
+ * ================================================================ */
+static void telem_thread_fn(void *p1, void *p2, void *p3)
+{
+    ARG_UNUSED(p1); ARG_UNUSED(p2); ARG_UNUSED(p3);
+
+    char buf[80];
+
+    while (1) {
+        k_sem_take(&telem_sem, K_FOREVER);
+
+        int x10  = (int)atomic_get(&rx_x10);
+        int y10  = (int)atomic_get(&rx_y10);
+        bool  conn = (atomic_get(&hc12_conn) != 0);
+        int   hdg  = imu.goc_ht[0];   /* heading 0-359 */
+
+        /* Integer print: nhanh hon snprintf float 10-50x */
+        int len = snprintf(buf, sizeof(buf),
+            "$%d.%d,%d.%d,%d,%d,%d,%d,%d,%d\n",
+            x10 / 10, (x10 < 0 ? -x10 : x10) % 10,
+            y10 / 10, (y10 < 0 ? -y10 : y10) % 10,
+            hdg,
+            can1_tx.data[2], can1_tx.data[3],
+            can1_tx.data[4], can1_tx.data[5],
+            conn ? 1 : 0);
+
+        if (len > 0 && len < (int)sizeof(buf)) {
+            uart2_send_str(buf);
+        }
+    }
+}
+
+/* ================================================================
+ *  UART3 IRQ callback - HC12
+ *  Chi ghi vao atomic -> nhanh nhat co the, khong float, khong lock
+ * ================================================================ */
+static void uart3_irq_cb(const struct device *dev, void *user_data)
+{
+    static uint8_t rx_buf[5];
+    static uint8_t rx_idx = 0;
+
+    if (!uart_irq_update(dev)) {
+        return;
+    }
+
+    while (uart_irq_rx_ready(dev)) {
+        uint8_t byte;
+        if (uart_fifo_read(dev, &byte, 1) != 1) {
+            break;
+        }
+
+        if (byte == 255) {
+            /* Sync byte */
+            rx_idx = 0;
+        } else {
+            if (rx_idx < 5) {
+                rx_buf[rx_idx++] = byte;
+            }
+            if (rx_idx >= 5) {
+                rx_idx = 0;
+
+                /* Ghi atomic: int*10 tranh float ISR */
+                /* Code cu: Y=rx_hc12[0]-100, X=-rx_hc12[1]+100 */
+                atomic_set(&rx_y10,  (atomic_val_t)((int)rx_buf[0] - 100) * 10);
+                atomic_set(&rx_x10,  (atomic_val_t)(-(int)rx_buf[1] + 100) * 10);
+                /* Code cu: kiem tra rx_hc12[2] = buf[2] = button[1] */
+                atomic_set(&rx_btn3, rx_buf[2]);
+                atomic_set(&rx_btn2, rx_buf[3]);
+                atomic_inc(&hc12_seq);   /* tang sequence -> watchdog phat hien */
+
+                /* LED2 debug: nhay moi packet nhan duoc */
+                gpio_pin_toggle_dt(&led2);
+            }
+        }
+    }
+}
+
+/* ================================================================
+ *  MAIN - khoi tao hardware, start threads, LED blink loop
  * ================================================================ */
 int main(void)
 {
-    /* GPIO LED - bat buoc dau tien */
+    /* --- GPIO LED --- */
     if (!device_is_ready(led0.port)) {
         while (1) {}
     }
     gpio_pin_configure_dt(&led0, GPIO_OUTPUT_INACTIVE);
 
-    /* Blink 3 lan = board da boot */
+    /* Blink 3 lan = boot OK */
     for (int i = 0; i < 3; i++) {
-        gpio_pin_set_dt(&led0, 1);
-        k_msleep(100);
-        gpio_pin_set_dt(&led0, 0);
-        k_msleep(100);
+        gpio_pin_set_dt(&led0, 1); k_msleep(100);
+        gpio_pin_set_dt(&led0, 0); k_msleep(100);
     }
 
-    /* GPIO MUX */
+    /* --- GPIO MUX --- */
     for (int i = 0; i < 4; i++) {
         gpio_pin_configure_dt(&mux_s[i], GPIO_OUTPUT_INACTIVE);
     }
 
-    /* UART3 HC12 - interrupt driven */
+    /* --- LED1: HC12 status --- */
+    if (device_is_ready(led1.port)) {
+        gpio_pin_configure_dt(&led1, GPIO_OUTPUT_INACTIVE);
+    }
+
+    /* --- LED2: debug packet HC12 --- */
+    if (device_is_ready(led2.port)) {
+        gpio_pin_configure_dt(&led2, GPIO_OUTPUT_INACTIVE);
+        /* Blink LED2 x5 khi boot -> xac nhan LED2 hardware OK */
+        for (int i = 0; i < 5; i++) {
+            gpio_pin_set_dt(&led2, 1); k_msleep(80);
+            gpio_pin_set_dt(&led2, 0); k_msleep(80);
+        }
+    }
+
+    /* --- UART3 HC12 --- */
     if (device_is_ready(uart3_dev)) {
         uart_irq_callback_user_data_set(uart3_dev, uart3_irq_cb, NULL);
         uart_irq_rx_enable(uart3_dev);
+        gpio_pin_set_dt(&led1, 1); /* LED1 ON = UART3 init OK */
+    } else {
+        /* LED1 tat = UART3 fail -> kiem tra DTS */
+        gpio_pin_set_dt(&led1, 0);
     }
 
-    /* CAN1 */
+    /* --- CAN1 --- */
     if (device_is_ready(can1_dev)) {
-        const struct can_filter f = { .flags = 0, .id = 0, .mask = 0 };
-        can_add_rx_filter(can1_dev, NULL, NULL, &f);
         can_start(can1_dev);
     }
 
-    /* I2C1 BNO055 */
+    /* --- I2C1 BNO055 --- */
     if (device_is_ready(bno_i2c.bus)) {
         bno055_assignI2C(&bno_i2c);
         bno055_setup();
         bno055_setOperationModeNDOF();
     }
 
-    /* I2C2 PCA9685 */
+    /* --- I2C2 PCA9685 --- */
     if (device_is_ready(pca_i2c.bus)) {
         PCA9685_Init_Z(&pca_i2c, PCA9685_I2C_ADDRESS_1);
         PCA9685_SetPWMFreq_Z(&pca_i2c, PCA9685_I2C_ADDRESS_1, 50.0f);
     }
 
-    /* ADC1 */
+    /* --- ADC1 --- */
     if (device_is_ready(adc1_dev)) {
         adc_channel_setup(adc1_dev, &adc_ch_cfg);
     }
 
-    TxData[0] = 100; TxData[1] = 100;
-    k_msleep(1000);
+    k_msleep(500);  /* cho BNO055 on dinh sau NDOF mode */
 
-    /* Timers */
-    k_timer_init(&tim1_timer, tim1_expiry, NULL);
-    k_timer_start(&tim1_timer, K_MSEC(10), K_MSEC(10));
+    /* --- Start worker threads --- */
+    k_thread_create(&ctrl_thread_data, ctrl_stack, CTRL_STACK_SIZE,
+                    ctrl_thread_fn, NULL, NULL, NULL,
+                    CTRL_THREAD_PRIO, 0, K_NO_WAIT);
+    k_thread_name_set(&ctrl_thread_data, "ctrl");
 
-    k_timer_init(&tim8_timer, tim8_expiry, NULL);
-    k_timer_start(&tim8_timer, K_MSEC(200), K_MSEC(200));
+    k_thread_create(&watchdog_thread_data, watchdog_stack, WATCHDOG_STACK_SIZE,
+                    watchdog_thread_fn, NULL, NULL, NULL,
+                    WATCHDOG_THREAD_PRIO, 0, K_NO_WAIT);
+    k_thread_name_set(&watchdog_thread_data, "watchdog");
 
-    /* Main loop - blink de debug:
+    k_thread_create(&adc_thread_data, adc_stack, ADC_STACK_SIZE,
+                    adc_thread_fn, NULL, NULL, NULL,
+                    ADC_THREAD_PRIO, 0, K_NO_WAIT);
+    k_thread_name_set(&adc_thread_data, "adc");
+
+    k_thread_create(&telem_thread_data, telem_stack, TELEM_STACK_SIZE,
+                    telem_thread_fn, NULL, NULL, NULL,
+                    TELEM_THREAD_PRIO, 0, K_NO_WAIT);
+    k_thread_name_set(&telem_thread_data, "telem");
+
+    /* --- Start timers (sau khi threads da san sang) --- */
+    k_timer_init(&ctrl_timer,     ctrl_timer_expiry,     NULL);
+    k_timer_init(&watchdog_timer, watchdog_timer_expiry, NULL);
+    k_timer_init(&adc_timer,      adc_timer_expiry,      NULL);
+    k_timer_init(&telem_timer,    telem_timer_expiry,    NULL);
+
+    k_timer_start(&ctrl_timer,     K_MSEC(10),  K_MSEC(10));   /* 100Hz */
+    k_timer_start(&watchdog_timer, K_MSEC(200), K_MSEC(200));  /*   5Hz */
+    k_timer_start(&adc_timer,      K_MSEC(20),  K_MSEC(20));   /*  50Hz */
+    k_timer_start(&telem_timer,    K_MSEC(100), K_MSEC(100));  /*  10Hz */
+
+    /* --- Main loop: LED blink (priority 14, thap nhat) ---
      *   Nhanh 100ms = dang nhan HC12
-     *   Cham 500ms  = khong co tin hieu HC12
+     *   Cham 500ms  = mat tin hieu
      */
     while (1) {
         gpio_pin_toggle_dt(&led0);
-        /* flag_ok=0 khi dang nhan (check_hc12 thay doi lien tuc) */
-        k_msleep(flag_ok == 0 ? 100 : 500);
-        ADC_Read_MUX();
+        bool conn = (atomic_get(&hc12_conn) != 0);
+        k_msleep(conn ? 100 : 500);
     }
 
     return 0;

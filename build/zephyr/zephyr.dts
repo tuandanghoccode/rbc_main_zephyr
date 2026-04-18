@@ -1214,7 +1214,7 @@
 			pinctrl-0 = < &can1_rx_pd0 &can1_tx_pd1 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:270 */
 			pinctrl-names = "default";                 /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:271 */
 			status = "okay";                           /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:272 */
-			bus-speed = < 0x7a120 >;                   /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:274 */
+			bus-speed = < 0x89544 >;                   /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:274 */
 			sample-point = < 0x36b >;                  /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:275 */
 		};
 
