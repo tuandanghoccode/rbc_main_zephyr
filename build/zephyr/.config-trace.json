@@ -448,11 +448,11 @@
     "CONFIG_MAIN_STACK_SIZE",
     "y",
     "int",
-    "1024",
+    "512",
     "assign",
     [
       "/home/tuangaooo/zephyrproject/rbc_r1/prj.conf",
-      33
+      36
     ]
   ],
   [
@@ -523,7 +523,7 @@
     "assign",
     [
       "/home/tuangaooo/zephyrproject/rbc_r1/prj.conf",
-      19
+      21
     ]
   ],
   [
@@ -558,7 +558,7 @@
     "assign",
     [
       "/home/tuangaooo/zephyrproject/rbc_r1/prj.conf",
-      10
+      12
     ]
   ],
   [
@@ -1136,7 +1136,7 @@
     "assign",
     [
       "/home/tuangaooo/zephyrproject/rbc_r1/prj.conf",
-      44
+      47
     ]
   ],
   [
@@ -3937,7 +3937,7 @@
     "assign",
     [
       "/home/tuangaooo/zephyrproject/rbc_r1/prj.conf",
-      41
+      44
     ]
   ],
   [
@@ -4118,11 +4118,11 @@
     "CONFIG_HEAP_MEM_POOL_SIZE",
     "y",
     "int",
-    "4096",
+    "2048",
     "assign",
     [
       "/home/tuangaooo/zephyrproject/rbc_r1/prj.conf",
-      34
+      37
     ]
   ],
   [
@@ -4365,7 +4365,7 @@
     "assign",
     [
       "/home/tuangaooo/zephyrproject/rbc_r1/prj.conf",
-      22
+      24
     ]
   ],
   [
@@ -4469,7 +4469,7 @@
     "assign",
     [
       "/home/tuangaooo/zephyrproject/rbc_r1/prj.conf",
-      13
+      15
     ]
   ],
   [
@@ -4956,7 +4956,7 @@
     "assign",
     [
       "/home/tuangaooo/zephyrproject/rbc_r1/prj.conf",
-      16
+      18
     ]
   ],
   [
@@ -5902,11 +5902,8 @@
     "y",
     "bool",
     "y",
-    "default",
-    [
-      "/home/tuangaooo/zephyrproject/zephyr/lib/libc/Kconfig",
-      81
-    ]
+    "assign",
+    null
   ],
   [
     "CONFIG_EXTERNAL_LIBC",
@@ -6016,7 +6013,7 @@
     "y",
     "bool",
     "y",
-    "default",
+    "assign",
     null
   ],
   [
@@ -6024,10 +6021,10 @@
     "y",
     "bool",
     "y",
-    "assign",
+    "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/prj.conf",
-      6
+      "/home/tuangaooo/zephyrproject/zephyr/lib/libc/Kconfig",
+      173
     ]
   ],
   [
@@ -7636,12 +7633,9 @@
     "CONFIG_SIZE_OPTIMIZATIONS",
     "y",
     "bool",
-    "y",
-    "default",
-    [
-      "/home/tuangaooo/zephyrproject/zephyr/Kconfig.zephyr",
-      517
-    ]
+    null,
+    "unset",
+    null
   ],
   [
     "CONFIG_SIZE_OPTIMIZATIONS_AGGRESSIVE",
@@ -7655,8 +7649,8 @@
     "CONFIG_SPEED_OPTIMIZATIONS",
     "y",
     "bool",
-    null,
-    "unset",
+    "y",
+    "assign",
     null
   ],
   [

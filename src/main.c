@@ -16,8 +16,8 @@
  *   main (idle)      prio=14       : LED blink
  *
  * ISR safety:
- *   rx_x, rx_y: atomic_t (int x10) - an toan chia se ISR <-> ctrl_thread
- *   hc12_seq:   atomic_t           - tang moi packet, watchdog so sanh
+ *   hc12.x10, hc12.y10: atomic_t   - an toan chia se ISR <-> ctrl_thread
+ *   hc12.seq:   atomic_t           - tang moi packet, watchdog so sanh
  */
 
 #include <zephyr/kernel.h>
@@ -150,20 +150,26 @@ typedef struct {
 static IMU_t imu;   /* chi ctrl_thread doc/ghi -> khong can mutex */
 
 /* ================================================================
- *  Atomic: chia se du lieu ISR <-> ctrl_thread an toan
- *
- *  X, Y: luu dang int*10 de tranh float trong atomic
- *        vi du: X_raw = -350 => X = -35.0f
- *  hc12_seq: tang moi packet, watchdog so sanh
- *  hc12_connected: 1 = dang nhan, 0 = mat tin hieu
- *  btn_byte3/byte2: byte dieu khien tu HC12
+ *  HC12 data struct - de debug: chi can xem 1 bien "hc12" trong Watch
+ *  Van dung atomic_t ben trong de an toan ISR <-> thread
  * ================================================================ */
-static atomic_t rx_x10        = ATOMIC_INIT(0);   /* X * 10, range -1000..1000 */
-static atomic_t rx_y10        = ATOMIC_INIT(0);   /* Y * 10 */
-static atomic_t hc12_seq      = ATOMIC_INIT(0);   /* tang moi packet */
-static atomic_t hc12_conn     = ATOMIC_INIT(0);   /* 1=connected, 0=lost */
-static atomic_t rx_btn3       = ATOMIC_INIT(0);   /* rx_hc12[3] */
-static atomic_t rx_btn2       = ATOMIC_INIT(0);   /* rx_hc12[2] */
+typedef struct {
+    atomic_t x10;       /* X * 10, range ~ -1000..1000 */
+    atomic_t y10;       /* Y * 10 */
+    atomic_t btn3;      /* button byte (rx_buf[2] = button[1]) */
+    atomic_t btn2;      /* button byte (rx_buf[3] = button[0]) */
+    atomic_t seq;       /* tang moi packet nhan duoc */
+    atomic_t conn;      /* 1=connected, 0=mat ket noi */
+} HC12_Data_t;
+
+static HC12_Data_t hc12 = {
+    .x10  = ATOMIC_INIT(0),
+    .y10  = ATOMIC_INIT(0),
+    .btn3 = ATOMIC_INIT(0),
+    .btn2 = ATOMIC_INIT(0),
+    .seq  = ATOMIC_INIT(0),
+    .conn = ATOMIC_INIT(0),
+};
 
 /* ================================================================
  *  Dieu khien
@@ -251,14 +257,14 @@ static void ctrl_thread_fn(void *p1, void *p2, void *p3)
         Read_IMU();
 
         /* Doc trang thai phim tu atomic (ISR da ghi) */
-        uint8_t btn3  = (uint8_t)atomic_get(&rx_btn3);
-        uint8_t btn2  = (uint8_t)atomic_get(&rx_btn2);
-        bool connected = (atomic_get(&hc12_conn) != 0);
+        uint8_t btn3  = (uint8_t)atomic_get(&hc12.btn3);
+        uint8_t btn2  = (uint8_t)atomic_get(&hc12.btn2);
+        bool connected = (atomic_get(&hc12.conn) != 0);
 
         float X = 0.0f, Y = 0.0f;
         if (connected) {
-            X = (float)atomic_get(&rx_x10) / 10.0f;
-            Y = (float)atomic_get(&rx_y10) / 10.0f;
+            X = (float)atomic_get(&hc12.x10) / 10.0f;
+            Y = (float)atomic_get(&hc12.y10) / 10.0f;
         }
 
         if (btn3 == 8) {            /* UP */
@@ -327,21 +333,21 @@ static void watchdog_thread_fn(void *p1, void *p2, void *p3)
 {
     ARG_UNUSED(p1); ARG_UNUSED(p2); ARG_UNUSED(p3);
 
-    atomic_val_t prev_seq = atomic_get(&hc12_seq);
+    atomic_val_t prev_seq = atomic_get(&hc12.seq);
 
     while (1) {
         k_sem_take(&watchdog_sem, K_FOREVER);
 
-        atomic_val_t cur_seq = atomic_get(&hc12_seq);
+        atomic_val_t cur_seq = atomic_get(&hc12.seq);
 
         if (cur_seq != prev_seq) {
             /* Dang nhan duoc packet */
-            atomic_set(&hc12_conn, 1);
+            atomic_set(&hc12.conn, 1);
         } else {
-            /* Khong co packet moi -> mat ket noi */
-            atomic_set(&hc12_conn, 0);
-            atomic_set(&rx_x10, 0);
-            atomic_set(&rx_y10, 0);
+            /* mat ket noi */
+            atomic_set(&hc12.conn, 0);
+            atomic_set(&hc12.x10, 0);
+            atomic_set(&hc12.y10, 0);
         }
         prev_seq = cur_seq;
     }
@@ -409,9 +415,9 @@ static void telem_thread_fn(void *p1, void *p2, void *p3)
     while (1) {
         k_sem_take(&telem_sem, K_FOREVER);
 
-        int x10  = (int)atomic_get(&rx_x10);
-        int y10  = (int)atomic_get(&rx_y10);
-        bool  conn = (atomic_get(&hc12_conn) != 0);
+        int x10  = (int)atomic_get(&hc12.x10);
+        int y10  = (int)atomic_get(&hc12.y10);
+        bool  conn = (atomic_get(&hc12.conn) != 0);
         int   hdg  = imu.goc_ht[0];   /* heading 0-359 */
 
         /* Integer print: nhanh hon snprintf float 10-50x */
@@ -461,12 +467,12 @@ static void uart3_irq_cb(const struct device *dev, void *user_data)
 
                 /* Ghi atomic: int*10 tranh float ISR */
                 /* Code cu: Y=rx_hc12[0]-100, X=-rx_hc12[1]+100 */
-                atomic_set(&rx_y10,  (atomic_val_t)((int)rx_buf[0] - 100) * 10);
-                atomic_set(&rx_x10,  (atomic_val_t)(-(int)rx_buf[1] + 100) * 10);
+                atomic_set(&hc12.y10,  (atomic_val_t)((int)rx_buf[0] - 100) * 10);
+                atomic_set(&hc12.x10,  (atomic_val_t)(-(int)rx_buf[1] + 100) * 10);
                 /* Code cu: kiem tra rx_hc12[2] = buf[2] = button[1] */
-                atomic_set(&rx_btn3, rx_buf[2]);
-                atomic_set(&rx_btn2, rx_buf[3]);
-                atomic_inc(&hc12_seq);   /* tang sequence -> watchdog phat hien */
+                atomic_set(&hc12.btn3, rx_buf[2]);
+                atomic_set(&hc12.btn2, rx_buf[3]);
+                atomic_inc(&hc12.seq);   /* tang sequence -> watchdog phat hien */
 
                 /* LED2 debug: nhay moi packet nhan duoc */
                 gpio_pin_toggle_dt(&led2);
@@ -585,7 +591,7 @@ int main(void)
      */
     while (1) {
         gpio_pin_toggle_dt(&led0);
-        bool conn = (atomic_get(&hc12_conn) != 0);
+        bool conn = (atomic_get(&hc12.conn) != 0);
         k_msleep(conn ? 100 : 500);
     }
 
