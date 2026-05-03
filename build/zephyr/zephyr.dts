@@ -1585,70 +1585,70 @@
 
 		/* node '/digital_inputs/input_1' defined in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:82 */
 		in1: input_1 {
-			gpios = < &gpiob 0x8 0x1 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:83 */
+			gpios = < &gpiob 0x8 0x0 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:83 */
 			label = "IN1";              /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:84 */
 			zephyr,code = < 0x3 >;      /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:85 */
 		};
 
 		/* node '/digital_inputs/input_2' defined in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:87 */
 		in2: input_2 {
-			gpios = < &gpiob 0x9 0x1 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:88 */
+			gpios = < &gpiob 0x9 0x0 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:88 */
 			label = "IN2";              /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:89 */
 			zephyr,code = < 0x4 >;      /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:90 */
 		};
 
 		/* node '/digital_inputs/input_3' defined in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:92 */
 		in3: input_3 {
-			gpios = < &gpioe 0x0 0x1 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:93 */
+			gpios = < &gpioe 0x0 0x0 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:93 */
 			label = "IN3";              /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:94 */
 			zephyr,code = < 0x5 >;      /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:95 */
 		};
 
 		/* node '/digital_inputs/input_4' defined in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:97 */
 		in4: input_4 {
-			gpios = < &gpioe 0x1 0x1 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:98 */
+			gpios = < &gpioe 0x1 0x0 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:98 */
 			label = "IN4";              /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:99 */
 			zephyr,code = < 0x6 >;      /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:100 */
 		};
 
 		/* node '/digital_inputs/input_5' defined in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:102 */
 		in5: input_5 {
-			gpios = < &gpioe 0x2 0x1 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:103 */
+			gpios = < &gpioe 0x2 0x0 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:103 */
 			label = "IN5";              /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:104 */
 			zephyr,code = < 0x7 >;      /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:105 */
 		};
 
 		/* node '/digital_inputs/input_6' defined in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:107 */
 		in6: input_6 {
-			gpios = < &gpioe 0x3 0x1 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:108 */
+			gpios = < &gpioe 0x3 0x0 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:108 */
 			label = "IN6";              /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:109 */
 			zephyr,code = < 0x8 >;      /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:110 */
 		};
 
 		/* node '/digital_inputs/input_7' defined in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:112 */
 		in7: input_7 {
-			gpios = < &gpioc 0x0 0x1 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:113 */
+			gpios = < &gpioc 0x0 0x0 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:113 */
 			label = "IN7";              /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:114 */
 			zephyr,code = < 0x9 >;      /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:115 */
 		};
 
 		/* node '/digital_inputs/input_8' defined in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:117 */
 		in8: input_8 {
-			gpios = < &gpioc 0x1 0x1 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:118 */
+			gpios = < &gpioc 0x1 0x0 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:118 */
 			label = "IN8";              /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:119 */
 			zephyr,code = < 0xa >;      /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:120 */
 		};
 
 		/* node '/digital_inputs/input_9' defined in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:122 */
 		in9: input_9 {
-			gpios = < &gpioc 0x2 0x1 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:123 */
+			gpios = < &gpioc 0x2 0x0 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:123 */
 			label = "IN9";              /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:124 */
 			zephyr,code = < 0x1e >;     /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:125 */
 		};
 
 		/* node '/digital_inputs/input_10' defined in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:127 */
 		in10: input_10 {
-			gpios = < &gpioc 0x3 0x1 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:128 */
+			gpios = < &gpioc 0x3 0x0 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:128 */
 			label = "IN10";             /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:129 */
 			zephyr,code = < 0x30 >;     /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:130 */
 		};
@@ -1684,73 +1684,73 @@
 
 		/* node '/digital_outputs/out_1' defined in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:150 */
 		o1: out_1 {
-			gpios = < &gpiob 0x1 0x0 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:150 */
+			gpios = < &gpiob 0x1 0x1 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:150 */
 			label = "O1";               /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:150 */
 		};
 
 		/* node '/digital_outputs/out_2' defined in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:151 */
 		o2: out_2 {
-			gpios = < &gpioe 0x7 0x0 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:151 */
+			gpios = < &gpioe 0x7 0x1 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:151 */
 			label = "O2";               /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:151 */
 		};
 
 		/* node '/digital_outputs/out_3' defined in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:152 */
 		o3: out_3 {
-			gpios = < &gpioe 0x8 0x0 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:152 */
+			gpios = < &gpioe 0x8 0x1 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:152 */
 			label = "O3";               /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:152 */
 		};
 
 		/* node '/digital_outputs/out_4' defined in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:153 */
 		o4: out_4 {
-			gpios = < &gpioe 0x9 0x0 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:153 */
+			gpios = < &gpioe 0x9 0x1 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:153 */
 			label = "O4";               /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:153 */
 		};
 
 		/* node '/digital_outputs/out_5' defined in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:154 */
 		o5: out_5 {
-			gpios = < &gpioe 0xa 0x0 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:154 */
+			gpios = < &gpioe 0xa 0x1 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:154 */
 			label = "O5";               /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:154 */
 		};
 
 		/* node '/digital_outputs/out_6' defined in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:155 */
 		o6: out_6 {
-			gpios = < &gpioe 0xb 0x0 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:155 */
+			gpios = < &gpioe 0xb 0x1 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:155 */
 			label = "O6";               /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:155 */
 		};
 
 		/* node '/digital_outputs/out_7' defined in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:156 */
 		o7: out_7 {
-			gpios = < &gpioe 0xc 0x0 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:156 */
+			gpios = < &gpioe 0xc 0x1 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:156 */
 			label = "O7";               /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:156 */
 		};
 
 		/* node '/digital_outputs/out_8' defined in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:157 */
 		o8: out_8 {
-			gpios = < &gpioe 0xd 0x0 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:157 */
+			gpios = < &gpioe 0xd 0x1 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:157 */
 			label = "O8";               /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:157 */
 		};
 
 		/* node '/digital_outputs/out_9' defined in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:158 */
 		o9: out_9 {
-			gpios = < &gpioe 0xe 0x0 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:158 */
+			gpios = < &gpioe 0xe 0x1 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:158 */
 			label = "O9";               /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:158 */
 		};
 
 		/* node '/digital_outputs/out_10' defined in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:159 */
 		o10: out_10 {
-			gpios = < &gpioe 0xf 0x0 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:159 */
+			gpios = < &gpioe 0xf 0x1 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:159 */
 			label = "O10";              /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:159 */
 		};
 
 		/* node '/digital_outputs/out_11' defined in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:160 */
 		o11: out_11 {
-			gpios = < &gpiod 0xe 0x0 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:160 */
+			gpios = < &gpiod 0xe 0x1 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:160 */
 			label = "O11";              /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:160 */
 		};
 
 		/* node '/digital_outputs/out_12' defined in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:161 */
 		o12: out_12 {
-			gpios = < &gpiod 0xf 0x0 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:161 */
+			gpios = < &gpiod 0xf 0x1 >; /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:161 */
 			label = "O12";              /* in rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts:161 */
 		};
 

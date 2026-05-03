@@ -3054,52 +3054,52 @@
   compatible = "gpio-keys";
 
   in1: input_1 {
-   gpios = <&gpiob 8 (1 << 0)>;
+   gpios = <&gpiob 8 (0 << 0)>;
    label = "IN1";
    zephyr,code = <3>;
   };
   in2: input_2 {
-   gpios = <&gpiob 9 (1 << 0)>;
+   gpios = <&gpiob 9 (0 << 0)>;
    label = "IN2";
    zephyr,code = <4>;
   };
   in3: input_3 {
-   gpios = <&gpioe 0 (1 << 0)>;
+   gpios = <&gpioe 0 (0 << 0)>;
    label = "IN3";
    zephyr,code = <5>;
   };
   in4: input_4 {
-   gpios = <&gpioe 1 (1 << 0)>;
+   gpios = <&gpioe 1 (0 << 0)>;
    label = "IN4";
    zephyr,code = <6>;
   };
   in5: input_5 {
-   gpios = <&gpioe 2 (1 << 0)>;
+   gpios = <&gpioe 2 (0 << 0)>;
    label = "IN5";
    zephyr,code = <7>;
   };
   in6: input_6 {
-   gpios = <&gpioe 3 (1 << 0)>;
+   gpios = <&gpioe 3 (0 << 0)>;
    label = "IN6";
    zephyr,code = <8>;
   };
   in7: input_7 {
-   gpios = <&gpioc 0 (1 << 0)>;
+   gpios = <&gpioc 0 (0 << 0)>;
    label = "IN7";
    zephyr,code = <9>;
   };
   in8: input_8 {
-   gpios = <&gpioc 1 (1 << 0)>;
+   gpios = <&gpioc 1 (0 << 0)>;
    label = "IN8";
    zephyr,code = <10>;
   };
   in9: input_9 {
-   gpios = <&gpioc 2 (1 << 0)>;
+   gpios = <&gpioc 2 (0 << 0)>;
    label = "IN9";
    zephyr,code = <30>;
   };
   in10: input_10 {
-   gpios = <&gpioc 3 (1 << 0)>;
+   gpios = <&gpioc 3 (0 << 0)>;
    label = "IN10";
    zephyr,code = <48>;
   };
@@ -3121,18 +3121,18 @@
   s3: mux_s3 { gpios = <&gpioa 4 (0 << 0)>; label = "S3"; };
 
 
-  o1: out_1 { gpios = <&gpiob 1 (0 << 0)>; label = "O1"; };
-  o2: out_2 { gpios = <&gpioe 7 (0 << 0)>; label = "O2"; };
-  o3: out_3 { gpios = <&gpioe 8 (0 << 0)>; label = "O3"; };
-  o4: out_4 { gpios = <&gpioe 9 (0 << 0)>; label = "O4"; };
-  o5: out_5 { gpios = <&gpioe 10 (0 << 0)>; label = "O5"; };
-  o6: out_6 { gpios = <&gpioe 11 (0 << 0)>; label = "O6"; };
-  o7: out_7 { gpios = <&gpioe 12 (0 << 0)>; label = "O7"; };
-  o8: out_8 { gpios = <&gpioe 13 (0 << 0)>; label = "O8"; };
-  o9: out_9 { gpios = <&gpioe 14 (0 << 0)>; label = "O9"; };
-  o10: out_10 { gpios = <&gpioe 15 (0 << 0)>; label = "O10"; };
-  o11: out_11 { gpios = <&gpiod 14 (0 << 0)>; label = "O11"; };
-  o12: out_12 { gpios = <&gpiod 15 (0 << 0)>; label = "O12"; };
+  o1: out_1 { gpios = <&gpiob 1 (1 << 0)>; label = "O1"; };
+  o2: out_2 { gpios = <&gpioe 7 (1 << 0)>; label = "O2"; };
+  o3: out_3 { gpios = <&gpioe 8 (1 << 0)>; label = "O3"; };
+  o4: out_4 { gpios = <&gpioe 9 (1 << 0)>; label = "O4"; };
+  o5: out_5 { gpios = <&gpioe 10 (1 << 0)>; label = "O5"; };
+  o6: out_6 { gpios = <&gpioe 11 (1 << 0)>; label = "O6"; };
+  o7: out_7 { gpios = <&gpioe 12 (1 << 0)>; label = "O7"; };
+  o8: out_8 { gpios = <&gpioe 13 (1 << 0)>; label = "O8"; };
+  o9: out_9 { gpios = <&gpioe 14 (1 << 0)>; label = "O9"; };
+  o10: out_10 { gpios = <&gpioe 15 (1 << 0)>; label = "O10";};
+  o11: out_11 { gpios = <&gpiod 14 (1 << 0)>; label = "O11";};
+  o12: out_12 { gpios = <&gpiod 15 (1 << 0)>; label = "O12";};
 
 
   out_pb0: misc_pb0 { gpios = <&gpiob 0 (0 << 0)>; label = "PB0 OUT"; };

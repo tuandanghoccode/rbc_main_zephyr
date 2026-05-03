@@ -24,7 +24,7 @@ APPLICATION_CONFIG_DIR:PATH=/home/tuangaooo/zephyrproject/rbc_r1
 APPLICATION_SOURCE_DIR:PATH=/home/tuangaooo/zephyrproject/rbc_r1
 
 //Selected board
-BOARD:STRING=rbc_mainboard
+BOARD:STRING=rbc_mainboard/stm32f407xx
 
 //Main board directory for board (rbc_mainboard)
 BOARD_DIR:PATH=/home/tuangaooo/zephyrproject/rbc_r1/boards/rbc_mainboard
@@ -42,7 +42,7 @@ BYPRODUCT_KERNEL_ELF_NAME:FILEPATH=/home/tuangaooo/zephyrproject/rbc_r1/build/ze
 BYPRODUCT_KERNEL_HEX_NAME:FILEPATH=/home/tuangaooo/zephyrproject/rbc_r1/build/zephyr/zephyr.hex
 
 //Selected board
-CACHED_BOARD:STRING=rbc_mainboard
+CACHED_BOARD:STRING=rbc_mainboard/stm32f407xx
 
 //Selected shield
 CACHED_SHIELD:STRING=
@@ -121,8 +121,8 @@ CMAKE_CXX_FLAGS_RELEASE:STRING=-O3 -DNDEBUG
 //Flags used by the CXX compiler during RELWITHDEBINFO builds.
 CMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG
 
-//Path to a program.
-CMAKE_C_COMPILER:FILEPATH=/home/tuangaooo/zephyr-sdk-1.0.1/gnu/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc
+//C compiler
+CMAKE_C_COMPILER:STRING=/home/tuangaooo/zephyr-sdk-1.0.1/gnu/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc
 
 //A wrapper around 'ar' adding the appropriate '--plugin' option
 // for the GCC compiler
@@ -376,7 +376,7 @@ TOOLCHAIN_ROOT:STRING=/home/tuangaooo/zephyrproject/zephyr
 TOOLCHAIN_VARIANT_COMPILER:STRING=gnu
 
 //No help, variable specified on the command line.
-WEST_PYTHON:UNINITIALIZED=/home/tuangaooo/zephyrpy/bin/python3
+WEST_PYTHON:UNINITIALIZED=/home/tuangaooo/zephyrpy/bin/python3.14
 
 //Zephyr base
 ZEPHYR_BASE:PATH=/home/tuangaooo/zephyrproject/zephyr
@@ -480,6 +480,8 @@ CMAKE_CXX_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1
 CMAKE_CXX_FLAGS_RELEASE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_CXX_FLAGS_RELWITHDEBINFO
 CMAKE_CXX_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_COMPILER
+CMAKE_C_COMPILER-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_C_COMPILER_AR
 CMAKE_C_COMPILER_AR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_C_COMPILER_RANLIB
@@ -588,7 +590,7 @@ FIND_PACKAGE_MESSAGE_DETAILS_Dtc:INTERNAL=[/home/tuangaooo/zephyr-sdk-1.0.1/host
 //Details about finding GnuLd
 FIND_PACKAGE_MESSAGE_DETAILS_GnuLd:INTERNAL=[/home/tuangaooo/zephyr-sdk-1.0.1/gnu/arm-zephyr-eabi/arm-zephyr-eabi/bin/ld.bfd][v2.43.1()]
 //Details about finding Python3
-FIND_PACKAGE_MESSAGE_DETAILS_Python3:INTERNAL=[/home/tuangaooo/zephyrpy/bin/python3][cfound components: Interpreter ][v3.12.3(3.12)]
+FIND_PACKAGE_MESSAGE_DETAILS_Python3:INTERNAL=[/home/tuangaooo/zephyrpy/bin/python3.14][cfound components: Interpreter ][v3.14.4(3.12)]
 //Zephyr hardware model version
 HWM:INTERNAL=v2
 //Zephyr hardware model
@@ -598,18 +600,16 @@ KERNEL_META_PATH:INTERNAL=/home/tuangaooo/zephyrproject/rbc_r1/build/zephyr/zeph
 SOC_DIRECTORIES:INTERNAL=/home/tuangaooo/zephyrproject/zephyr/soc/st/stm32
 SOC_LINKER_SCRIPT:INTERNAL=/home/tuangaooo/zephyrproject/zephyr/include/zephyr/arch/arm/cortex_m/scripts/linker.ld
 //West
-WEST:INTERNAL=/home/tuangaooo/zephyrpy/bin/python3;-m;west
+WEST:INTERNAL=/home/tuangaooo/zephyrpy/bin/python3.14;-m;west
 ZEPHYR_SHARED_TARGETS:INTERNAL=menuconfig;guiconfig;hardenconfig;traceconfig
 //Compiler reason failure
 _Python3_Compiler_REASON_FAILURE:INTERNAL=
 //Development reason failure
 _Python3_Development_REASON_FAILURE:INTERNAL=
-_Python3_EXECUTABLE:INTERNAL=/home/tuangaooo/zephyrpy/bin/python3
+_Python3_EXECUTABLE:INTERNAL=/home/tuangaooo/zephyrpy/bin/python3.14
 //Python3 Properties
-_Python3_INTERPRETER_PROPERTIES:INTERNAL=Python;3;12;3;64;;cpython-312-x86_64-linux-gnu.so;abi3;/usr/lib/python3.12;/home/tuangaooo/zephyrpy/lib/python3.12;/home/tuangaooo/zephyrpy/lib/python3.12/site-packages;/home/tuangaooo/zephyrpy/lib/python3.12/site-packages
-_Python3_INTERPRETER_SIGNATURE:INTERNAL=9038373e1d955291f32b68d70d69aac7
-//Interpreter reason failure
-_Python3_Interpreter_REASON_FAILURE:INTERNAL=
+_Python3_INTERPRETER_PROPERTIES:INTERNAL=Python;3;14;4;64;;cpython-314-x86_64-linux-gnu.so;abi3;/usr/lib/python3.14;/home/tuangaooo/zephyrpy/lib/python3.14;/home/tuangaooo/zephyrpy/lib/python3.14/site-packages;/home/tuangaooo/zephyrpy/lib/python3.14/site-packages
+_Python3_INTERPRETER_SIGNATURE:INTERNAL=113ca5b71d12ddfbfeeef72411370a80
 //NumPy reason failure
 _Python3_NumPy_REASON_FAILURE:INTERNAL=
 

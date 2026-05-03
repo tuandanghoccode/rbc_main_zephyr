@@ -53,6 +53,6 @@ cmake:
     zephyr-base: '/home/tuangaooo/zephyrproject/zephyr'
 version: '0.1.0'
 west:
-  command: '/home/tuangaooo/zephyrpy/bin/west build -b rbc_mainboard -p'
+  command: '/home/tuangaooo/zephyrpy/bin/west build -p always -b rbc_mainboard/stm32f407xx'
   topdir: '/home/tuangaooo/zephyrproject'
   version: '1.5.0'

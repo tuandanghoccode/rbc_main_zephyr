@@ -51,7 +51,7 @@ static const struct device *uart2_dev = DEVICE_DT_GET(UART2_NODE);
 #define CAN1_NODE DT_NODELABEL(can1)
 static const struct device *can1_dev = DEVICE_DT_GET(CAN1_NODE);
 
-static const struct i2c_dt_spec bno_i2c = {
+static struct i2c_dt_spec bno_i2c = {
     .bus = DEVICE_DT_GET(DT_NODELABEL(i2c1)),
     .addr = BNO055_I2C_ADDR,
 };
@@ -76,6 +76,40 @@ static const struct gpio_dt_spec mux_s[] = {
     GPIO_DT_SPEC_GET(DT_NODELABEL(s3), gpios),
 };
 
+/* --- Digital Inputs --- */
+static const struct gpio_dt_spec dig_in_pins[10] = {
+    GPIO_DT_SPEC_GET(DT_NODELABEL(in1), gpios),
+    GPIO_DT_SPEC_GET(DT_NODELABEL(in2), gpios),
+    GPIO_DT_SPEC_GET(DT_NODELABEL(in3), gpios),
+    GPIO_DT_SPEC_GET(DT_NODELABEL(in4), gpios),
+    GPIO_DT_SPEC_GET(DT_NODELABEL(in5), gpios),
+    GPIO_DT_SPEC_GET(DT_NODELABEL(in6), gpios),
+    GPIO_DT_SPEC_GET(DT_NODELABEL(in7), gpios),
+    GPIO_DT_SPEC_GET(DT_NODELABEL(in8), gpios),
+    GPIO_DT_SPEC_GET(DT_NODELABEL(in9), gpios),
+    GPIO_DT_SPEC_GET(DT_NODELABEL(in10), gpios),
+};
+/* --- Digital Outputs --- */
+static const struct gpio_dt_spec dig_out_pins[12] = {
+    GPIO_DT_SPEC_GET(DT_NODELABEL(o1), gpios),
+    GPIO_DT_SPEC_GET(DT_NODELABEL(o2), gpios),
+    GPIO_DT_SPEC_GET(DT_NODELABEL(o3), gpios),
+    GPIO_DT_SPEC_GET(DT_NODELABEL(o4), gpios),
+    GPIO_DT_SPEC_GET(DT_NODELABEL(o5), gpios),
+    GPIO_DT_SPEC_GET(DT_NODELABEL(o6), gpios),
+    GPIO_DT_SPEC_GET(DT_NODELABEL(o7), gpios),
+    GPIO_DT_SPEC_GET(DT_NODELABEL(o8), gpios),
+    GPIO_DT_SPEC_GET(DT_NODELABEL(o9), gpios),
+    GPIO_DT_SPEC_GET(DT_NODELABEL(o10), gpios),
+    GPIO_DT_SPEC_GET(DT_NODELABEL(o11), gpios),
+    GPIO_DT_SPEC_GET(DT_NODELABEL(o12), gpios),
+};
+/* --- Buttons --- */
+static const struct gpio_dt_spec btn1 =
+    GPIO_DT_SPEC_GET(DT_NODELABEL(btn1), gpios);
+static const struct gpio_dt_spec btn2 =
+    GPIO_DT_SPEC_GET(DT_NODELABEL(btn2), gpios);
+
 /* ================================================================
  *  Defines
  * ================================================================ */
@@ -89,21 +123,25 @@ static const struct gpio_dt_spec mux_s[] = {
 #define WATCHDOG_STACK_SIZE 512
 #define ADC_STACK_SIZE 512
 #define TELEM_STACK_SIZE 1024
+#define TEST_OUT_STACK_SIZE 512
 
 #define CTRL_THREAD_PRIO 2
 #define WATCHDOG_THREAD_PRIO 6
 #define ADC_THREAD_PRIO 8
 #define TELEM_THREAD_PRIO 10
+#define TEST_OUT_THREAD_PRIO 12
 
 K_THREAD_STACK_DEFINE(ctrl_stack, CTRL_STACK_SIZE);
 K_THREAD_STACK_DEFINE(watchdog_stack, WATCHDOG_STACK_SIZE);
 K_THREAD_STACK_DEFINE(adc_stack, ADC_STACK_SIZE);
 K_THREAD_STACK_DEFINE(telem_stack, TELEM_STACK_SIZE);
+K_THREAD_STACK_DEFINE(test_out_stack, TEST_OUT_STACK_SIZE);
 
 static struct k_thread ctrl_thread_data;
 static struct k_thread watchdog_thread_data;
 static struct k_thread adc_thread_data;
 static struct k_thread telem_thread_data;
+static struct k_thread test_out_thread_data;
 
 /* ================================================================
  *  Semaphores - timer ISR wake threads (do tre thap nhat)
@@ -163,8 +201,13 @@ typedef struct {
     volatile float val[4]; /* 4 kenh MUX */
     uint8_t ch;            /* kenh hien tai dang doc */
   } adc;
+
+  struct {
+    atomic_t states[10];
+  } dig_in;
 } Ctrl_Input_t;
 
+// GOM INPUT
 static Ctrl_Input_t inp = {
     .hc12 =
         {
@@ -175,6 +218,10 @@ static Ctrl_Input_t inp = {
             .seq = ATOMIC_INIT(0),
             .conn = ATOMIC_INIT(0),
         },
+    .dig_in = {.states = {ATOMIC_INIT(0), ATOMIC_INIT(0), ATOMIC_INIT(0),
+                          ATOMIC_INIT(0), ATOMIC_INIT(0), ATOMIC_INIT(0),
+                          ATOMIC_INIT(0), ATOMIC_INIT(0), ATOMIC_INIT(0),
+                          ATOMIC_INIT(0)}}
     /* imu, adc zero-init tu dong */
 };
 
@@ -198,6 +245,11 @@ typedef struct {
 
   /* --- Van toc hinh thang: gia tri hien tai (float de muot) --- */
   float cur_spd[4]; /* data[2..5] hien tai, khoi tao 100 */
+
+  struct {
+    volatile uint8_t states[12];
+  } dig_out;
+
 } Ctrl_Output_t;
 
 static Ctrl_Output_t out = {
@@ -211,8 +263,9 @@ static Ctrl_Output_t out = {
     .add_rad = 0.0f,
     .goc_bu = 0.0f,
     .goc_quay = 0,
-    .db = 15,
+    .db = 10,
     .cur_spd = {100.0f, 100.0f, 100.0f, 100.0f},
+    .dig_out = {.states = {0}},
 };
 
 /* ================================================================
@@ -223,7 +276,7 @@ static Ctrl_Output_t out = {
  * RAMP_STEP = 3 -> tu 100 den 200 mat 100/3 = ~33 cycles = 330ms
  * RAMP_STEP = 5 -> tu 100 den 200 mat 100/5 = 20 cycles = 200ms
  * Dieu chinh tuy y: tang = tang toc nhanh hon, giam = muot hon */
-#define RAMP_STEP 2.7f
+#define RAMP_STEP 5.0f
 
 static inline float ramp_toward(float current, float target, float step) {
   if (current < target) {
@@ -271,13 +324,13 @@ static void Read_IMU(void) {
 
   if (first_read) {
     /* Lan doc dau: seed goc_trc de delta = 0, tranh goc_tong nhay */
-    inp.imu.goc_trc[0] = (int)d.x;
+    inp.imu.goc_trc[0] = -(int)d.x;
     inp.imu.goc_trc[1] = (int)d.z;
     first_read = false;
     return;
   }
 
-  inp.imu.goc_ht[0] = (int)d.x;
+  inp.imu.goc_ht[0] = -(int)d.x;
   inp.imu.delta_goc[0] = inp.imu.goc_ht[0] - inp.imu.goc_trc[0];
   if (inp.imu.delta_goc[0] > 180)
     inp.imu.delta_goc[0] -= 360;
@@ -309,6 +362,11 @@ static void ctrl_thread_fn(void *p1, void *p2, void *p3) {
     /* Block cho den khi timer ISR keu - do tre ~10us */
     k_sem_take(&ctrl_sem, K_FOREVER);
 
+    /* --- Doc trang thai cac input --- */
+    for (int i = 0; i < 10; i++) {
+      atomic_set(&inp.dig_in.states[i], gpio_pin_get_dt(&dig_in_pins[i]));
+    }
+
     if (imu_ok) {
       Read_IMU();
     }
@@ -322,23 +380,25 @@ static void ctrl_thread_fn(void *p1, void *p2, void *p3) {
       float X = (float)atomic_get(&inp.hc12.x10) / 10.0f;
       float Y = (float)atomic_get(&inp.hc12.y10) / 10.0f;
 
-      // THO THUT + LEN XUONG (combo)
-      if (btn3 == 12) { // UP + THO (8|4)
+      // THO THUT + LEN XUONG
+      if (btn3 == 12 && atomic_get(&inp.dig_in.states[4]) == 0 &&
+          atomic_get(&inp.dig_in.states[2]) == 0) { // UP + THO (8|4)
         out.can_tx.data[0] = 150;
         out.can_tx.data[1] = 0;
-      } else if (btn3 == 3) { // DN + THUT (2|1)
+      } else if (btn3 == 3 && atomic_get(&inp.dig_in.states[1]) == 0 &&
+                 atomic_get(&inp.dig_in.states[3]) == 0) { // DN + THUT (2|1)
         out.can_tx.data[0] = 50;
         out.can_tx.data[1] = 200;
-      } else if (btn3 == 4) { // THO
+      } else if (btn3 == 4 && atomic_get(&inp.dig_in.states[4]) == 0) { // THO
         out.can_tx.data[0] = 200;
         out.can_tx.data[1] = 100;
-      } else if (btn3 == 1) { // THUT
+      } else if (btn3 == 1 && atomic_get(&inp.dig_in.states[3]) == 0) { // THUT
         out.can_tx.data[0] = 0;
         out.can_tx.data[1] = 100;
-      } else if (btn3 == 8) { // LEN
+      } else if (btn3 == 8 && atomic_get(&inp.dig_in.states[2]) == 0) { // LEN
         out.can_tx.data[0] = 100;
         out.can_tx.data[1] = 0;
-      } else if (btn3 == 2) { // XUONG
+      } else if (btn3 == 2 && atomic_get(&inp.dig_in.states[1]) == 0) { // XUONG
         out.can_tx.data[0] = 100;
         out.can_tx.data[1] = 200;
       } else {
@@ -346,14 +406,14 @@ static void ctrl_thread_fn(void *p1, void *p2, void *p3) {
         out.can_tx.data[1] = 100;
       }
 
-      if (btn3 == 16)
-        out.add_rad = 0.0f;
-      else if (btn3 == 32)
-        out.add_rad = 2.0f * pi4;
-      else if (btn3 == 64)
-        out.add_rad = pii;
-      else if (btn3 == 128)
-        out.add_rad = -2.0f * pi4;
+      if (btn2 == 4)
+        out.add_rad += pii / 4;
+      // else if (btn3 == 32)
+      //   out.add_rad = 2.0f * pi4;
+      else if (btn2 == 2)
+        out.add_rad -= pii / 4;
+      // else if (btn3 == 128)
+      //   out.add_rad = -2.0f * pi4;
       (void)btn2; /* reserved */
 
       out.rad_dh += (out.add_rad - out.rad_dh) * 0.1f;
@@ -371,7 +431,8 @@ static void ctrl_thread_fn(void *p1, void *p2, void *p3) {
       /* Toi uu: chi goi sinf/cosf 1 lan, suy ra 4 banh
        * sin(a+135) =  sin(a)*cos135 + cos(a)*sin135 = (-sinA + cosA)*K
        * cos(a+135) =  cos(a)*cos135 - sin(a)*sin135 = (-cosA - sinA)*K
-       * sin(a-135) = (-sinA - cosA)*K, cos(a-135) = (-cosA + sinA)*K
+       * sin(a-135) = (-sinA
+       - cosA)*K, cos(a-135) = (-cosA + sinA)*K
        * sin(a-45)  = ( sinA - cosA)*K, cos(a-45)  = ( cosA + sinA)*K
        * sin(a+45)  = ( sinA + cosA)*K, cos(a+45)  = ( cosA - sinA)*K
        * voi K = 0.7071f (sin45 = cos45)
@@ -458,6 +519,9 @@ static void ctrl_thread_fn(void *p1, void *p2, void *p3) {
 
     /* CAN TX - non-blocking (K_NO_WAIT), khong doi ACK */
     can_send(can1_dev, &out.can_tx, K_NO_WAIT, NULL, NULL);
+    for (int i = 0; i < 12; i++) {
+      gpio_pin_set_dt(&dig_out_pins[i], out.dig_out.states[i] ? 1 : 0);
+    }
   }
 }
 
@@ -572,6 +636,30 @@ static void telem_thread_fn(void *p1, void *p2, void *p3) {
 }
 
 /* ================================================================
+ *  test_out_thread - priority 12
+ *  Dung de test debug: Gan 1 vao tung chan dig_out roi tat
+ * ================================================================ */
+static void test_out_thread_fn(void *p1, void *p2, void *p3) {
+  ARG_UNUSED(p1);
+  ARG_UNUSED(p2);
+  ARG_UNUSED(p3);
+
+  while (1) {
+    /* Bat tung chan dig_out len 1 de kiem tra */
+    for (int i = 0; i < 12; i++) {
+      out.dig_out.states[i] = 1;
+      gpio_pin_set_dt(&dig_out_pins[i], 1); /* Ghi truc tiep ra chan GPIO */
+      k_msleep(50);                         /* Sang 1 giay */
+    }
+    for (int i = 11; i >= 0; i--) {
+      out.dig_out.states[i] = 0;
+      gpio_pin_set_dt(&dig_out_pins[i], 0); /* Tat chan GPIO */
+      k_msleep(50); /* Nghi 0.5 giay truoc khi sang chan tiep theo */
+    }
+  }
+}
+
+/* ================================================================
  *  UART3 IRQ callback - HC12
  *  Chi ghi vao atomic -> nhanh nhat co the, khong float, khong lock
  * ================================================================ */
@@ -615,10 +703,46 @@ static void uart3_irq_cb(const struct device *dev, void *user_data) {
   }
 }
 
+// void input_thread_fn(void *p1, void *p2, void *p3) {
+//   ARG_UNUSED(p1);
+//   ARG_UNUSED(p2);
+//   ARG_UNUSED(p3);
+
+//   while (1) {
+//     int sensor_val = gpio_pin_get_dt(&dig_in_pins[1]);
+//     if (sensor_val == 1) {
+//       inp.sw_en = 1;
+//     } else {
+//       inp.sw_en = 0;
+//     }
+
+//   }
+// }
+
 /* ================================================================
  *  MAIN - khoi tao hardware, start threads, LED blink loop
  * ================================================================ */
 int main(void) {
+
+  /* --- Digital Inputs & Buttons --- */
+  if (device_is_ready(btn1.port)) {
+    gpio_pin_configure_dt(&btn1, GPIO_INPUT);
+  }
+  if (device_is_ready(btn2.port)) {
+    gpio_pin_configure_dt(&btn2, GPIO_INPUT);
+  }
+  for (int i = 0; i < 10; i++) {
+    if (device_is_ready(dig_in_pins[i].port)) {
+      gpio_pin_configure_dt(&dig_in_pins[i], GPIO_INPUT | GPIO_PULL_DOWN);
+    }
+  }
+  /* --- Digital Outputs --- */
+  for (int i = 0; i < 12; i++) {
+    if (device_is_ready(dig_out_pins[i].port)) {
+      gpio_pin_configure_dt(&dig_out_pins[i], GPIO_OUTPUT_INACTIVE);
+    }
+  }
+
   /* --- GPIO LED --- */
   if (!device_is_ready(led0.port)) {
     while (1) {
@@ -660,10 +784,6 @@ int main(void) {
   if (device_is_ready(uart3_dev)) {
     uart_irq_callback_user_data_set(uart3_dev, uart3_irq_cb, NULL);
     uart_irq_rx_enable(uart3_dev);
-    gpio_pin_set_dt(&led1, 1); /* LED1 ON = UART3 init OK */
-  } else {
-    /* LED1 tat = UART3 fail -> kiem tra DTS */
-    gpio_pin_set_dt(&led1, 0);
   }
 
   /* --- CAN1 --- */
@@ -673,16 +793,43 @@ int main(void) {
 
   /* --- I2C1 BNO055 --- */
   if (device_is_ready(bno_i2c.bus)) {
-    bno055_assignI2C(&bno_i2c);
-    bno055_setup();
-    /* Verify BNO055 co that su gan: doc chip ID */
     uint8_t chip_id = 0;
-    bno055_readData(BNO055_CHIP_ID, &chip_id, 1);
-    if (chip_id == BNO055_ID) {
+
+    // Thu dia chi 0x28
+    bno_i2c.addr = 0x28;
+    bno055_assignI2C(&bno_i2c);
+
+    // Doc truc tiep CHIP_ID truoc khi setup (tranh loi reset)
+    int ret = i2c_write_read_dt(&bno_i2c, (uint8_t[]){BNO055_CHIP_ID}, 1,
+                                &chip_id, 1);
+
+    // Neu dia chi 0x28 chet hoac khong dung, thu 0x29
+    if (ret != 0 || chip_id != BNO055_ID) {
+      bno_i2c.addr = 0x29;
+      bno055_assignI2C(&bno_i2c);
+      ret = i2c_write_read_dt(&bno_i2c, (uint8_t[]){BNO055_CHIP_ID}, 1,
+                              &chip_id, 1);
+    }
+
+    if (ret == 0 && chip_id == BNO055_ID) {
+      // Co tin hieu -> Khoi tao
+      bno055_setup();
       bno055_setOperationModeNDOF();
       imu_ok = true;
+
+      // Sang LED1 2 giay de bao da Nhan IMU luc boot
+      gpio_pin_set_dt(&led1, 1);
+      k_msleep(2000);
+      gpio_pin_set_dt(&led1, 0);
     }
-    /* Neu chip_id != 0xA0 -> khong co BNO055, imu_ok = false, skip Read_IMU */
+
+    /* Debug qua UART2 */
+    char dbg[60];
+    snprintf(dbg, sizeof(dbg), "[BNO] addr=0x%02X id=0x%02X err=%d %s\n",
+             bno_i2c.addr, chip_id, ret, imu_ok ? "OK" : "FAIL");
+    uart2_send_str(dbg);
+  } else {
+    uart2_send_str("[BNO] I2C1 bus NOT ready\n");
   }
 
   /* --- I2C2 PCA9685 --- */
@@ -718,6 +865,11 @@ int main(void) {
                   K_NO_WAIT);
   k_thread_name_set(&telem_thread_data, "telem");
 
+  k_thread_create(&test_out_thread_data, test_out_stack, TEST_OUT_STACK_SIZE,
+                  test_out_thread_fn, NULL, NULL, NULL, TEST_OUT_THREAD_PRIO, 0,
+                  K_NO_WAIT);
+  k_thread_name_set(&test_out_thread_data, "test_out");
+
   /* --- Start timers (sau khi threads da san sang) --- */
   k_timer_init(&ctrl_timer, ctrl_timer_expiry, NULL);
   k_timer_init(&watchdog_timer, watchdog_timer_expiry, NULL);
@@ -733,10 +885,35 @@ int main(void) {
    *   Nhanh 100ms = dang nhan HC12
    *   Cham 500ms  = mat tin hieu
    */
+
   while (1) {
     gpio_pin_toggle_dt(&led0);
+
+    /* LED1 nhay giong LED0 neu IMU OK, khong thi tat han */
+    if (imu_ok) {
+      gpio_pin_toggle_dt(&led1);
+    } else {
+      gpio_pin_set_dt(&led1, 0);
+    }
+
     bool conn = (atomic_get(&inp.hc12.conn) != 0);
     k_msleep(conn ? 100 : 500);
+
+    // for (int i = 1; i <= 12; i++) {
+    //   /* doc
+    //   out.op1 = inp.dig_in.states[0] ? 1 : 0;
+    //   out.op2 = inp.dig_in.states[1] ? 1 : 0;
+    //   out.op3 = inp.dig_in.states[2] ? 1 : 0;
+    //   out.op4 = inp.dig_in.states[3] ? 1 : 0;
+    //   out.op5 = inp.dig_in.states[4] ? 1 : 0;
+    //   out.op6 = inp.dig_in.states[5] ? 1 : 0;
+    //   out.op7 = inp.dig_in.states[6] ? 1 : 0;
+    //   out.op8 = inp.dig_in.states[7] ? 1 : 0;
+    //   out.op9 = inp.dig_in.states[8] ? 1 : 0;
+    //   out.op10 = inp.dig_in.states[9] ? 1 : 0;*/
+    //   int db1 = gpio_pin_set_dt(&dig_out_pins[i], 1);
+    //   k_msleep(2000);
+    // }
   }
 
   return 0;

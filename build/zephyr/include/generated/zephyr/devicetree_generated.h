@@ -6476,7 +6476,7 @@
 #define DT_N_S_digital_inputs_S_input_1_P_gpios_IDX_0_PH DT_N_S_soc_S_pin_controller_40020000_S_gpio_40020400
 #define DT_N_S_digital_inputs_S_input_1_P_gpios_IDX_0_VAL_pin 8
 #define DT_N_S_digital_inputs_S_input_1_P_gpios_IDX_0_VAL_pin_EXISTS 1
-#define DT_N_S_digital_inputs_S_input_1_P_gpios_IDX_0_VAL_flags 1
+#define DT_N_S_digital_inputs_S_input_1_P_gpios_IDX_0_VAL_flags 0
 #define DT_N_S_digital_inputs_S_input_1_P_gpios_IDX_0_VAL_flags_EXISTS 1
 #define DT_N_S_digital_inputs_S_input_1_P_gpios_IDX_0_FOREACH_CELL(fn) fn(DT_N_S_digital_inputs_S_input_1, gpios, 0, pin) \
 	fn(DT_N_S_digital_inputs_S_input_1, gpios, 0, flags)
@@ -6585,7 +6585,7 @@
 #define DT_N_S_digital_inputs_S_input_10_P_gpios_IDX_0_PH DT_N_S_soc_S_pin_controller_40020000_S_gpio_40020800
 #define DT_N_S_digital_inputs_S_input_10_P_gpios_IDX_0_VAL_pin 3
 #define DT_N_S_digital_inputs_S_input_10_P_gpios_IDX_0_VAL_pin_EXISTS 1
-#define DT_N_S_digital_inputs_S_input_10_P_gpios_IDX_0_VAL_flags 1
+#define DT_N_S_digital_inputs_S_input_10_P_gpios_IDX_0_VAL_flags 0
 #define DT_N_S_digital_inputs_S_input_10_P_gpios_IDX_0_VAL_flags_EXISTS 1
 #define DT_N_S_digital_inputs_S_input_10_P_gpios_IDX_0_FOREACH_CELL(fn) fn(DT_N_S_digital_inputs_S_input_10, gpios, 0, pin) \
 	fn(DT_N_S_digital_inputs_S_input_10, gpios, 0, flags)
@@ -6694,7 +6694,7 @@
 #define DT_N_S_digital_inputs_S_input_2_P_gpios_IDX_0_PH DT_N_S_soc_S_pin_controller_40020000_S_gpio_40020400
 #define DT_N_S_digital_inputs_S_input_2_P_gpios_IDX_0_VAL_pin 9
 #define DT_N_S_digital_inputs_S_input_2_P_gpios_IDX_0_VAL_pin_EXISTS 1
-#define DT_N_S_digital_inputs_S_input_2_P_gpios_IDX_0_VAL_flags 1
+#define DT_N_S_digital_inputs_S_input_2_P_gpios_IDX_0_VAL_flags 0
 #define DT_N_S_digital_inputs_S_input_2_P_gpios_IDX_0_VAL_flags_EXISTS 1
 #define DT_N_S_digital_inputs_S_input_2_P_gpios_IDX_0_FOREACH_CELL(fn) fn(DT_N_S_digital_inputs_S_input_2, gpios, 0, pin) \
 	fn(DT_N_S_digital_inputs_S_input_2, gpios, 0, flags)
@@ -6803,7 +6803,7 @@
 #define DT_N_S_digital_inputs_S_input_3_P_gpios_IDX_0_PH DT_N_S_soc_S_pin_controller_40020000_S_gpio_40021000
 #define DT_N_S_digital_inputs_S_input_3_P_gpios_IDX_0_VAL_pin 0
 #define DT_N_S_digital_inputs_S_input_3_P_gpios_IDX_0_VAL_pin_EXISTS 1
-#define DT_N_S_digital_inputs_S_input_3_P_gpios_IDX_0_VAL_flags 1
+#define DT_N_S_digital_inputs_S_input_3_P_gpios_IDX_0_VAL_flags 0
 #define DT_N_S_digital_inputs_S_input_3_P_gpios_IDX_0_VAL_flags_EXISTS 1
 #define DT_N_S_digital_inputs_S_input_3_P_gpios_IDX_0_FOREACH_CELL(fn) fn(DT_N_S_digital_inputs_S_input_3, gpios, 0, pin) \
 	fn(DT_N_S_digital_inputs_S_input_3, gpios, 0, flags)
@@ -6912,7 +6912,7 @@
 #define DT_N_S_digital_inputs_S_input_4_P_gpios_IDX_0_PH DT_N_S_soc_S_pin_controller_40020000_S_gpio_40021000
 #define DT_N_S_digital_inputs_S_input_4_P_gpios_IDX_0_VAL_pin 1
 #define DT_N_S_digital_inputs_S_input_4_P_gpios_IDX_0_VAL_pin_EXISTS 1
-#define DT_N_S_digital_inputs_S_input_4_P_gpios_IDX_0_VAL_flags 1
+#define DT_N_S_digital_inputs_S_input_4_P_gpios_IDX_0_VAL_flags 0
 #define DT_N_S_digital_inputs_S_input_4_P_gpios_IDX_0_VAL_flags_EXISTS 1
 #define DT_N_S_digital_inputs_S_input_4_P_gpios_IDX_0_FOREACH_CELL(fn) fn(DT_N_S_digital_inputs_S_input_4, gpios, 0, pin) \
 	fn(DT_N_S_digital_inputs_S_input_4, gpios, 0, flags)
@@ -7021,7 +7021,7 @@
 #define DT_N_S_digital_inputs_S_input_5_P_gpios_IDX_0_PH DT_N_S_soc_S_pin_controller_40020000_S_gpio_40021000
 #define DT_N_S_digital_inputs_S_input_5_P_gpios_IDX_0_VAL_pin 2
 #define DT_N_S_digital_inputs_S_input_5_P_gpios_IDX_0_VAL_pin_EXISTS 1
-#define DT_N_S_digital_inputs_S_input_5_P_gpios_IDX_0_VAL_flags 1
+#define DT_N_S_digital_inputs_S_input_5_P_gpios_IDX_0_VAL_flags 0
 #define DT_N_S_digital_inputs_S_input_5_P_gpios_IDX_0_VAL_flags_EXISTS 1
 #define DT_N_S_digital_inputs_S_input_5_P_gpios_IDX_0_FOREACH_CELL(fn) fn(DT_N_S_digital_inputs_S_input_5, gpios, 0, pin) \
 	fn(DT_N_S_digital_inputs_S_input_5, gpios, 0, flags)
@@ -7130,7 +7130,7 @@
 #define DT_N_S_digital_inputs_S_input_6_P_gpios_IDX_0_PH DT_N_S_soc_S_pin_controller_40020000_S_gpio_40021000
 #define DT_N_S_digital_inputs_S_input_6_P_gpios_IDX_0_VAL_pin 3
 #define DT_N_S_digital_inputs_S_input_6_P_gpios_IDX_0_VAL_pin_EXISTS 1
-#define DT_N_S_digital_inputs_S_input_6_P_gpios_IDX_0_VAL_flags 1
+#define DT_N_S_digital_inputs_S_input_6_P_gpios_IDX_0_VAL_flags 0
 #define DT_N_S_digital_inputs_S_input_6_P_gpios_IDX_0_VAL_flags_EXISTS 1
 #define DT_N_S_digital_inputs_S_input_6_P_gpios_IDX_0_FOREACH_CELL(fn) fn(DT_N_S_digital_inputs_S_input_6, gpios, 0, pin) \
 	fn(DT_N_S_digital_inputs_S_input_6, gpios, 0, flags)
@@ -7239,7 +7239,7 @@
 #define DT_N_S_digital_inputs_S_input_7_P_gpios_IDX_0_PH DT_N_S_soc_S_pin_controller_40020000_S_gpio_40020800
 #define DT_N_S_digital_inputs_S_input_7_P_gpios_IDX_0_VAL_pin 0
 #define DT_N_S_digital_inputs_S_input_7_P_gpios_IDX_0_VAL_pin_EXISTS 1
-#define DT_N_S_digital_inputs_S_input_7_P_gpios_IDX_0_VAL_flags 1
+#define DT_N_S_digital_inputs_S_input_7_P_gpios_IDX_0_VAL_flags 0
 #define DT_N_S_digital_inputs_S_input_7_P_gpios_IDX_0_VAL_flags_EXISTS 1
 #define DT_N_S_digital_inputs_S_input_7_P_gpios_IDX_0_FOREACH_CELL(fn) fn(DT_N_S_digital_inputs_S_input_7, gpios, 0, pin) \
 	fn(DT_N_S_digital_inputs_S_input_7, gpios, 0, flags)
@@ -7348,7 +7348,7 @@
 #define DT_N_S_digital_inputs_S_input_8_P_gpios_IDX_0_PH DT_N_S_soc_S_pin_controller_40020000_S_gpio_40020800
 #define DT_N_S_digital_inputs_S_input_8_P_gpios_IDX_0_VAL_pin 1
 #define DT_N_S_digital_inputs_S_input_8_P_gpios_IDX_0_VAL_pin_EXISTS 1
-#define DT_N_S_digital_inputs_S_input_8_P_gpios_IDX_0_VAL_flags 1
+#define DT_N_S_digital_inputs_S_input_8_P_gpios_IDX_0_VAL_flags 0
 #define DT_N_S_digital_inputs_S_input_8_P_gpios_IDX_0_VAL_flags_EXISTS 1
 #define DT_N_S_digital_inputs_S_input_8_P_gpios_IDX_0_FOREACH_CELL(fn) fn(DT_N_S_digital_inputs_S_input_8, gpios, 0, pin) \
 	fn(DT_N_S_digital_inputs_S_input_8, gpios, 0, flags)
@@ -7457,7 +7457,7 @@
 #define DT_N_S_digital_inputs_S_input_9_P_gpios_IDX_0_PH DT_N_S_soc_S_pin_controller_40020000_S_gpio_40020800
 #define DT_N_S_digital_inputs_S_input_9_P_gpios_IDX_0_VAL_pin 2
 #define DT_N_S_digital_inputs_S_input_9_P_gpios_IDX_0_VAL_pin_EXISTS 1
-#define DT_N_S_digital_inputs_S_input_9_P_gpios_IDX_0_VAL_flags 1
+#define DT_N_S_digital_inputs_S_input_9_P_gpios_IDX_0_VAL_flags 0
 #define DT_N_S_digital_inputs_S_input_9_P_gpios_IDX_0_VAL_flags_EXISTS 1
 #define DT_N_S_digital_inputs_S_input_9_P_gpios_IDX_0_FOREACH_CELL(fn) fn(DT_N_S_digital_inputs_S_input_9, gpios, 0, pin) \
 	fn(DT_N_S_digital_inputs_S_input_9, gpios, 0, flags)
@@ -9040,7 +9040,7 @@
 #define DT_N_S_digital_outputs_S_out_1_P_gpios_IDX_0_PH DT_N_S_soc_S_pin_controller_40020000_S_gpio_40020400
 #define DT_N_S_digital_outputs_S_out_1_P_gpios_IDX_0_VAL_pin 1
 #define DT_N_S_digital_outputs_S_out_1_P_gpios_IDX_0_VAL_pin_EXISTS 1
-#define DT_N_S_digital_outputs_S_out_1_P_gpios_IDX_0_VAL_flags 0
+#define DT_N_S_digital_outputs_S_out_1_P_gpios_IDX_0_VAL_flags 1
 #define DT_N_S_digital_outputs_S_out_1_P_gpios_IDX_0_VAL_flags_EXISTS 1
 #define DT_N_S_digital_outputs_S_out_1_P_gpios_IDX_0_FOREACH_CELL(fn) fn(DT_N_S_digital_outputs_S_out_1, gpios, 0, pin) \
 	fn(DT_N_S_digital_outputs_S_out_1, gpios, 0, flags)
@@ -9147,7 +9147,7 @@
 #define DT_N_S_digital_outputs_S_out_10_P_gpios_IDX_0_PH DT_N_S_soc_S_pin_controller_40020000_S_gpio_40021000
 #define DT_N_S_digital_outputs_S_out_10_P_gpios_IDX_0_VAL_pin 15
 #define DT_N_S_digital_outputs_S_out_10_P_gpios_IDX_0_VAL_pin_EXISTS 1
-#define DT_N_S_digital_outputs_S_out_10_P_gpios_IDX_0_VAL_flags 0
+#define DT_N_S_digital_outputs_S_out_10_P_gpios_IDX_0_VAL_flags 1
 #define DT_N_S_digital_outputs_S_out_10_P_gpios_IDX_0_VAL_flags_EXISTS 1
 #define DT_N_S_digital_outputs_S_out_10_P_gpios_IDX_0_FOREACH_CELL(fn) fn(DT_N_S_digital_outputs_S_out_10, gpios, 0, pin) \
 	fn(DT_N_S_digital_outputs_S_out_10, gpios, 0, flags)
@@ -9254,7 +9254,7 @@
 #define DT_N_S_digital_outputs_S_out_11_P_gpios_IDX_0_PH DT_N_S_soc_S_pin_controller_40020000_S_gpio_40020c00
 #define DT_N_S_digital_outputs_S_out_11_P_gpios_IDX_0_VAL_pin 14
 #define DT_N_S_digital_outputs_S_out_11_P_gpios_IDX_0_VAL_pin_EXISTS 1
-#define DT_N_S_digital_outputs_S_out_11_P_gpios_IDX_0_VAL_flags 0
+#define DT_N_S_digital_outputs_S_out_11_P_gpios_IDX_0_VAL_flags 1
 #define DT_N_S_digital_outputs_S_out_11_P_gpios_IDX_0_VAL_flags_EXISTS 1
 #define DT_N_S_digital_outputs_S_out_11_P_gpios_IDX_0_FOREACH_CELL(fn) fn(DT_N_S_digital_outputs_S_out_11, gpios, 0, pin) \
 	fn(DT_N_S_digital_outputs_S_out_11, gpios, 0, flags)
@@ -9361,7 +9361,7 @@
 #define DT_N_S_digital_outputs_S_out_12_P_gpios_IDX_0_PH DT_N_S_soc_S_pin_controller_40020000_S_gpio_40020c00
 #define DT_N_S_digital_outputs_S_out_12_P_gpios_IDX_0_VAL_pin 15
 #define DT_N_S_digital_outputs_S_out_12_P_gpios_IDX_0_VAL_pin_EXISTS 1
-#define DT_N_S_digital_outputs_S_out_12_P_gpios_IDX_0_VAL_flags 0
+#define DT_N_S_digital_outputs_S_out_12_P_gpios_IDX_0_VAL_flags 1
 #define DT_N_S_digital_outputs_S_out_12_P_gpios_IDX_0_VAL_flags_EXISTS 1
 #define DT_N_S_digital_outputs_S_out_12_P_gpios_IDX_0_FOREACH_CELL(fn) fn(DT_N_S_digital_outputs_S_out_12, gpios, 0, pin) \
 	fn(DT_N_S_digital_outputs_S_out_12, gpios, 0, flags)
@@ -9468,7 +9468,7 @@
 #define DT_N_S_digital_outputs_S_out_2_P_gpios_IDX_0_PH DT_N_S_soc_S_pin_controller_40020000_S_gpio_40021000
 #define DT_N_S_digital_outputs_S_out_2_P_gpios_IDX_0_VAL_pin 7
 #define DT_N_S_digital_outputs_S_out_2_P_gpios_IDX_0_VAL_pin_EXISTS 1
-#define DT_N_S_digital_outputs_S_out_2_P_gpios_IDX_0_VAL_flags 0
+#define DT_N_S_digital_outputs_S_out_2_P_gpios_IDX_0_VAL_flags 1
 #define DT_N_S_digital_outputs_S_out_2_P_gpios_IDX_0_VAL_flags_EXISTS 1
 #define DT_N_S_digital_outputs_S_out_2_P_gpios_IDX_0_FOREACH_CELL(fn) fn(DT_N_S_digital_outputs_S_out_2, gpios, 0, pin) \
 	fn(DT_N_S_digital_outputs_S_out_2, gpios, 0, flags)
@@ -9575,7 +9575,7 @@
 #define DT_N_S_digital_outputs_S_out_3_P_gpios_IDX_0_PH DT_N_S_soc_S_pin_controller_40020000_S_gpio_40021000
 #define DT_N_S_digital_outputs_S_out_3_P_gpios_IDX_0_VAL_pin 8
 #define DT_N_S_digital_outputs_S_out_3_P_gpios_IDX_0_VAL_pin_EXISTS 1
-#define DT_N_S_digital_outputs_S_out_3_P_gpios_IDX_0_VAL_flags 0
+#define DT_N_S_digital_outputs_S_out_3_P_gpios_IDX_0_VAL_flags 1
 #define DT_N_S_digital_outputs_S_out_3_P_gpios_IDX_0_VAL_flags_EXISTS 1
 #define DT_N_S_digital_outputs_S_out_3_P_gpios_IDX_0_FOREACH_CELL(fn) fn(DT_N_S_digital_outputs_S_out_3, gpios, 0, pin) \
 	fn(DT_N_S_digital_outputs_S_out_3, gpios, 0, flags)
@@ -9682,7 +9682,7 @@
 #define DT_N_S_digital_outputs_S_out_4_P_gpios_IDX_0_PH DT_N_S_soc_S_pin_controller_40020000_S_gpio_40021000
 #define DT_N_S_digital_outputs_S_out_4_P_gpios_IDX_0_VAL_pin 9
 #define DT_N_S_digital_outputs_S_out_4_P_gpios_IDX_0_VAL_pin_EXISTS 1
-#define DT_N_S_digital_outputs_S_out_4_P_gpios_IDX_0_VAL_flags 0
+#define DT_N_S_digital_outputs_S_out_4_P_gpios_IDX_0_VAL_flags 1
 #define DT_N_S_digital_outputs_S_out_4_P_gpios_IDX_0_VAL_flags_EXISTS 1
 #define DT_N_S_digital_outputs_S_out_4_P_gpios_IDX_0_FOREACH_CELL(fn) fn(DT_N_S_digital_outputs_S_out_4, gpios, 0, pin) \
 	fn(DT_N_S_digital_outputs_S_out_4, gpios, 0, flags)
@@ -9789,7 +9789,7 @@
 #define DT_N_S_digital_outputs_S_out_5_P_gpios_IDX_0_PH DT_N_S_soc_S_pin_controller_40020000_S_gpio_40021000
 #define DT_N_S_digital_outputs_S_out_5_P_gpios_IDX_0_VAL_pin 10
 #define DT_N_S_digital_outputs_S_out_5_P_gpios_IDX_0_VAL_pin_EXISTS 1
-#define DT_N_S_digital_outputs_S_out_5_P_gpios_IDX_0_VAL_flags 0
+#define DT_N_S_digital_outputs_S_out_5_P_gpios_IDX_0_VAL_flags 1
 #define DT_N_S_digital_outputs_S_out_5_P_gpios_IDX_0_VAL_flags_EXISTS 1
 #define DT_N_S_digital_outputs_S_out_5_P_gpios_IDX_0_FOREACH_CELL(fn) fn(DT_N_S_digital_outputs_S_out_5, gpios, 0, pin) \
 	fn(DT_N_S_digital_outputs_S_out_5, gpios, 0, flags)
@@ -9896,7 +9896,7 @@
 #define DT_N_S_digital_outputs_S_out_6_P_gpios_IDX_0_PH DT_N_S_soc_S_pin_controller_40020000_S_gpio_40021000
 #define DT_N_S_digital_outputs_S_out_6_P_gpios_IDX_0_VAL_pin 11
 #define DT_N_S_digital_outputs_S_out_6_P_gpios_IDX_0_VAL_pin_EXISTS 1
-#define DT_N_S_digital_outputs_S_out_6_P_gpios_IDX_0_VAL_flags 0
+#define DT_N_S_digital_outputs_S_out_6_P_gpios_IDX_0_VAL_flags 1
 #define DT_N_S_digital_outputs_S_out_6_P_gpios_IDX_0_VAL_flags_EXISTS 1
 #define DT_N_S_digital_outputs_S_out_6_P_gpios_IDX_0_FOREACH_CELL(fn) fn(DT_N_S_digital_outputs_S_out_6, gpios, 0, pin) \
 	fn(DT_N_S_digital_outputs_S_out_6, gpios, 0, flags)
@@ -10003,7 +10003,7 @@
 #define DT_N_S_digital_outputs_S_out_7_P_gpios_IDX_0_PH DT_N_S_soc_S_pin_controller_40020000_S_gpio_40021000
 #define DT_N_S_digital_outputs_S_out_7_P_gpios_IDX_0_VAL_pin 12
 #define DT_N_S_digital_outputs_S_out_7_P_gpios_IDX_0_VAL_pin_EXISTS 1
-#define DT_N_S_digital_outputs_S_out_7_P_gpios_IDX_0_VAL_flags 0
+#define DT_N_S_digital_outputs_S_out_7_P_gpios_IDX_0_VAL_flags 1
 #define DT_N_S_digital_outputs_S_out_7_P_gpios_IDX_0_VAL_flags_EXISTS 1
 #define DT_N_S_digital_outputs_S_out_7_P_gpios_IDX_0_FOREACH_CELL(fn) fn(DT_N_S_digital_outputs_S_out_7, gpios, 0, pin) \
 	fn(DT_N_S_digital_outputs_S_out_7, gpios, 0, flags)
@@ -10110,7 +10110,7 @@
 #define DT_N_S_digital_outputs_S_out_8_P_gpios_IDX_0_PH DT_N_S_soc_S_pin_controller_40020000_S_gpio_40021000
 #define DT_N_S_digital_outputs_S_out_8_P_gpios_IDX_0_VAL_pin 13
 #define DT_N_S_digital_outputs_S_out_8_P_gpios_IDX_0_VAL_pin_EXISTS 1
-#define DT_N_S_digital_outputs_S_out_8_P_gpios_IDX_0_VAL_flags 0
+#define DT_N_S_digital_outputs_S_out_8_P_gpios_IDX_0_VAL_flags 1
 #define DT_N_S_digital_outputs_S_out_8_P_gpios_IDX_0_VAL_flags_EXISTS 1
 #define DT_N_S_digital_outputs_S_out_8_P_gpios_IDX_0_FOREACH_CELL(fn) fn(DT_N_S_digital_outputs_S_out_8, gpios, 0, pin) \
 	fn(DT_N_S_digital_outputs_S_out_8, gpios, 0, flags)
@@ -10217,7 +10217,7 @@
 #define DT_N_S_digital_outputs_S_out_9_P_gpios_IDX_0_PH DT_N_S_soc_S_pin_controller_40020000_S_gpio_40021000
 #define DT_N_S_digital_outputs_S_out_9_P_gpios_IDX_0_VAL_pin 14
 #define DT_N_S_digital_outputs_S_out_9_P_gpios_IDX_0_VAL_pin_EXISTS 1
-#define DT_N_S_digital_outputs_S_out_9_P_gpios_IDX_0_VAL_flags 0
+#define DT_N_S_digital_outputs_S_out_9_P_gpios_IDX_0_VAL_flags 1
 #define DT_N_S_digital_outputs_S_out_9_P_gpios_IDX_0_VAL_flags_EXISTS 1
 #define DT_N_S_digital_outputs_S_out_9_P_gpios_IDX_0_FOREACH_CELL(fn) fn(DT_N_S_digital_outputs_S_out_9, gpios, 0, pin) \
 	fn(DT_N_S_digital_outputs_S_out_9, gpios, 0, flags)
