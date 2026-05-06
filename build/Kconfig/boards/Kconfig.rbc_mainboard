@@ -1,2 +1,2 @@
 # Load board Kconfig descriptions.
-osource "/home/tuangaooo/zephyrproject/rbc_r1/boards/rbc_mainboard/Kconfig.rbc_mainboard"
+osource "/home/tuangaooo/zephyrproject/rbc_main_zephyr/boards/rbc_mainboard/Kconfig.rbc_mainboard"

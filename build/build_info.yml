@@ -1,18 +1,18 @@
 cmake:
   application:
-    configuration-dir: '/home/tuangaooo/zephyrproject/rbc_r1'
-    source-dir: '/home/tuangaooo/zephyrproject/rbc_r1'
+    configuration-dir: '/home/tuangaooo/zephyrproject/rbc_main_zephyr'
+    source-dir: '/home/tuangaooo/zephyrproject/rbc_main_zephyr'
   board:
     name: 'rbc_mainboard'
     path:
-     - '/home/tuangaooo/zephyrproject/rbc_r1/boards/rbc_mainboard'
+     - '/home/tuangaooo/zephyrproject/rbc_main_zephyr/boards/rbc_mainboard'
     qualifiers: 'stm32f407xx'
     revision: ''
   devicetree:
     bindings-dirs:
      - '/home/tuangaooo/zephyrproject/zephyr/dts/bindings'
     files:
-     - '/home/tuangaooo/zephyrproject/rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts'
+     - '/home/tuangaooo/zephyrproject/rbc_main_zephyr/boards/rbc_mainboard/rbc_mainboard.dts'
     include-dirs:
      - '/home/tuangaooo/zephyrproject/modules/hal/ambiq/dts'
      - '/home/tuangaooo/zephyrproject/modules/hal/atmel/include'
@@ -41,10 +41,10 @@ cmake:
      - '/home/tuangaooo/zephyrproject/zephyr/dts'
   kconfig:
     files:
-     - '/home/tuangaooo/zephyrproject/rbc_r1/boards/rbc_mainboard/rbc_mainboard_defconfig'
-     - '/home/tuangaooo/zephyrproject/rbc_r1/prj.conf'
+     - '/home/tuangaooo/zephyrproject/rbc_main_zephyr/boards/rbc_mainboard/rbc_mainboard_defconfig'
+     - '/home/tuangaooo/zephyrproject/rbc_main_zephyr/prj.conf'
     user-files:
-     - '/home/tuangaooo/zephyrproject/rbc_r1/prj.conf'
+     - '/home/tuangaooo/zephyrproject/rbc_main_zephyr/prj.conf'
   toolchain:
     name: 'zephyr'
     path: '/home/tuangaooo/zephyr-sdk-1.0.1'
@@ -53,6 +53,6 @@ cmake:
     zephyr-base: '/home/tuangaooo/zephyrproject/zephyr'
 version: '0.1.0'
 west:
-  command: '/home/tuangaooo/zephyrpy/bin/west build -p always -b rbc_mainboard/stm32f407xx'
+  command: '/home/tuangaooo/.local/bin/west build -b rbc_mainboard .'
   topdir: '/home/tuangaooo/zephyrproject'
   version: '1.5.0'

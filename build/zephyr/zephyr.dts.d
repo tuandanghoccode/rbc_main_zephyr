@@ -1,5 +1,5 @@
 empty_file.o: /home/tuangaooo/zephyrproject/zephyr/misc/empty_file.c \
- /home/tuangaooo/zephyrproject/rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts \
+ /home/tuangaooo/zephyrproject/rbc_main_zephyr/boards/rbc_mainboard/rbc_mainboard.dts \
  /home/tuangaooo/zephyrproject/zephyr/dts/arm/st/f4/stm32f407Xg.dtsi \
  /home/tuangaooo/zephyrproject/zephyr/dts/arm/st/f4/stm32f407.dtsi \
  /home/tuangaooo/zephyrproject/zephyr/dts/arm/st/f4/stm32f405.dtsi \

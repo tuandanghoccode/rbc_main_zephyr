@@ -2,6 +2,8 @@
     "__net_socket": [
         "modem_socket",
         "net_context",
+        "quic_stream",
+        "quic_context",
         "dispatcher_context",
         "spair",
         "net_mgmt_socket",
@@ -17,6 +19,7 @@
         "reset_driver_api",
         "spi_driver_api",
         "shared_irq_driver_api",
+        "dmic_driver_api",
         "crypto_driver_api",
         "auxdisplay_driver_api",
         "bbram_driver_api",
@@ -48,7 +51,10 @@
         "haptics_driver_api",
         "hwspinlock_driver_api",
         "i2s_driver_api",
-        "i3c_driver_api",
+        {
+            "extends": "i2c_driver_api",
+            "name": "i3c_driver_api"
+        },
         "ipm_driver_api",
         "led_driver_api",
         "led_strip_driver_api",
@@ -73,6 +79,7 @@
         "smbus_driver_api",
         "syscon_driver_api",
         "tee_driver_api",
+        "tgpio_driver_api",
         "uaol_driver_api",
         "video_driver_api",
         "virtio_driver_api",
@@ -80,12 +87,14 @@
         "wdt_driver_api",
         "wuc_driver_api",
         "can_transceiver_driver_api",
-        "nrf_clock_control_driver_api",
+        {
+            "extends": "clock_control_driver_api",
+            "name": "nrf_clock_control_driver_api"
+        },
         "i3c_target_driver_api",
         "its_driver_api",
         "vtd_driver_api",
         "renesas_elc_driver_api",
-        "tgpio_driver_api",
         "pcie_ctrl_driver_api",
         "pcie_ep_driver_api",
         "psi5_driver_api",

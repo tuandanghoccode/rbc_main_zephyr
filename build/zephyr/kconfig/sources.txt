@@ -70,18 +70,18 @@
 /home/tuangaooo/zephyrproject/modules/lib/gui/lvgl/Kconfig
 /home/tuangaooo/zephyrproject/modules/lib/gui/lvgl/zephyr/Kconfig
 /home/tuangaooo/zephyrproject/modules/lib/picolibc/zephyr/Kconfig
-/home/tuangaooo/zephyrproject/rbc_r1/boards/rbc_mainboard/Kconfig.rbc_mainboard
-/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts
-/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules
-/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.shield
-/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.shield.defconfig
-/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/arch/Kconfig
-/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/boards/Kconfig
-/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/boards/Kconfig.defconfig
-/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/boards/Kconfig.rbc_mainboard
-/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/soc/Kconfig
-/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/soc/Kconfig.defconfig
-/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/soc/Kconfig.soc
+/home/tuangaooo/zephyrproject/rbc_main_zephyr/boards/rbc_mainboard/Kconfig.rbc_mainboard
+/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts
+/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules
+/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.shield
+/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.shield.defconfig
+/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/arch/Kconfig
+/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/boards/Kconfig
+/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/boards/Kconfig.defconfig
+/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/boards/Kconfig.rbc_mainboard
+/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/soc/Kconfig
+/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/soc/Kconfig.defconfig
+/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/soc/Kconfig.soc
 /home/tuangaooo/zephyrproject/zephyr/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/Kconfig.constants
 /home/tuangaooo/zephyrproject/zephyr/Kconfig.zephyr
@@ -103,6 +103,7 @@
 /home/tuangaooo/zephyrproject/zephyr/arch/arm64/core/cortex_r/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/arch/arm64/core/xen/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/arch/common/Kconfig
+/home/tuangaooo/zephyrproject/zephyr/arch/common/acpi/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/arch/mips/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/arch/openrisc/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/arch/posix/Kconfig
@@ -124,6 +125,8 @@
 /home/tuangaooo/zephyrproject/zephyr/boards/Kconfig.v2
 /home/tuangaooo/zephyrproject/zephyr/boards/Kconfig.whisper
 /home/tuangaooo/zephyrproject/zephyr/boards/shields/abrobot_esp32c3_oled/Kconfig.shield
+/home/tuangaooo/zephyrproject/zephyr/boards/shields/ad_apardpfw_sl/Kconfig.defconfig
+/home/tuangaooo/zephyrproject/zephyr/boards/shields/ad_apardpfw_sl/Kconfig.shield
 /home/tuangaooo/zephyrproject/zephyr/boards/shields/adafruit_24lc32/Kconfig.shield
 /home/tuangaooo/zephyrproject/zephyr/boards/shields/adafruit_2_8_tft_touch_v2/Kconfig.defconfig
 /home/tuangaooo/zephyrproject/zephyr/boards/shields/adafruit_2_8_tft_touch_v2/Kconfig.shield
@@ -282,6 +285,8 @@
 /home/tuangaooo/zephyrproject/zephyr/boards/shields/nxp_m2_wifi_bt/Kconfig.shield
 /home/tuangaooo/zephyrproject/zephyr/boards/shields/nxp_mx8_dsi_oled1a/Kconfig.defconfig
 /home/tuangaooo/zephyrproject/zephyr/boards/shields/nxp_mx8_dsi_oled1a/Kconfig.shield
+/home/tuangaooo/zephyrproject/zephyr/boards/shields/nxp_mx9_dsi_oled/Kconfig.defconfig
+/home/tuangaooo/zephyrproject/zephyr/boards/shields/nxp_mx9_dsi_oled/Kconfig.shield
 /home/tuangaooo/zephyrproject/zephyr/boards/shields/nxp_s32k5xx_mb/Kconfig.shield
 /home/tuangaooo/zephyrproject/zephyr/boards/shields/olimex_shield_midi/Kconfig.shield
 /home/tuangaooo/zephyrproject/zephyr/boards/shields/openthread_rcp_arduino/Kconfig.defconfig
@@ -319,6 +324,7 @@
 /home/tuangaooo/zephyrproject/zephyr/boards/shields/rtkmipilcdb00000be/boards/ek_ra8p1_r7ka8p1kflcac_cm85.defconfig
 /home/tuangaooo/zephyrproject/zephyr/boards/shields/seeed_w5500/Kconfig.defconfig
 /home/tuangaooo/zephyrproject/zephyr/boards/shields/seeed_w5500/Kconfig.shield
+/home/tuangaooo/zephyrproject/zephyr/boards/shields/seeed_xiao_cob_led/Kconfig.shield
 /home/tuangaooo/zephyrproject/zephyr/boards/shields/seeed_xiao_expansion_board/Kconfig.defconfig
 /home/tuangaooo/zephyrproject/zephyr/boards/shields/seeed_xiao_expansion_board/Kconfig.shield
 /home/tuangaooo/zephyrproject/zephyr/boards/shields/seeed_xiao_hsp24/Kconfig.shield
@@ -379,6 +385,8 @@
 /home/tuangaooo/zephyrproject/zephyr/boards/shields/x_nucleo_eeprma2/Kconfig.shield
 /home/tuangaooo/zephyrproject/zephyr/boards/shields/x_nucleo_gfx01m2/Kconfig.defconfig
 /home/tuangaooo/zephyrproject/zephyr/boards/shields/x_nucleo_gfx01m2/Kconfig.shield
+/home/tuangaooo/zephyrproject/zephyr/boards/shields/x_nucleo_gnss1a1/Kconfig.defconfig
+/home/tuangaooo/zephyrproject/zephyr/boards/shields/x_nucleo_gnss1a1/Kconfig.shield
 /home/tuangaooo/zephyrproject/zephyr/boards/shields/x_nucleo_idb05a1/Kconfig.defconfig
 /home/tuangaooo/zephyrproject/zephyr/boards/shields/x_nucleo_idb05a1/Kconfig.shield
 /home/tuangaooo/zephyrproject/zephyr/boards/shields/x_nucleo_iks01a1/Kconfig.shield
@@ -435,6 +443,7 @@
 /home/tuangaooo/zephyrproject/zephyr/drivers/adc/Kconfig.mcp3221
 /home/tuangaooo/zephyrproject/zephyr/drivers/adc/Kconfig.mcp356xr
 /home/tuangaooo/zephyrproject/zephyr/drivers/adc/Kconfig.mcux
+/home/tuangaooo/zephyrproject/zephyr/drivers/adc/Kconfig.mspm0
 /home/tuangaooo/zephyrproject/zephyr/drivers/adc/Kconfig.npcx
 /home/tuangaooo/zephyrproject/zephyr/drivers/adc/Kconfig.nrfx
 /home/tuangaooo/zephyrproject/zephyr/drivers/adc/Kconfig.numaker
@@ -464,12 +473,13 @@
 /home/tuangaooo/zephyrproject/zephyr/drivers/audio/Kconfig.dmic_ambiq_pdm
 /home/tuangaooo/zephyrproject/zephyr/drivers/audio/Kconfig.dmic_infineon
 /home/tuangaooo/zephyrproject/zephyr/drivers/audio/Kconfig.dmic_mcux
+/home/tuangaooo/zephyrproject/zephyr/drivers/audio/Kconfig.dmic_mpxxdtyy
 /home/tuangaooo/zephyrproject/zephyr/drivers/audio/Kconfig.dmic_nxp_micfil
 /home/tuangaooo/zephyrproject/zephyr/drivers/audio/Kconfig.dmic_pdm_nrfx
 /home/tuangaooo/zephyrproject/zephyr/drivers/audio/Kconfig.max98091
-/home/tuangaooo/zephyrproject/zephyr/drivers/audio/Kconfig.mpxxdtyy
 /home/tuangaooo/zephyrproject/zephyr/drivers/audio/Kconfig.pcm1681
 /home/tuangaooo/zephyrproject/zephyr/drivers/audio/Kconfig.sf32lb
+/home/tuangaooo/zephyrproject/zephyr/drivers/audio/Kconfig.tas2563
 /home/tuangaooo/zephyrproject/zephyr/drivers/audio/Kconfig.tas6422dac
 /home/tuangaooo/zephyrproject/zephyr/drivers/audio/Kconfig.tlv320aic3110
 /home/tuangaooo/zephyrproject/zephyr/drivers/audio/Kconfig.tlv320dac
@@ -543,6 +553,7 @@
 /home/tuangaooo/zephyrproject/zephyr/drivers/can/Kconfig.xmc4xxx
 /home/tuangaooo/zephyrproject/zephyr/drivers/can/transceiver/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/charger/Kconfig
+/home/tuangaooo/zephyrproject/zephyr/drivers/charger/Kconfig.adp5360
 /home/tuangaooo/zephyrproject/zephyr/drivers/charger/Kconfig.axp2101
 /home/tuangaooo/zephyrproject/zephyr/drivers/charger/Kconfig.bq24190
 /home/tuangaooo/zephyrproject/zephyr/drivers/charger/Kconfig.bq2518x
@@ -553,6 +564,7 @@
 /home/tuangaooo/zephyrproject/zephyr/drivers/charger/Kconfig.pca9422
 /home/tuangaooo/zephyrproject/zephyr/drivers/charger/Kconfig.pf1550
 /home/tuangaooo/zephyrproject/zephyr/drivers/charger/Kconfig.sbs_charger
+/home/tuangaooo/zephyrproject/zephyr/drivers/charger/Kconfig.sy6974b
 /home/tuangaooo/zephyrproject/zephyr/drivers/clock_control/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/clock_control/Kconfig.agilex5
 /home/tuangaooo/zephyrproject/zephyr/drivers/clock_control/Kconfig.alif
@@ -608,6 +620,7 @@
 /home/tuangaooo/zephyrproject/zephyr/drivers/comparator/Kconfig.it51xxx_vcmp
 /home/tuangaooo/zephyrproject/zephyr/drivers/comparator/Kconfig.mchp
 /home/tuangaooo/zephyrproject/zephyr/drivers/comparator/Kconfig.mcux_acmp
+/home/tuangaooo/zephyrproject/zephyr/drivers/comparator/Kconfig.mspm0_comp
 /home/tuangaooo/zephyrproject/zephyr/drivers/comparator/Kconfig.nrf_comp
 /home/tuangaooo/zephyrproject/zephyr/drivers/comparator/Kconfig.nrf_lpcomp
 /home/tuangaooo/zephyrproject/zephyr/drivers/comparator/Kconfig.nxp_acomp
@@ -700,6 +713,7 @@
 /home/tuangaooo/zephyrproject/zephyr/drivers/crypto/Kconfig.it8xxx2
 /home/tuangaooo/zephyrproject/zephyr/drivers/crypto/Kconfig.mchp
 /home/tuangaooo/zephyrproject/zephyr/drivers/crypto/Kconfig.mcux_dcp
+/home/tuangaooo/zephyrproject/zephyr/drivers/crypto/Kconfig.mspm0
 /home/tuangaooo/zephyrproject/zephyr/drivers/crypto/Kconfig.npcx
 /home/tuangaooo/zephyrproject/zephyr/drivers/crypto/Kconfig.nrf_ecb
 /home/tuangaooo/zephyrproject/zephyr/drivers/crypto/Kconfig.nxp_s32_hse
@@ -737,6 +751,7 @@
 /home/tuangaooo/zephyrproject/zephyr/drivers/dac/Kconfig.stm32
 /home/tuangaooo/zephyrproject/zephyr/drivers/dac/Kconfig.test
 /home/tuangaooo/zephyrproject/zephyr/drivers/dai/Kconfig
+/home/tuangaooo/zephyrproject/zephyr/drivers/dai/amd/sdw/Kconfig.acp_sdw_dai
 /home/tuangaooo/zephyrproject/zephyr/drivers/dai/intel/alh/Kconfig.alh
 /home/tuangaooo/zephyrproject/zephyr/drivers/dai/intel/dmic/Kconfig.dmic
 /home/tuangaooo/zephyrproject/zephyr/drivers/dai/intel/hda/Kconfig.hda
@@ -760,6 +775,7 @@
 /home/tuangaooo/zephyrproject/zephyr/drivers/display/Kconfig.ac057tc1
 /home/tuangaooo/zephyrproject/zephyr/drivers/display/Kconfig.co5300
 /home/tuangaooo/zephyrproject/zephyr/drivers/display/Kconfig.dummy
+/home/tuangaooo/zephyrproject/zephyr/drivers/display/Kconfig.ed2208_gca
 /home/tuangaooo/zephyrproject/zephyr/drivers/display/Kconfig.gc9x01x
 /home/tuangaooo/zephyrproject/zephyr/drivers/display/Kconfig.hub12
 /home/tuangaooo/zephyrproject/zephyr/drivers/display/Kconfig.hx8379c
@@ -786,6 +802,7 @@
 /home/tuangaooo/zephyrproject/zephyr/drivers/display/Kconfig.rm67162
 /home/tuangaooo/zephyrproject/zephyr/drivers/display/Kconfig.rm67199
 /home/tuangaooo/zephyrproject/zephyr/drivers/display/Kconfig.rm68200
+/home/tuangaooo/zephyrproject/zephyr/drivers/display/Kconfig.rm692c9
 /home/tuangaooo/zephyrproject/zephyr/drivers/display/Kconfig.sdl
 /home/tuangaooo/zephyrproject/zephyr/drivers/display/Kconfig.sh1122
 /home/tuangaooo/zephyrproject/zephyr/drivers/display/Kconfig.ssd1306
@@ -808,6 +825,8 @@
 /home/tuangaooo/zephyrproject/zephyr/drivers/display/Kconfig.uc81xx
 /home/tuangaooo/zephyrproject/zephyr/drivers/display/Kconfig.waveshare_dsi2dpi
 /home/tuangaooo/zephyrproject/zephyr/drivers/dma/Kconfig
+/home/tuangaooo/zephyrproject/zephyr/drivers/dma/Kconfig.acp_host
+/home/tuangaooo/zephyrproject/zephyr/drivers/dma/Kconfig.acp_sdw
 /home/tuangaooo/zephyrproject/zephyr/drivers/dma/Kconfig.andes_atcdmacx00
 /home/tuangaooo/zephyrproject/zephyr/drivers/dma/Kconfig.bflb
 /home/tuangaooo/zephyrproject/zephyr/drivers/dma/Kconfig.dma_pl330
@@ -832,6 +851,7 @@
 /home/tuangaooo/zephyrproject/zephyr/drivers/dma/Kconfig.npcx
 /home/tuangaooo/zephyrproject/zephyr/drivers/dma/Kconfig.nxp_4ch_dma
 /home/tuangaooo/zephyrproject/zephyr/drivers/dma/Kconfig.nxp_edma
+/home/tuangaooo/zephyrproject/zephyr/drivers/dma/Kconfig.nxp_gdma
 /home/tuangaooo/zephyrproject/zephyr/drivers/dma/Kconfig.nxp_sdma
 /home/tuangaooo/zephyrproject/zephyr/drivers/dma/Kconfig.nxp_sof_host_dma
 /home/tuangaooo/zephyrproject/zephyr/drivers/dma/Kconfig.renesas_ra
@@ -947,6 +967,7 @@
 /home/tuangaooo/zephyrproject/zephyr/drivers/ethernet/mdio/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/ethernet/mdio/Kconfig.adin2111
 /home/tuangaooo/zephyrproject/zephyr/drivers/ethernet/mdio/Kconfig.dwcxgmac
+/home/tuangaooo/zephyrproject/zephyr/drivers/ethernet/mdio/Kconfig.dwmac
 /home/tuangaooo/zephyrproject/zephyr/drivers/ethernet/mdio/Kconfig.esp32
 /home/tuangaooo/zephyrproject/zephyr/drivers/ethernet/mdio/Kconfig.gpio
 /home/tuangaooo/zephyrproject/zephyr/drivers/ethernet/mdio/Kconfig.intel_igc
@@ -1043,6 +1064,7 @@
 /home/tuangaooo/zephyrproject/zephyr/drivers/fpga/Kconfig.slg471x5
 /home/tuangaooo/zephyrproject/zephyr/drivers/fpga/Kconfig.zynqmp
 /home/tuangaooo/zephyrproject/zephyr/drivers/fuel_gauge/Kconfig
+/home/tuangaooo/zephyrproject/zephyr/drivers/fuel_gauge/adp5360/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/fuel_gauge/axp2101/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/fuel_gauge/bq27z746/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/fuel_gauge/bq40z50/Kconfig
@@ -1331,6 +1353,7 @@
 /home/tuangaooo/zephyrproject/zephyr/drivers/input/Kconfig.ch9350l
 /home/tuangaooo/zephyrproject/zephyr/drivers/input/Kconfig.chsc5x
 /home/tuangaooo/zephyrproject/zephyr/drivers/input/Kconfig.chsc6x
+/home/tuangaooo/zephyrproject/zephyr/drivers/input/Kconfig.crsf
 /home/tuangaooo/zephyrproject/zephyr/drivers/input/Kconfig.cst8xx
 /home/tuangaooo/zephyrproject/zephyr/drivers/input/Kconfig.cy8cmbr3xxx
 /home/tuangaooo/zephyrproject/zephyr/drivers/input/Kconfig.esp32
@@ -1368,6 +1391,7 @@
 /home/tuangaooo/zephyrproject/zephyr/drivers/input/Kconfig.xec
 /home/tuangaooo/zephyrproject/zephyr/drivers/input/Kconfig.xpt2046
 /home/tuangaooo/zephyrproject/zephyr/drivers/interrupt_controller/Kconfig
+/home/tuangaooo/zephyrproject/zephyr/drivers/interrupt_controller/Kconfig.acp
 /home/tuangaooo/zephyrproject/zephyr/drivers/interrupt_controller/Kconfig.cavs
 /home/tuangaooo/zephyrproject/zephyr/drivers/interrupt_controller/Kconfig.clic
 /home/tuangaooo/zephyrproject/zephyr/drivers/interrupt_controller/Kconfig.dw
@@ -1480,12 +1504,14 @@
 /home/tuangaooo/zephyrproject/zephyr/drivers/memc/Kconfig.stm32
 /home/tuangaooo/zephyrproject/zephyr/drivers/mfd/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/mfd/Kconfig.ad559x
+/home/tuangaooo/zephyrproject/zephyr/drivers/mfd/Kconfig.adp5360
 /home/tuangaooo/zephyrproject/zephyr/drivers/mfd/Kconfig.adp5585
 /home/tuangaooo/zephyrproject/zephyr/drivers/mfd/Kconfig.aw9523b
 /home/tuangaooo/zephyrproject/zephyr/drivers/mfd/Kconfig.axp192
 /home/tuangaooo/zephyrproject/zephyr/drivers/mfd/Kconfig.axp2101
 /home/tuangaooo/zephyrproject/zephyr/drivers/mfd/Kconfig.bd8lb600fs
 /home/tuangaooo/zephyrproject/zephyr/drivers/mfd/Kconfig.ds3231
+/home/tuangaooo/zephyrproject/zephyr/drivers/mfd/Kconfig.infineon_autanalog
 /home/tuangaooo/zephyrproject/zephyr/drivers/mfd/Kconfig.it8801
 /home/tuangaooo/zephyrproject/zephyr/drivers/mfd/Kconfig.lpflexcomm
 /home/tuangaooo/zephyrproject/zephyr/drivers/mfd/Kconfig.max20335
@@ -1545,8 +1571,6 @@
 /home/tuangaooo/zephyrproject/zephyr/drivers/misc/renesas_rx_dtc/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/misc/renesas_rx_external_interrupt/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/misc/stm32n6_axisram/Kconfig
-/home/tuangaooo/zephyrproject/zephyr/drivers/misc/timeaware_gpio/Kconfig
-/home/tuangaooo/zephyrproject/zephyr/drivers/misc/timeaware_gpio/Kconfig.timeaware_gpio_intel
 /home/tuangaooo/zephyrproject/zephyr/drivers/mm/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/modem/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/modem/Kconfig.at_shell
@@ -1578,6 +1602,7 @@
 /home/tuangaooo/zephyrproject/zephyr/drivers/pcie/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/pcie/controller/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/pcie/controller/Kconfig.brcmstb
+/home/tuangaooo/zephyrproject/zephyr/drivers/pcie/controller/Kconfig.ecam
 /home/tuangaooo/zephyrproject/zephyr/drivers/pcie/endpoint/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/pcie/endpoint/Kconfig.iproc
 /home/tuangaooo/zephyrproject/zephyr/drivers/pcie/host/Kconfig
@@ -1665,7 +1690,9 @@
 /home/tuangaooo/zephyrproject/zephyr/drivers/pwm/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/pwm/Kconfig.ambiq_timer
 /home/tuangaooo/zephyrproject/zephyr/drivers/pwm/Kconfig.b91
+/home/tuangaooo/zephyrproject/zephyr/drivers/pwm/Kconfig.bee
 /home/tuangaooo/zephyrproject/zephyr/drivers/pwm/Kconfig.bflb
+/home/tuangaooo/zephyrproject/zephyr/drivers/pwm/Kconfig.bitbang
 /home/tuangaooo/zephyrproject/zephyr/drivers/pwm/Kconfig.cc13xx_cc26xx_timer
 /home/tuangaooo/zephyrproject/zephyr/drivers/pwm/Kconfig.cc23x0_timer
 /home/tuangaooo/zephyrproject/zephyr/drivers/pwm/Kconfig.ene
@@ -1734,6 +1761,7 @@
 /home/tuangaooo/zephyrproject/zephyr/drivers/regulator/Kconfig.max20335
 /home/tuangaooo/zephyrproject/zephyr/drivers/regulator/Kconfig.modulino_latch_relay
 /home/tuangaooo/zephyrproject/zephyr/drivers/regulator/Kconfig.mpm54304
+/home/tuangaooo/zephyrproject/zephyr/drivers/regulator/Kconfig.mspm0
 /home/tuangaooo/zephyrproject/zephyr/drivers/regulator/Kconfig.npm10xx
 /home/tuangaooo/zephyrproject/zephyr/drivers/regulator/Kconfig.npm1100
 /home/tuangaooo/zephyrproject/zephyr/drivers/regulator/Kconfig.npm13xx
@@ -1773,6 +1801,7 @@
 /home/tuangaooo/zephyrproject/zephyr/drivers/rtc/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/rtc/Kconfig.am1805
 /home/tuangaooo/zephyrproject/zephyr/drivers/rtc/Kconfig.ambiq
+/home/tuangaooo/zephyrproject/zephyr/drivers/rtc/Kconfig.ameba
 /home/tuangaooo/zephyrproject/zephyr/drivers/rtc/Kconfig.bq32002
 /home/tuangaooo/zephyrproject/zephyr/drivers/rtc/Kconfig.counter
 /home/tuangaooo/zephyrproject/zephyr/drivers/rtc/Kconfig.ds1302
@@ -1786,8 +1815,10 @@
 /home/tuangaooo/zephyrproject/zephyr/drivers/rtc/Kconfig.max31331
 /home/tuangaooo/zephyrproject/zephyr/drivers/rtc/Kconfig.mc146818
 /home/tuangaooo/zephyrproject/zephyr/drivers/rtc/Kconfig.mchp
+/home/tuangaooo/zephyrproject/zephyr/drivers/rtc/Kconfig.mchp_xec
 /home/tuangaooo/zephyrproject/zephyr/drivers/rtc/Kconfig.numaker
 /home/tuangaooo/zephyrproject/zephyr/drivers/rtc/Kconfig.nxp_irtc
+/home/tuangaooo/zephyrproject/zephyr/drivers/rtc/Kconfig.nxp_rtc_analog
 /home/tuangaooo/zephyrproject/zephyr/drivers/rtc/Kconfig.pcf2123
 /home/tuangaooo/zephyrproject/zephyr/drivers/rtc/Kconfig.pcf85063a
 /home/tuangaooo/zephyrproject/zephyr/drivers/rtc/Kconfig.pcf8523
@@ -1867,6 +1898,8 @@
 /home/tuangaooo/zephyrproject/zephyr/drivers/sensor/asahi_kasei/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/sensor/asahi_kasei/ak8975/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/sensor/asahi_kasei/akm09918c/Kconfig
+/home/tuangaooo/zephyrproject/zephyr/drivers/sensor/bflb/Kconfig
+/home/tuangaooo/zephyrproject/zephyr/drivers/sensor/bflb/bflb_tsen/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/sensor/bosch/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/sensor/bosch/bma280/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/sensor/bosch/bma4xx/Kconfig
@@ -1885,7 +1918,10 @@
 /home/tuangaooo/zephyrproject/zephyr/drivers/sensor/bosch/bmp581/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/sensor/broadcom/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/sensor/broadcom/afbr_s50/Kconfig
+/home/tuangaooo/zephyrproject/zephyr/drivers/sensor/cht8315/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/sensor/current_amp/Kconfig
+/home/tuangaooo/zephyrproject/zephyr/drivers/sensor/ene/Kconfig
+/home/tuangaooo/zephyrproject/zephyr/drivers/sensor/ene/kb106x/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/sensor/ene_tach_kb1200/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/sensor/ens160/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/sensor/espressif/Kconfig
@@ -1950,6 +1986,7 @@
 /home/tuangaooo/zephyrproject/zephyr/drivers/sensor/microchip/mcp9600/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/sensor/microchip/mcp970x/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/sensor/microchip/mtch9010/Kconfig
+/home/tuangaooo/zephyrproject/zephyr/drivers/sensor/microchip/pac194x/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/sensor/microchip/tcn75a/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/sensor/nct75/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/sensor/nordic/Kconfig
@@ -1996,6 +2033,7 @@
 /home/tuangaooo/zephyrproject/zephyr/drivers/sensor/qst/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/sensor/qst/qmi8658a/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/sensor/realtek/Kconfig
+/home/tuangaooo/zephyrproject/zephyr/drivers/sensor/realtek/qdec_bee/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/sensor/realtek/rts5912/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/sensor/renesas/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/sensor/renesas/hs300x/Kconfig
@@ -2087,6 +2125,7 @@
 /home/tuangaooo/zephyrproject/zephyr/drivers/sensor/th02/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/sensor/ti/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/sensor/ti/bq274xx/Kconfig
+/home/tuangaooo/zephyrproject/zephyr/drivers/sensor/ti/fdc1004/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/sensor/ti/fdc2x1x/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/sensor/ti/ina219/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/sensor/ti/ina2xx/Kconfig
@@ -2246,6 +2285,7 @@
 /home/tuangaooo/zephyrproject/zephyr/drivers/spi/Kconfig.mcux_ecspi
 /home/tuangaooo/zephyrproject/zephyr/drivers/spi/Kconfig.mcux_flexcomm
 /home/tuangaooo/zephyrproject/zephyr/drivers/spi/Kconfig.mcux_flexio
+/home/tuangaooo/zephyrproject/zephyr/drivers/spi/Kconfig.mspm0
 /home/tuangaooo/zephyrproject/zephyr/drivers/spi/Kconfig.npcx
 /home/tuangaooo/zephyrproject/zephyr/drivers/spi/Kconfig.nrfx
 /home/tuangaooo/zephyrproject/zephyr/drivers/spi/Kconfig.numaker
@@ -2305,6 +2345,8 @@
 /home/tuangaooo/zephyrproject/zephyr/drivers/syscon/Kconfig.bflb_efuse
 /home/tuangaooo/zephyrproject/zephyr/drivers/tee/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/tee/optee/Kconfig
+/home/tuangaooo/zephyrproject/zephyr/drivers/timeaware_gpio/Kconfig
+/home/tuangaooo/zephyrproject/zephyr/drivers/timeaware_gpio/Kconfig.intel
 /home/tuangaooo/zephyrproject/zephyr/drivers/timer/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/drivers/timer/Kconfig.ambiq
 /home/tuangaooo/zephyrproject/zephyr/drivers/timer/Kconfig.arcv2
@@ -2522,7 +2564,6 @@
 /home/tuangaooo/zephyrproject/zephyr/kernel/userspace/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/kernel/userspace/Kconfig.mem_domain
 /home/tuangaooo/zephyrproject/zephyr/lib/Kconfig
-/home/tuangaooo/zephyrproject/zephyr/lib/acpi/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/lib/cpp/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/lib/hash/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/lib/hash/Kconfig.hash_func
@@ -2538,6 +2579,7 @@
 /home/tuangaooo/zephyrproject/zephyr/lib/min_heap/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/lib/net_buf/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/lib/os/Kconfig
+/home/tuangaooo/zephyrproject/zephyr/lib/os/Kconfig.atomics
 /home/tuangaooo/zephyrproject/zephyr/lib/os/Kconfig.cbprintf
 /home/tuangaooo/zephyrproject/zephyr/lib/os/cpu_load/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/lib/os/zvfs/Kconfig
@@ -2570,7 +2612,6 @@
 /home/tuangaooo/zephyrproject/zephyr/modules/Kconfig.wurthelektronik
 /home/tuangaooo/zephyrproject/zephyr/modules/Kconfig.xtensa
 /home/tuangaooo/zephyrproject/zephyr/modules/acpica/Kconfig
-/home/tuangaooo/zephyrproject/zephyr/modules/canopennode/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/modules/cmsis-dsp/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/modules/cmsis-nn/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/modules/cmsis/Kconfig
@@ -2599,6 +2640,7 @@
 /home/tuangaooo/zephyrproject/zephyr/modules/hal_nxp/mcux/Kconfig.mcux
 /home/tuangaooo/zephyrproject/zephyr/modules/hal_nxp/s32/Kconfig.nxp_s32
 /home/tuangaooo/zephyrproject/zephyr/modules/hal_realtek/Kconfig
+/home/tuangaooo/zephyrproject/zephyr/modules/hal_realtek/ameba/Kconfig.ameba
 /home/tuangaooo/zephyrproject/zephyr/modules/hal_realtek/bee/Kconfig.bee
 /home/tuangaooo/zephyrproject/zephyr/modules/hal_rpi_pico/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/modules/hal_sifli/Kconfig
@@ -2635,7 +2677,6 @@
 /home/tuangaooo/zephyrproject/zephyr/modules/percepio/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/modules/segger/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/modules/tflite-micro/Kconfig
-/home/tuangaooo/zephyrproject/zephyr/modules/thrift/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/modules/trusted-firmware-a/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/modules/trusted-firmware-m/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/modules/trusted-firmware-m/Kconfig.tfm
@@ -2715,6 +2756,9 @@
 /home/tuangaooo/zephyrproject/zephyr/soc/amd/acp_6_0/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/soc/amd/acp_6_0/Kconfig.defconfig
 /home/tuangaooo/zephyrproject/zephyr/soc/amd/acp_6_0/Kconfig.soc
+/home/tuangaooo/zephyrproject/zephyr/soc/amd/acp_7_0/Kconfig
+/home/tuangaooo/zephyrproject/zephyr/soc/amd/acp_7_0/Kconfig.defconfig
+/home/tuangaooo/zephyrproject/zephyr/soc/amd/acp_7_0/Kconfig.soc
 /home/tuangaooo/zephyrproject/zephyr/soc/andestech/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/soc/andestech/Kconfig.defconfig
 /home/tuangaooo/zephyrproject/zephyr/soc/andestech/Kconfig.soc
@@ -2850,6 +2894,9 @@
 /home/tuangaooo/zephyrproject/zephyr/soc/bflb/bl70xl/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/soc/bflb/bl70xl/Kconfig.defconfig
 /home/tuangaooo/zephyrproject/zephyr/soc/bflb/bl70xl/Kconfig.soc
+/home/tuangaooo/zephyrproject/zephyr/soc/bflb/bl808/Kconfig
+/home/tuangaooo/zephyrproject/zephyr/soc/bflb/bl808/Kconfig.defconfig
+/home/tuangaooo/zephyrproject/zephyr/soc/bflb/bl808/Kconfig.soc
 /home/tuangaooo/zephyrproject/zephyr/soc/blackberry/qnxhv_vm/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/soc/blackberry/qnxhv_vm/Kconfig.defconfig
 /home/tuangaooo/zephyrproject/zephyr/soc/blackberry/qnxhv_vm/Kconfig.soc
@@ -3148,6 +3195,9 @@
 /home/tuangaooo/zephyrproject/zephyr/soc/ite/ec/it8xxx2/Kconfig.defconfig.it82302bw
 /home/tuangaooo/zephyrproject/zephyr/soc/ite/ec/it8xxx2/Kconfig.defconfig.series
 /home/tuangaooo/zephyrproject/zephyr/soc/ite/ec/it8xxx2/Kconfig.soc
+/home/tuangaooo/zephyrproject/zephyr/soc/litex/Kconfig
+/home/tuangaooo/zephyrproject/zephyr/soc/litex/Kconfig.defconfig
+/home/tuangaooo/zephyrproject/zephyr/soc/litex/Kconfig.soc
 /home/tuangaooo/zephyrproject/zephyr/soc/litex/litex_vexriscv/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/soc/litex/litex_vexriscv/Kconfig.defconfig
 /home/tuangaooo/zephyrproject/zephyr/soc/litex/litex_vexriscv/Kconfig.soc
@@ -3249,6 +3299,7 @@
 /home/tuangaooo/zephyrproject/zephyr/soc/nordic/common/Kconfig.tfm
 /home/tuangaooo/zephyrproject/zephyr/soc/nordic/common/uicr/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/soc/nordic/common/uicr/Kconfig.gen_uicr
+/home/tuangaooo/zephyrproject/zephyr/soc/nordic/common/uicr/Kconfig.template.gen_uicr_snapshot_region
 /home/tuangaooo/zephyrproject/zephyr/soc/nordic/common/vpr/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/soc/nordic/common/vpr/Kconfig.defconfig
 /home/tuangaooo/zephyrproject/zephyr/soc/nordic/nrf51/Kconfig
@@ -4117,9 +4168,21 @@
 /home/tuangaooo/zephyrproject/zephyr/soc/ti/k3/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/soc/ti/k3/Kconfig.defconfig
 /home/tuangaooo/zephyrproject/zephyr/soc/ti/k3/Kconfig.soc
-/home/tuangaooo/zephyrproject/zephyr/soc/ti/k3/am6x/Kconfig
-/home/tuangaooo/zephyrproject/zephyr/soc/ti/k3/am6x/Kconfig.defconfig
-/home/tuangaooo/zephyrproject/zephyr/soc/ti/k3/am6x/Kconfig.soc
+/home/tuangaooo/zephyrproject/zephyr/soc/ti/k3/am62lx/Kconfig
+/home/tuangaooo/zephyrproject/zephyr/soc/ti/k3/am62lx/Kconfig.defconfig
+/home/tuangaooo/zephyrproject/zephyr/soc/ti/k3/am62lx/Kconfig.soc
+/home/tuangaooo/zephyrproject/zephyr/soc/ti/k3/am62x/Kconfig
+/home/tuangaooo/zephyrproject/zephyr/soc/ti/k3/am62x/Kconfig.defconfig
+/home/tuangaooo/zephyrproject/zephyr/soc/ti/k3/am62x/Kconfig.soc
+/home/tuangaooo/zephyrproject/zephyr/soc/ti/k3/am64x/Kconfig
+/home/tuangaooo/zephyrproject/zephyr/soc/ti/k3/am64x/Kconfig.defconfig
+/home/tuangaooo/zephyrproject/zephyr/soc/ti/k3/am64x/Kconfig.soc
+/home/tuangaooo/zephyrproject/zephyr/soc/ti/k3/j721e/Kconfig
+/home/tuangaooo/zephyrproject/zephyr/soc/ti/k3/j721e/Kconfig.defconfig
+/home/tuangaooo/zephyrproject/zephyr/soc/ti/k3/j721e/Kconfig.soc
+/home/tuangaooo/zephyrproject/zephyr/soc/ti/k3/j722s/Kconfig
+/home/tuangaooo/zephyrproject/zephyr/soc/ti/k3/j722s/Kconfig.defconfig
+/home/tuangaooo/zephyrproject/zephyr/soc/ti/k3/j722s/Kconfig.soc
 /home/tuangaooo/zephyrproject/zephyr/soc/ti/lm3s6965/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/soc/ti/lm3s6965/Kconfig.defconfig
 /home/tuangaooo/zephyrproject/zephyr/soc/ti/lm3s6965/Kconfig.soc
@@ -4261,7 +4324,6 @@
 /home/tuangaooo/zephyrproject/zephyr/subsys/bluetooth/services/nus/Kconfig.nus
 /home/tuangaooo/zephyrproject/zephyr/subsys/bluetooth/services/ots/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/subsys/canbus/Kconfig
-/home/tuangaooo/zephyrproject/zephyr/subsys/canbus/Kconfig.canopen
 /home/tuangaooo/zephyrproject/zephyr/subsys/canbus/isotp/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/subsys/console/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/subsys/cpu_freq/Kconfig
@@ -4272,9 +4334,6 @@
 /home/tuangaooo/zephyrproject/zephyr/subsys/debug/gdbstub/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/subsys/debug/symtab/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/subsys/debug/thread_analyzer/Kconfig
-/home/tuangaooo/zephyrproject/zephyr/subsys/demand_paging/Kconfig
-/home/tuangaooo/zephyrproject/zephyr/subsys/demand_paging/backing_store/Kconfig
-/home/tuangaooo/zephyrproject/zephyr/subsys/demand_paging/eviction/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/subsys/dfu/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/subsys/disk/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/subsys/dsp/Kconfig
@@ -4341,9 +4400,14 @@
 /home/tuangaooo/zephyrproject/zephyr/subsys/lorawan/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/subsys/lorawan/emul/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/subsys/lorawan/loramac-node/Kconfig
+/home/tuangaooo/zephyrproject/zephyr/subsys/lorawan/native/Kconfig
+/home/tuangaooo/zephyrproject/zephyr/subsys/lorawan/native/region/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/subsys/lorawan/nvm/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/subsys/lorawan/services/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/subsys/mem_mgmt/Kconfig
+/home/tuangaooo/zephyrproject/zephyr/subsys/mem_mgmt/demand_paging/Kconfig
+/home/tuangaooo/zephyrproject/zephyr/subsys/mem_mgmt/demand_paging/backing_store/Kconfig
+/home/tuangaooo/zephyrproject/zephyr/subsys/mem_mgmt/demand_paging/eviction/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/subsys/mgmt/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/subsys/mgmt/ec_host_cmd/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/subsys/mgmt/ec_host_cmd/Kconfig.logging
@@ -4428,6 +4492,7 @@
 /home/tuangaooo/zephyrproject/zephyr/subsys/net/lib/ocpp/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/subsys/net/lib/prometheus/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/subsys/net/lib/ptp/Kconfig
+/home/tuangaooo/zephyrproject/zephyr/subsys/net/lib/quic/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/subsys/net/lib/shell/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/subsys/net/lib/sntp/Kconfig
 /home/tuangaooo/zephyrproject/zephyr/subsys/net/lib/sockets/Kconfig

@@ -75,11 +75,9 @@ osource "$(ZEPHYR_HAL_ESPRESSIF_KCONFIG)"
 config ZEPHYR_HAL_ESPRESSIF_MODULE
 	bool
 	default y
-	select TAINT_BLOBS
 
 config ZEPHYR_HAL_ESPRESSIF_MODULE_BLOBS
 	bool
-	default y
 endmenu
 menu "hal_ethos_u (/home/tuangaooo/zephyrproject/modules/hal/ethos_u)"
 osource "$(ZEPHYR_HAL_ETHOS_U_KCONFIG)"

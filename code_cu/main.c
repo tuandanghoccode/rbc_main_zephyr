@@ -95,7 +95,7 @@ volatile float adc_list[11];
 volatile uint8_t channel=0;
 uint32_t adc;
 uint8_t check_hc12=0;
-uint8_t db=9;
+uint8_t db=10;
 uint8_t pre_check=0, flag_ok=0;
 float X,Y;
 float pii= 3.141592;
@@ -111,6 +111,64 @@ int goc_quay=0;
 float goc_bu=0;
 uint8_t i2c_devices[10];
 uint8_t device_count = 0;
+
+/* --- Speed ramp: tang/giam toc muot (tu Zephyr) --- */
+#define RAMP_STEP 5.0f
+float cur_spd[4] = {100.0f, 100.0f, 100.0f, 100.0f};
+
+float ramp_toward(float current, float target, float step) {
+	if (current < target) {
+		current += step;
+		if (current > target) current = target;
+	} else if (current > target) {
+		current -= step;
+		if (current < target) current = target;
+	}
+	return current;
+}
+
+/* --- Digital Input states (active-low: nhan=0, tha=1) --- */
+uint8_t dig_in[10] = {0};
+
+/* --- Digital Output states --- */
+uint8_t dig_out[12] = {0};
+
+/* Pin mapping cho 12 digital output */
+typedef struct { GPIO_TypeDef *port; uint16_t pin; } GpioPin_t;
+static const GpioPin_t out_pins[12] = {
+	{GPIOB, GPIO_PIN_1},  // o1
+	{GPIOE, GPIO_PIN_7},  // o2
+	{GPIOE, GPIO_PIN_8},  // o3
+	{GPIOE, GPIO_PIN_9},  // o4
+	{GPIOE, GPIO_PIN_10}, // o5
+	{GPIOE, GPIO_PIN_11}, // o6
+	{GPIOE, GPIO_PIN_12}, // o7
+	{GPIOE, GPIO_PIN_13}, // o8
+	{GPIOE, GPIO_PIN_14}, // o9
+	{GPIOE, GPIO_PIN_15}, // o10
+	{GPIOD, GPIO_PIN_14}, // o11
+	{GPIOD, GPIO_PIN_15}, // o12
+};
+
+void Read_Digital_Inputs(void) {
+	dig_in[0] = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_10); // in1
+	dig_in[1] = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_11); // in2
+	dig_in[2] = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_12); // in3
+	dig_in[3] = HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_7);  // in4
+	dig_in[4] = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_4);  // in5
+	dig_in[5] = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_5);  // in6
+	dig_in[6] = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_8);  // in7
+	dig_in[7] = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_9);  // in8
+	dig_in[8] = HAL_GPIO_ReadPin(GPIOE, GPIO_PIN_0);  // in9
+	dig_in[9] = HAL_GPIO_ReadPin(GPIOE, GPIO_PIN_10); // in10
+}
+
+void Write_Digital_Outputs(void) {
+	for (int i = 0; i < 12; i++) {
+		HAL_GPIO_WritePin(out_pins[i].port, out_pins[i].pin,
+				dig_out[i] ? GPIO_PIN_SET : GPIO_PIN_RESET);
+	}
+}
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -245,38 +303,76 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	}
 	if (htim->Instance == TIM1) {
 		Read_IMU();
+		Read_Digital_Inputs();
 
-		if(rx_hc12[2]==8){
-			goc_bu-=0.5;
+		uint8_t btn3 = rx_hc12[2];
+		uint8_t btn2 = rx_hc12[3];
 
+		if(flag_ok == 0) { /* === CONNECTED === */
+
+			/* --- THO THUT LEN XUONG voi limit switch --- */
+			/* Active-low: dig_in[x]==0 khi cham limit, ==1 khi chua cham */
+			if (btn3 == 12 && dig_in[4] == 1 && dig_in[2] == 1) {
+				TxData[0] = 150; TxData[1] = 0;     // UP + THO
+			} else if (btn3 == 3 && dig_in[1] == 1 && dig_in[3] == 1) {
+				TxData[0] = 50;  TxData[1] = 200;   // DN + THUT
+			} else if (btn3 == 4 && dig_in[4] == 1) {
+				TxData[0] = 200; TxData[1] = 100;   // THO
+			} else if (btn3 == 1 && dig_in[3] == 1) {
+				TxData[0] = 0;   TxData[1] = 100;   // THUT
+			} else if (btn3 == 8 && dig_in[2] == 1) {
+				TxData[0] = 100; TxData[1] = 0;     // LEN
+			} else if (btn3 == 2 && dig_in[1] == 1) {
+				TxData[0] = 100; TxData[1] = 200;   // XUONG
+			} else {
+				TxData[0] = 100; TxData[1] = 100;   // DUNG
+			}
+
+			/* --- Huong di chuyen (btn2) --- */
+			if(btn2 == 4) add_rad += pii/4;
+			else if(btn2 == 2) add_rad -= pii/4;
+
+			rad_dh += (add_rad - rad_dh) * 0.1;
+
+			/* --- Goc quay (clamp +-20) --- */
+			goc_quay = BNO055.goc_tong[0] + goc_bu - (int)(rad_dh/pii*180);
+			if(goc_quay > 20) goc_quay = 20;
+			else if(goc_quay < -20) goc_quay = -20;
+
+			/* --- Dong hoc mecanum 4 banh --- */
+			float goc_rad = ((goc_quay + BNO055.goc_tong[0] + goc_bu) * pii) / 180;
+			float target[4];
+			target[0] = X*sin(goc_rad-pi4)  + Y*cos(goc_rad-pi4)  + 100 + goc_quay;
+			target[1] = X*sin(goc_rad+pi4)  + Y*cos(goc_rad+pi4)  + 100 + goc_quay;
+			target[2] = X*sin(goc_rad+pi34) + Y*cos(goc_rad+pi34) + 100 + goc_quay;
+			target[3] = X*sin(goc_rad-pi34) + Y*cos(goc_rad-pi34) + 100 + goc_quay;
+
+			/* --- Speed ramp: tang/giam toc muot --- */
+			for (int i = 0; i < 4; i++) {
+				cur_spd[i] = ramp_toward(cur_spd[i], target[i], RAMP_STEP);
+				TxData[2+i] = Chuan_hoa(cur_spd[i]);
+			}
+
+		} else { /* === MAT KET NOI === */
+			TxData[0] = 100;
+			TxData[1] = 100;
+			/* Ramp ve 100 (neutral) - van muot */
+			for (int i = 0; i < 4; i++) {
+				cur_spd[i] = ramp_toward(cur_spd[i], 100.0f, RAMP_STEP);
+				TxData[2+i] = Chuan_hoa(cur_spd[i]);
+			}
+			goc_quay = 0;
+			add_rad = 0;
+			rad_dh = 0;
+			rx_hc12[2] = 0; /* reset btn */
+			rx_hc12[3] = 0;
+			TxData[7] = 100;
 		}
-		else if(rx_hc12[2]==4){
-			goc_bu+=0.5;
-		}
-		else{
-
-//			if(rx_hc12[2]!=pre_bt3){
-				if(rx_hc12[2]==16)add_rad=0;
-				else if(rx_hc12[2]==32) add_rad=2*pi4;
-				else if(rx_hc12[2]==64) add_rad=pii;
-				else if(rx_hc12[2]==128) add_rad=-2*pi4;
-//			}
-			pre_bt3=rx_hc12[4];
-			rad_dh+=(add_rad-rad_dh)*0.1;
-//			else if(add_rad<rad_dh) rad_dh-=add_rad*0.1;
-
-			goc_quay=BNO055.goc_tong[0]+goc_bu - (int)(rad_dh/pii*180);
-
-			if(goc_quay>20) goc_quay=20;
-			else if(goc_quay<-20)goc_quay=-20;
-			float goc_rad = ((goc_quay+BNO055.goc_tong[0]+goc_bu) * pii) / 180 ;
-			TxData[2]=Chuan_hoa( X*sin(goc_rad+pi34) + Y*cos(goc_rad+pi34)+100) + goc_quay;
-			TxData[3]=Chuan_hoa( X*sin(goc_rad-pi34) + Y*cos(goc_rad-pi34)+100) +goc_quay;
-			TxData[4]=Chuan_hoa(X*sin(goc_rad-pi4) + Y*cos(goc_rad-pi4)+100) +goc_quay;
-			TxData[5]=Chuan_hoa(X*sin(goc_rad+pi4) + Y*cos(goc_rad+pi4)+100) + goc_quay;
-		}
-		TxData[6]=db;
+		TxData[6] = (flag_ok == 0) ? db : 0;
 		HAL_CAN_AddTxMessage(&hcan1, &TxHeader, TxData, &TxMailbox);
+
+		/* --- Ghi digital output --- */
+		Write_Digital_Outputs();
 	}
 }
 void I2C1_Scan(void) {
@@ -492,10 +588,17 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-  	SetServoAngle_1(0, 90);
-  	HAL_Delay(3000);
-  	SetServoAngle_1(0, 0);
-  	HAL_Delay(3000);
+  	/* --- DEBUG INPUT --- 
+  	 * Ban mo "Live Expressions" trong STM32CubeIDE va add bien `dig_in` 
+  	 * de xem mang 10 phan tu thay doi khi nhan/tha cong tac hanh trinh.
+  	 */
+  	Read_Digital_Inputs();
+  	HAL_Delay(50);
+  	
+  	// SetServoAngle_1(0, 90);
+  	// HAL_Delay(3000);
+  	// SetServoAngle_1(0, 0);
+  	// HAL_Delay(3000);
 
   }
   /* USER CODE END 3 */
@@ -1227,75 +1330,30 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOD, o11_Pin|o12_Pin|MH_RST_Pin|MH_CS_Pin
                           |MH_DC_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : in5_Pin in6_Pin btn1_Pin btn2_Pin
-                           in3_Pin in4_Pin */
-  GPIO_InitStruct.Pin = in5_Pin|in6_Pin|btn1_Pin|btn2_Pin
-                          |in3_Pin|in4_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : led_pc13_Pin led_pc14_Pin led_pc15_Pin PC4
-                           PC5 */
-  GPIO_InitStruct.Pin = led_pc13_Pin|led_pc14_Pin|led_pc15_Pin|GPIO_PIN_4
-                          |GPIO_PIN_5;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : in7_Pin in8_Pin in9_Pin in10_Pin */
-  GPIO_InitStruct.Pin = in7_Pin|in8_Pin|in9_Pin|in10_Pin;
+  /* === NEW: Digital Inputs voi chan moi === */
+  /* in1(PC10), in2(PC11), in3(PC12) */
+  GPIO_InitStruct.Pin = GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : s0_Pin s1_Pin s2_Pin s3_Pin */
-  GPIO_InitStruct.Pin = s0_Pin|s1_Pin|s2_Pin|s3_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  /* in4(PD7) */
+  GPIO_InitStruct.Pin = GPIO_PIN_7;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : PB0 o1_Pin PB2 PB12
-                           PB13 */
-  GPIO_InitStruct.Pin = GPIO_PIN_0|o1_Pin|GPIO_PIN_2|GPIO_PIN_12
-                          |GPIO_PIN_13;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : o2_Pin o3_Pin o4_Pin o5_Pin
-                           o6_Pin o7_Pin o8_Pin o9_Pin
-                           o10_Pin */
-  GPIO_InitStruct.Pin = o2_Pin|o3_Pin|o4_Pin|o5_Pin
-                          |o6_Pin|o7_Pin|o8_Pin|o9_Pin
-                          |o10_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : o11_Pin o12_Pin */
-  GPIO_InitStruct.Pin = o11_Pin|o12_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : MH_RST_Pin MH_CS_Pin MH_DC_Pin */
-  GPIO_InitStruct.Pin = MH_RST_Pin|MH_CS_Pin|MH_DC_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : in1_Pin in2_Pin */
-  GPIO_InitStruct.Pin = in1_Pin|in2_Pin;
+  /* in5(PB4), in6(PB5), in7(PB8), in8(PB9) */
+  GPIO_InitStruct.Pin = GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_8 | GPIO_PIN_9;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /* in9(PE0), in10(PE10) + btn1(PE4), btn2(PE5) */
+  GPIO_InitStruct.Pin = GPIO_PIN_0 | GPIO_PIN_10 | GPIO_PIN_4 | GPIO_PIN_5;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
 

@@ -6,8 +6,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      1128
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      1163
     ]
   ],
   [
@@ -17,8 +17,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      1283
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      1318
     ]
   ],
   [
@@ -28,8 +28,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      1538
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      1573
     ]
   ],
   [
@@ -39,8 +39,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      2988
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      3048
     ]
   ],
   [
@@ -50,8 +50,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      3268
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      3328
     ]
   ],
   [
@@ -61,8 +61,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      3273
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      3333
     ]
   ],
   [
@@ -72,8 +72,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      5983
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      6078
     ]
   ],
   [
@@ -83,8 +83,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      12518
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      12673
     ]
   ],
   [
@@ -94,8 +94,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      12923
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      13088
     ]
   ],
   [
@@ -105,8 +105,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      12953
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      13118
     ]
   ],
   [
@@ -116,8 +116,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      12958
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      13123
     ]
   ],
   [
@@ -127,8 +127,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      12978
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      13143
     ]
   ],
   [
@@ -138,19 +138,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      13018
-    ]
-  ],
-  [
-    "CONFIG_DT_HAS_ST_STM32_ETHERNET_CONTROLLER_ENABLED",
-    "n",
-    "bool",
-    "y",
-    "default",
-    [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      13053
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      13183
     ]
   ],
   [
@@ -160,8 +149,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      13058
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      13218
     ]
   ],
   [
@@ -171,8 +160,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      13068
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      13228
     ]
   ],
   [
@@ -182,8 +171,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      13093
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      13253
     ]
   ],
   [
@@ -193,8 +182,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      13103
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      13263
     ]
   ],
   [
@@ -204,8 +193,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      13118
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      13278
     ]
   ],
   [
@@ -215,8 +204,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      13198
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      13358
     ]
   ],
   [
@@ -226,8 +215,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      13203
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      13363
     ]
   ],
   [
@@ -237,8 +226,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      13233
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      13393
     ]
   ],
   [
@@ -248,8 +237,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      13243
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      13403
     ]
   ],
   [
@@ -259,8 +248,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      13248
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      13408
     ]
   ],
   [
@@ -270,8 +259,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      13258
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      13418
     ]
   ],
   [
@@ -281,8 +270,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      13278
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      13438
     ]
   ],
   [
@@ -292,8 +281,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      13283
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      13443
     ]
   ],
   [
@@ -303,8 +292,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      13323
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      13483
     ]
   ],
   [
@@ -314,8 +303,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      13353
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      13513
     ]
   ],
   [
@@ -325,8 +314,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      13363
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      13523
     ]
   ],
   [
@@ -336,8 +325,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      13373
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      13533
     ]
   ],
   [
@@ -347,8 +336,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      13523
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      13683
     ]
   ],
   [
@@ -358,8 +347,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      13528
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      13688
     ]
   ],
   [
@@ -369,8 +358,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      13538
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      13698
     ]
   ],
   [
@@ -380,8 +369,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      13553
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      13713
     ]
   ],
   [
@@ -391,8 +380,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      15193
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      15403
     ]
   ],
   [
@@ -402,8 +391,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      16503
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      16713
     ]
   ],
   [
@@ -413,8 +402,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.dts",
-      16613
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.dts",
+      16828
     ]
   ],
   [
@@ -451,7 +440,7 @@
     "512",
     "assign",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/prj.conf",
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/prj.conf",
       36
     ]
   ],
@@ -471,7 +460,7 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/kernel/Kconfig",
-      560
+      503
     ]
   ],
   [
@@ -481,7 +470,7 @@
     "y",
     "assign",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/prj.conf",
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/prj.conf",
       3
     ]
   ],
@@ -500,7 +489,7 @@
     "y",
     "assign",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/boards/rbc_mainboard/rbc_mainboard_defconfig",
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/boards/rbc_mainboard/rbc_mainboard_defconfig",
       15
     ]
   ],
@@ -511,7 +500,7 @@
     "y",
     "assign",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/boards/rbc_mainboard/rbc_mainboard_defconfig",
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/boards/rbc_mainboard/rbc_mainboard_defconfig",
       10
     ]
   ],
@@ -522,7 +511,7 @@
     "y",
     "assign",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/prj.conf",
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/prj.conf",
       21
     ]
   ],
@@ -557,7 +546,7 @@
     "y",
     "assign",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/prj.conf",
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/prj.conf",
       12
     ]
   ],
@@ -579,6 +568,14 @@
   ],
   [
     "CONFIG_SPI_STM32_DMA",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_GNSS",
     "y",
     "bool",
     null,
@@ -711,7 +708,7 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/kernel/Kconfig",
-      782
+      701
     ]
   ],
   [
@@ -802,7 +799,7 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/arch/Kconfig",
-      536
+      535
     ]
   ],
   [
@@ -858,7 +855,7 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/kernel/Kconfig",
-      1018
+      937
     ]
   ],
   [
@@ -974,7 +971,7 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/arch/Kconfig",
-      551
+      550
     ]
   ],
   [
@@ -1012,7 +1009,7 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/kernel/Kconfig",
-      642
+      561
     ]
   ],
   [
@@ -1034,7 +1031,7 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/kernel/Kconfig",
-      818
+      737
     ]
   ],
   [
@@ -1092,7 +1089,7 @@
     "y",
     "assign",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/boards/rbc_mainboard/rbc_mainboard_defconfig",
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/boards/rbc_mainboard/rbc_mainboard_defconfig",
       7
     ]
   ],
@@ -1135,7 +1132,7 @@
     "n",
     "assign",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/prj.conf",
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/prj.conf",
       47
     ]
   ],
@@ -1165,7 +1162,7 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/arch/Kconfig",
-      609
+      635
     ]
   ],
   [
@@ -1196,6 +1193,14 @@
     ]
   ],
   [
+    "CONFIG_PINCTRL_KEEP_SLEEP_STATE",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
     "CONFIG_SYSCON",
     "y",
     "bool",
@@ -1220,7 +1225,7 @@
     "y",
     "assign",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/boards/rbc_mainboard/rbc_mainboard_defconfig",
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/boards/rbc_mainboard/rbc_mainboard_defconfig",
       11
     ]
   ],
@@ -1251,7 +1256,7 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/arch/Kconfig",
-      598
+      597
     ]
   ],
   [
@@ -1270,7 +1275,7 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/arch/Kconfig",
-      619
+      645
     ]
   ],
   [
@@ -1292,7 +1297,7 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/arch/Kconfig",
-      563
+      562
     ]
   ],
   [
@@ -1303,7 +1308,7 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/arch/Kconfig",
-      496
+      495
     ]
   ],
   [
@@ -1322,7 +1327,7 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/kernel/Kconfig",
-      724
+      643
     ]
   ],
   [
@@ -1372,16 +1377,6 @@
     null
   ],
   [
-    "CONFIG_TAINT_BLOBS",
-    "n",
-    "bool",
-    "y",
-    "select",
-    [
-      "ZEPHYR_HAL_ESPRESSIF_MODULE"
-    ]
-  ],
-  [
     "CONFIG_ACPI",
     "y",
     "bool",
@@ -1396,7 +1391,7 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
       5
     ]
   ],
@@ -1407,7 +1402,7 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
       11
     ]
   ],
@@ -1429,7 +1424,7 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
       17
     ]
   ],
@@ -1448,7 +1443,7 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
       23
     ]
   ],
@@ -1467,7 +1462,7 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
       29
     ]
   ],
@@ -1496,7 +1491,7 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
       35
     ]
   ],
@@ -1507,7 +1502,7 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
       41
     ]
   ],
@@ -1518,7 +1513,7 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
       45
     ]
   ],
@@ -1529,7 +1524,7 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
       50
     ]
   ],
@@ -1540,7 +1535,7 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
       59
     ]
   ],
@@ -1551,7 +1546,7 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
       63
     ]
   ],
@@ -1562,7 +1557,7 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
       68
     ]
   ],
@@ -1573,19 +1568,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
       77
-    ]
-  ],
-  [
-    "CONFIG_ZEPHYR_HAL_ESPRESSIF_MODULE_BLOBS",
-    "n",
-    "bool",
-    "y",
-    "default",
-    [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      82
     ]
   ],
   [
@@ -1603,8 +1587,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      88
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      86
     ]
   ],
   [
@@ -1614,8 +1598,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      94
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      92
     ]
   ],
   [
@@ -1625,8 +1609,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      100
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      98
     ]
   ],
   [
@@ -1644,8 +1628,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      109
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      107
     ]
   ],
   [
@@ -1655,8 +1639,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      113
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      111
     ]
   ],
   [
@@ -1666,8 +1650,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      118
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      116
     ]
   ],
   [
@@ -1677,8 +1661,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      125
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      123
     ]
   ],
   [
@@ -1688,8 +1672,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      130
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      128
     ]
   ],
   [
@@ -1699,8 +1683,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      137
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      135
     ]
   ],
   [
@@ -1710,8 +1694,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      140
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      138
     ]
   ],
   [
@@ -1721,8 +1705,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      145
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      143
     ]
   ],
   [
@@ -1940,8 +1924,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      152
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      150
     ]
   ],
   [
@@ -1951,8 +1935,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      160
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      158
     ]
   ],
   [
@@ -1962,8 +1946,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      166
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      164
     ]
   ],
   [
@@ -1973,8 +1957,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      175
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      173
     ]
   ],
   [
@@ -1984,8 +1968,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      184
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      182
     ]
   ],
   [
@@ -1995,8 +1979,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      188
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      186
     ]
   ],
   [
@@ -2006,8 +1990,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      196
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      194
     ]
   ],
   [
@@ -2025,8 +2009,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      202
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      200
     ]
   ],
   [
@@ -2036,8 +2020,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      206
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      204
     ]
   ],
   [
@@ -2047,8 +2031,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      211
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      209
     ]
   ],
   [
@@ -2058,8 +2042,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      215
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      213
     ]
   ],
   [
@@ -2069,8 +2053,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      218
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      216
     ]
   ],
   [
@@ -2088,8 +2072,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      223
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      221
     ]
   ],
   [
@@ -2099,8 +2083,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      229
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      227
     ]
   ],
   [
@@ -2110,8 +2094,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      233
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      231
     ]
   ],
   [
@@ -2121,8 +2105,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      236
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      234
     ]
   ],
   [
@@ -2132,8 +2116,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      241
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      239
     ]
   ],
   [
@@ -2151,8 +2135,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      247
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      245
     ]
   ],
   [
@@ -2162,8 +2146,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      253
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      251
     ]
   ],
   [
@@ -2173,8 +2157,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      259
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      257
     ]
   ],
   [
@@ -2192,8 +2176,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      265
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      263
     ]
   ],
   [
@@ -2203,8 +2187,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      271
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      269
     ]
   ],
   [
@@ -2241,8 +2225,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      275
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      273
     ]
   ],
   [
@@ -2252,8 +2236,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      278
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      276
     ]
   ],
   [
@@ -2263,8 +2247,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      281
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      279
     ]
   ],
   [
@@ -2274,8 +2258,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      284
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      282
     ]
   ],
   [
@@ -2285,8 +2269,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      289
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      287
     ]
   ],
   [
@@ -2304,8 +2288,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      295
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      293
     ]
   ],
   [
@@ -2323,8 +2307,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      302
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      300
     ]
   ],
   [
@@ -2342,8 +2326,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      307
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      305
     ]
   ],
   [
@@ -2361,8 +2345,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      313
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      311
     ]
   ],
   [
@@ -2380,8 +2364,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      319
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      317
     ]
   ],
   [
@@ -2391,8 +2375,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      323
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      321
     ]
   ],
   [
@@ -2402,8 +2386,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      328
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      326
     ]
   ],
   [
@@ -2431,8 +2415,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      332
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      330
     ]
   ],
   [
@@ -2442,8 +2426,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      335
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      333
     ]
   ],
   [
@@ -2453,8 +2437,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      340
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      338
     ]
   ],
   [
@@ -2472,8 +2456,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      346
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      344
     ]
   ],
   [
@@ -2483,8 +2467,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      352
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      350
     ]
   ],
   [
@@ -2494,8 +2478,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      358
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      356
     ]
   ],
   [
@@ -2513,8 +2497,8 @@
     "y",
     "default",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/build/Kconfig/Kconfig.modules",
-      362
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/Kconfig/Kconfig.modules",
+      360
     ]
   ],
   [
@@ -3315,7 +3299,7 @@
     "y",
     "assign",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/boards/rbc_mainboard/rbc_mainboard_defconfig",
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/boards/rbc_mainboard/rbc_mainboard_defconfig",
       4
     ]
   ],
@@ -3410,7 +3394,7 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/arch/Kconfig",
-      573
+      572
     ]
   ],
   [
@@ -3421,11 +3405,30 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/arch/Kconfig",
-      581
+      580
     ]
   ],
   [
     "CONFIG_IRQ_VECTOR_TABLE_JUMP_BY_CODE",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_GEN_SW_ISR_TABLE_ARRAY",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "/home/tuangaooo/zephyrproject/zephyr/arch/Kconfig",
+      608
+    ]
+  ],
+  [
+    "CONFIG_GEN_SW_ISR_TABLE_SWITCH",
     "y",
     "bool",
     null,
@@ -3448,7 +3451,7 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/arch/Kconfig",
-      664
+      690
     ]
   ],
   [
@@ -3696,7 +3699,7 @@
     "y",
     "assign",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/prj.conf",
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/prj.conf",
       4
     ]
   ],
@@ -3716,7 +3719,7 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/arch/Kconfig",
-      1247
+      1273
     ]
   ],
   [
@@ -3862,27 +3865,6 @@
     ]
   ],
   [
-    "CONFIG_LIBC_ERRNO",
-    "n",
-    "bool",
-    "y",
-    "select",
-    [
-      "PICOLIBC && THREAD_LOCAL_STORAGE && PICOLIBC_SUPPORTED && <choice LIBC_IMPLEMENTATION>"
-    ]
-  ],
-  [
-    "CONFIG_ERRNO",
-    "y",
-    "bool",
-    "y",
-    "default",
-    [
-      "/home/tuangaooo/zephyrproject/zephyr/kernel/Kconfig",
-      348
-    ]
-  ],
-  [
     "CONFIG_CURRENT_THREAD_USE_TLS",
     "y",
     "bool",
@@ -3890,52 +3872,11 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/kernel/Kconfig",
-      372
+      350
     ]
   ],
   [
     "CONFIG_NONZERO_SPINLOCK_SIZE",
-    "y",
-    "bool",
-    null,
-    "unset",
-    null
-  ],
-  [
-    "CONFIG_BOOT_BANNER",
-    "y",
-    "bool",
-    "y",
-    "default",
-    [
-      "/home/tuangaooo/zephyrproject/zephyr/kernel/Kconfig",
-      408
-    ]
-  ],
-  [
-    "CONFIG_BOOT_BANNER_STRING",
-    "y",
-    "string",
-    "Booting Zephyr OS build",
-    "default",
-    [
-      "/home/tuangaooo/zephyrproject/zephyr/kernel/Kconfig",
-      417
-    ]
-  ],
-  [
-    "CONFIG_BOOT_DELAY",
-    "y",
-    "int",
-    "0",
-    "default",
-    [
-      "/home/tuangaooo/zephyrproject/zephyr/kernel/Kconfig",
-      424
-    ]
-  ],
-  [
-    "CONFIG_BOOT_CLEAR_SCREEN",
     "y",
     "bool",
     null,
@@ -3957,7 +3898,7 @@
     "y",
     "assign",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/prj.conf",
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/prj.conf",
       44
     ]
   ],
@@ -3969,7 +3910,7 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/kernel/Kconfig",
-      455
+      398
     ]
   ],
   [
@@ -4012,7 +3953,7 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/kernel/Kconfig",
-      566
+      509
     ]
   ],
   [
@@ -4031,7 +3972,7 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/kernel/Kconfig",
-      584
+      527
     ]
   ],
   [
@@ -4045,16 +3986,6 @@
     ]
   ],
   [
-    "CONFIG_ATOMIC_OPERATIONS_BUILTIN",
-    "n",
-    "bool",
-    "y",
-    "select",
-    [
-      "ARMV7_M_ARMV8_M_MAINLINE && CPU_CORTEX_M && ARM"
-    ]
-  ],
-  [
     "CONFIG_TIMESLICING",
     "y",
     "bool",
@@ -4062,7 +3993,7 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/kernel/Kconfig",
-      634
+      553
     ]
   ],
   [
@@ -4073,7 +4004,7 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/kernel/Kconfig",
-      653
+      572
     ]
   ],
   [
@@ -4124,7 +4055,7 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/kernel/Kconfig",
-      702
+      621
     ]
   ],
   [
@@ -4142,7 +4073,7 @@
     "2048",
     "assign",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/prj.conf",
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/prj.conf",
       37
     ]
   ],
@@ -4172,7 +4103,7 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/kernel/Kconfig",
-      828
+      747
     ]
   ],
   [
@@ -4183,7 +4114,7 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/kernel/Kconfig",
-      839
+      758
     ]
   ],
   [
@@ -4232,19 +4163,11 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/kernel/Kconfig",
-      1048
+      967
     ]
   ],
   [
     "CONFIG_STATIC_INIT_GNU",
-    "y",
-    "bool",
-    null,
-    "unset",
-    null
-  ],
-  [
-    "CONFIG_BOOTARGS",
     "y",
     "bool",
     null,
@@ -4385,7 +4308,7 @@
     "y",
     "assign",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/prj.conf",
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/prj.conf",
       24
     ]
   ],
@@ -4489,7 +4412,7 @@
     "y",
     "assign",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/prj.conf",
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/prj.conf",
       15
     ]
   ],
@@ -4706,7 +4629,7 @@
     "y",
     "assign",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/boards/rbc_mainboard/rbc_mainboard_defconfig",
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/boards/rbc_mainboard/rbc_mainboard_defconfig",
       12
     ]
   ],
@@ -4911,14 +4834,6 @@
     null
   ],
   [
-    "CONFIG_GNSS",
-    "y",
-    "bool",
-    null,
-    "unset",
-    null
-  ],
-  [
     "CONFIG_GPIO_GET_DIRECTION",
     "y",
     "bool",
@@ -4976,7 +4891,7 @@
     "y",
     "assign",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/prj.conf",
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/prj.conf",
       18
     ]
   ],
@@ -5092,6 +5007,17 @@
     ]
   ],
   [
+    "CONFIG_I2C_STM32_WAIT_BUS_IDLE_TIMEOUT_USEC",
+    "y",
+    "int",
+    "2000",
+    "default",
+    [
+      "/home/tuangaooo/zephyrproject/zephyr/drivers/i2c/Kconfig.stm32",
+      80
+    ]
+  ],
+  [
     "CONFIG_I2C_INIT_PRIORITY",
     "y",
     "int",
@@ -5200,14 +5126,6 @@
     null
   ],
   [
-    "CONFIG_TIMEAWARE_GPIO",
-    "y",
-    "bool",
-    null,
-    "unset",
-    null
-  ],
-  [
     "CONFIG_MM_DRV",
     "y",
     "bool",
@@ -5271,14 +5189,6 @@
   ],
   [
     "CONFIG_PINCTRL_DYNAMIC",
-    "y",
-    "bool",
-    null,
-    "unset",
-    null
-  ],
-  [
-    "CONFIG_PINCTRL_KEEP_SLEEP_STATE",
     "y",
     "bool",
     null,
@@ -5491,14 +5401,6 @@
     null
   ],
   [
-    "CONFIG_UART_PIPE",
-    "y",
-    "bool",
-    null,
-    "unset",
-    null
-  ],
-  [
     "CONFIG_UART_ASYNC_RX_HELPER",
     "y",
     "bool",
@@ -5600,6 +5502,14 @@
   ],
   [
     "CONFIG_STEPPER",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_TIMEAWARE_GPIO",
     "y",
     "bool",
     null,
@@ -6011,6 +5921,27 @@
     null
   ],
   [
+    "CONFIG_LIBC_ERRNO",
+    "n",
+    "bool",
+    "y",
+    "select",
+    [
+      "PICOLIBC && THREAD_LOCAL_STORAGE && PICOLIBC_SUPPORTED && <choice LIBC_IMPLEMENTATION>"
+    ]
+  ],
+  [
+    "CONFIG_ERRNO",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "/home/tuangaooo/zephyrproject/zephyr/lib/libc/common/Kconfig",
+      132
+    ]
+  ],
+  [
     "CONFIG_PICOLIBC_USE_MODULE",
     "y",
     "bool",
@@ -6317,6 +6248,65 @@
     null
   ],
   [
+    "CONFIG_BOOT_BANNER",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "/home/tuangaooo/zephyrproject/zephyr/lib/os/Kconfig",
+      148
+    ]
+  ],
+  [
+    "CONFIG_BOOT_BANNER_STRING",
+    "y",
+    "string",
+    "Booting Zephyr OS build",
+    "default",
+    [
+      "/home/tuangaooo/zephyrproject/zephyr/lib/os/Kconfig",
+      157
+    ]
+  ],
+  [
+    "CONFIG_BOOT_DELAY",
+    "y",
+    "int",
+    "0",
+    "default",
+    [
+      "/home/tuangaooo/zephyrproject/zephyr/lib/os/Kconfig",
+      164
+    ]
+  ],
+  [
+    "CONFIG_BOOT_CLEAR_SCREEN",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_BOOTARGS",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_ATOMIC_OPERATIONS_BUILTIN",
+    "n",
+    "bool",
+    "y",
+    "select",
+    [
+      "ARMV7_M_ARMV8_M_MAINLINE && CPU_CORTEX_M && ARM"
+    ]
+  ],
+  [
     "CONFIG_CBPRINTF_COMPLETE",
     "y",
     "bool",
@@ -6361,7 +6351,7 @@
     "y",
     "assign",
     [
-      "/home/tuangaooo/zephyrproject/rbc_r1/prj.conf",
+      "/home/tuangaooo/zephyrproject/rbc_main_zephyr/prj.conf",
       5
     ]
   ],
@@ -6535,7 +6525,7 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/lib/utils/Kconfig",
-      119
+      118
     ]
   ],
   [
@@ -6564,14 +6554,6 @@
   ],
   [
     "CONFIG_BT",
-    "y",
-    "bool",
-    null,
-    "unset",
-    null
-  ],
-  [
-    "CONFIG_CANOPEN",
     "y",
     "bool",
     null,
@@ -6924,7 +6906,7 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/subsys/mem_mgmt/Kconfig",
-      6
+      8
     ]
   ],
   [
@@ -8035,7 +8017,7 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/Kconfig.zephyr",
-      1064
+      1065
     ]
   ],
   [
@@ -8046,7 +8028,7 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/Kconfig.zephyr",
-      1078
+      1079
     ]
   ],
   [
@@ -8065,7 +8047,7 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/Kconfig.zephyr",
-      1110
+      1111
     ]
   ],
   [
@@ -8087,16 +8069,6 @@
     null
   ],
   [
-    "CONFIG_TAINT",
-    "n",
-    "bool",
-    "y",
-    "select",
-    [
-      "TAINT_BLOBS"
-    ]
-  ],
-  [
     "CONFIG_ENFORCE_ZEPHYR_STDINT",
     "y",
     "bool",
@@ -8104,7 +8076,7 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/Kconfig.zephyr",
-      1146
+      1147
     ]
   ],
   [
@@ -8131,7 +8103,7 @@
     "default",
     [
       "/home/tuangaooo/zephyrproject/zephyr/Kconfig.zephyr",
-      1216
+      1217
     ]
   ]
 ]

@@ -8,7 +8,7 @@
 #include <zephyr/drivers/i2c.h>
 
 /* PCA9685 I2C address (7-bit): 0x40. Trong HAL la 0x80 (shift left 1) */
-#define PCA9685_I2C_ADDRESS_1  0x80  /* Giu de tuong thich, Zephyr se >> 1 */
+#define PCA9685_I2C_ADDRESS_1  0x82  /* 8-bit addr (7-bit = 0x41), A0=HIGH */
 #define FREQUENCY_OSCILLATOR   25000000
 
 #define MODE1_RESTART  0x80

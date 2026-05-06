@@ -20,6 +20,8 @@
 
 #define K_SYSCALL_DRIVER_SHARED_IRQ(ptr, op) K_SYSCALL_DRIVER_GEN(ptr, op, shared_irq, SHARED_IRQ)
 
+#define K_SYSCALL_DRIVER_DMIC(ptr, op) K_SYSCALL_DRIVER_GEN(ptr, op, dmic, DMIC)
+
 #define K_SYSCALL_DRIVER_CRYPTO(ptr, op) K_SYSCALL_DRIVER_GEN(ptr, op, crypto, CRYPTO)
 
 #define K_SYSCALL_DRIVER_AUXDISPLAY(ptr, op) K_SYSCALL_DRIVER_GEN(ptr, op, auxdisplay, AUXDISPLAY)
@@ -132,6 +134,8 @@
 
 #define K_SYSCALL_DRIVER_TEE(ptr, op) K_SYSCALL_DRIVER_GEN(ptr, op, tee, TEE)
 
+#define K_SYSCALL_DRIVER_TGPIO(ptr, op) K_SYSCALL_DRIVER_GEN(ptr, op, tgpio, TGPIO)
+
 #define K_SYSCALL_DRIVER_UAOL(ptr, op) K_SYSCALL_DRIVER_GEN(ptr, op, uaol, UAOL)
 
 #define K_SYSCALL_DRIVER_VIDEO(ptr, op) K_SYSCALL_DRIVER_GEN(ptr, op, video, VIDEO)
@@ -155,8 +159,6 @@
 #define K_SYSCALL_DRIVER_VTD(ptr, op) K_SYSCALL_DRIVER_GEN(ptr, op, vtd, VTD)
 
 #define K_SYSCALL_DRIVER_RENESAS_ELC(ptr, op) K_SYSCALL_DRIVER_GEN(ptr, op, renesas_elc, RENESAS_ELC)
-
-#define K_SYSCALL_DRIVER_TGPIO(ptr, op) K_SYSCALL_DRIVER_GEN(ptr, op, tgpio, TGPIO)
 
 #define K_SYSCALL_DRIVER_PCIE_CTRL(ptr, op) K_SYSCALL_DRIVER_GEN(ptr, op, pcie_ctrl, PCIE_CTRL)
 

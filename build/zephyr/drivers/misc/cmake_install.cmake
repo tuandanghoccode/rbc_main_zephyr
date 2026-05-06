@@ -39,6 +39,6 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/tuangaooo/zephyrproject/rbc_r1/build/zephyr/drivers/misc/interconn/cmake_install.cmake")
+  include("/home/tuangaooo/zephyrproject/rbc_main_zephyr/build/zephyr/drivers/misc/interconn/cmake_install.cmake")
 endif()
 

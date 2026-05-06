@@ -80,52 +80,52 @@
 		compatible = "gpio-keys";
 
 		in1: input_1 {
-			gpios = <&gpiob 8 GPIO_ACTIVE_HIGH>;
+			gpios = <&gpioc 10 GPIO_ACTIVE_LOW>;
 			label = "IN1";
 			zephyr,code = <INPUT_KEY_2>;
 		};
 		in2: input_2 {
-			gpios = <&gpiob 9 GPIO_ACTIVE_HIGH>;
+			gpios = <&gpioc 11 GPIO_ACTIVE_LOW>;	
 			label = "IN2";
 			zephyr,code = <INPUT_KEY_3>;
 		};
 		in3: input_3 {
-			gpios = <&gpioe 0 GPIO_ACTIVE_HIGH>;
+			gpios = <&gpioc 12 GPIO_ACTIVE_LOW>;
 			label = "IN3";
 			zephyr,code = <INPUT_KEY_4>;
 		};
 		in4: input_4 {
-			gpios = <&gpioe 1 GPIO_ACTIVE_HIGH>;
+			gpios = <&gpiod 7 GPIO_ACTIVE_LOW>;
 			label = "IN4";
 			zephyr,code = <INPUT_KEY_5>;
 		};
 		in5: input_5 {
-			gpios = <&gpioe 2 GPIO_ACTIVE_HIGH>;
+			gpios = <&gpiob 4 GPIO_ACTIVE_LOW>;
 			label = "IN5";
 			zephyr,code = <INPUT_KEY_6>;
 		};
 		in6: input_6 {
-			gpios = <&gpioe 3 GPIO_ACTIVE_HIGH>;
+			gpios = <&gpiob 5 GPIO_ACTIVE_LOW>;
 			label = "IN6";
 			zephyr,code = <INPUT_KEY_7>;
 		};
 		in7: input_7 {
-			gpios = <&gpioc 0 GPIO_ACTIVE_HIGH>;
+			gpios = <&gpiob 8 GPIO_ACTIVE_LOW>;
 			label = "IN7";
 			zephyr,code = <INPUT_KEY_8>;
 		};
 		in8: input_8 {
-			gpios = <&gpioc 1 GPIO_ACTIVE_HIGH>;
+			gpios = <&gpiob 9 GPIO_ACTIVE_LOW>;
 			label = "IN8";
 			zephyr,code = <INPUT_KEY_9>;
 		};
 		in9: input_9 {
-			gpios = <&gpioc 2 GPIO_ACTIVE_HIGH>;
+			gpios = <&gpioe 0 GPIO_ACTIVE_LOW>;
 			label = "IN9";
 			zephyr,code = <INPUT_KEY_A>;
 		};
 		in10: input_10 {
-			gpios = <&gpioc 3 GPIO_ACTIVE_HIGH>;
+			gpios = <&gpioe 1 GPIO_ACTIVE_LOW>;
 			label = "IN10";
 			zephyr,code = <INPUT_KEY_B>;
 		};
@@ -157,8 +157,8 @@
 		o8:  out_8  { gpios = <&gpioe 13 GPIO_ACTIVE_LOW>; label = "O8"; };
 		o9:  out_9  { gpios = <&gpioe 14 GPIO_ACTIVE_LOW>; label = "O9"; };
 		o10: out_10 { gpios = <&gpioe 15 GPIO_ACTIVE_LOW>; label = "O10";};
-		o11: out_11 { gpios = <&gpiod 14 GPIO_ACTIVE_LOW>; label = "O11";};
-		o12: out_12 { gpios = <&gpiod 15 GPIO_ACTIVE_LOW>; label = "O12";};
+		o11: out_11 { gpios = <&gpioc 3 GPIO_ACTIVE_LOW>; label = "O11";};
+		o12: out_12 { gpios = <&gpioe 2 GPIO_ACTIVE_LOW>; label = "O12";};
 
 		/* Misc outputs */
 		out_pb0:  misc_pb0  { gpios = <&gpiob 0 GPIO_ACTIVE_HIGH>;  label = "PB0 OUT"; };

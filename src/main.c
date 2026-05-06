@@ -124,9 +124,11 @@ static const struct gpio_dt_spec btn2 =
 #define ADC_STACK_SIZE 512
 #define TELEM_STACK_SIZE 1024
 #define TEST_OUT_STACK_SIZE 512
+#define SERVO_STACK_SIZE 1024
 
 #define CTRL_THREAD_PRIO 2
 #define WATCHDOG_THREAD_PRIO 6
+#define SERVO_THREAD_PRIO 7
 #define ADC_THREAD_PRIO 8
 #define TELEM_THREAD_PRIO 10
 #define TEST_OUT_THREAD_PRIO 12
@@ -136,12 +138,14 @@ K_THREAD_STACK_DEFINE(watchdog_stack, WATCHDOG_STACK_SIZE);
 K_THREAD_STACK_DEFINE(adc_stack, ADC_STACK_SIZE);
 K_THREAD_STACK_DEFINE(telem_stack, TELEM_STACK_SIZE);
 K_THREAD_STACK_DEFINE(test_out_stack, TEST_OUT_STACK_SIZE);
+K_THREAD_STACK_DEFINE(servo_stack, SERVO_STACK_SIZE);
 
 static struct k_thread ctrl_thread_data;
 static struct k_thread watchdog_thread_data;
 static struct k_thread adc_thread_data;
 static struct k_thread telem_thread_data;
 static struct k_thread test_out_thread_data;
+static struct k_thread servo_thread_data;
 
 /* ================================================================
  *  Semaphores - timer ISR wake threads (do tre thap nhat)
@@ -150,6 +154,7 @@ K_SEM_DEFINE(ctrl_sem, 0, 1);
 K_SEM_DEFINE(watchdog_sem, 0, 1);
 K_SEM_DEFINE(adc_sem, 0, 1);
 K_SEM_DEFINE(telem_sem, 0, 1);
+K_SEM_DEFINE(servo_sem, 0, 1);
 
 /* ================================================================
  *  Timers - chi goi k_sem_give (ISR-safe, khong queue overhead)
@@ -158,6 +163,7 @@ static struct k_timer ctrl_timer;
 static struct k_timer watchdog_timer;
 static struct k_timer adc_timer;
 static struct k_timer telem_timer;
+static struct k_timer servo_timer;
 
 static void ctrl_timer_expiry(struct k_timer *t) {
   k_sem_give(&ctrl_sem); /* wake ctrl_thread ngay lap tuc */
@@ -171,6 +177,10 @@ static void adc_timer_expiry(struct k_timer *t) { k_sem_give(&adc_sem); }
 
 static void telem_timer_expiry(struct k_timer *t) {
   k_sem_give(&telem_sem); /* 10Hz telemetry wake */
+}
+
+static void servo_timer_expiry(struct k_timer *t) {
+  k_sem_give(&servo_sem); /* 50Hz servo update */
 }
 
 /* ================================================================
@@ -250,6 +260,13 @@ typedef struct {
     volatile uint8_t states[12];
   } dig_out;
 
+  /* --- Servo control --- */
+  struct {
+    volatile uint8_t channel;
+    volatile float angle;
+    volatile uint8_t state;  /* 0=idle, 1=OUT1+servo90, 2=OUT2+servo0 */
+  } servo;
+
 } Ctrl_Output_t;
 
 static Ctrl_Output_t out = {
@@ -266,6 +283,7 @@ static Ctrl_Output_t out = {
     .db = 10,
     .cur_spd = {100.0f, 100.0f, 100.0f, 100.0f},
     .dig_out = {.states = {0}},
+    .servo = {.channel = 0, .angle = 0.0f, .state = 0},
 };
 
 /* ================================================================
@@ -304,6 +322,11 @@ static inline uint16_t AngleToPWM(uint8_t angle) {
     angle = 180;
   return (uint16_t)(SERVOMIN +
                     ((uint32_t)angle * (SERVOMAX - SERVOMIN) / 180U));
+}
+
+void SetServoAngle_1(uint8_t num, float angle) {
+  uint16_t pwmValue = AngleToPWM((uint8_t)angle);
+  PCA9685_SetPWM_Z(&pca_i2c, pca_i2c.addr, num, 0, pwmValue);
 }
 
 static inline void MUX_Channel(uint8_t ch) {
@@ -364,7 +387,8 @@ static void ctrl_thread_fn(void *p1, void *p2, void *p3) {
 
     /* --- Doc trang thai cac input --- */
     for (int i = 0; i < 10; i++) {
-      atomic_set(&inp.dig_in.states[i], gpio_pin_get_dt(&dig_in_pins[i]));
+      int val = gpio_pin_get_dt(&dig_in_pins[i]);
+      atomic_set(&inp.dig_in.states[i], val);
     }
 
     if (imu_ok) {
@@ -381,24 +405,24 @@ static void ctrl_thread_fn(void *p1, void *p2, void *p3) {
       float Y = (float)atomic_get(&inp.hc12.y10) / 10.0f;
 
       // THO THUT + LEN XUONG
-      if (btn3 == 12 && atomic_get(&inp.dig_in.states[4]) == 0 &&
-          atomic_get(&inp.dig_in.states[2]) == 0) { // UP + THO (8|4)
+      if (btn3 == 12 && atomic_get(&inp.dig_in.states[3]) == 0 &&
+          atomic_get(&inp.dig_in.states[1]) == 0) { // UP + THO (8|4)
         out.can_tx.data[0] = 150;
         out.can_tx.data[1] = 0;
-      } else if (btn3 == 3 && atomic_get(&inp.dig_in.states[1]) == 0 &&
-                 atomic_get(&inp.dig_in.states[3]) == 0) { // DN + THUT (2|1)
+      } else if (btn3 == 3 && atomic_get(&inp.dig_in.states[0]) == 0 &&
+                 atomic_get(&inp.dig_in.states[2]) == 0) { // DN + THUT (2|1)
         out.can_tx.data[0] = 50;
         out.can_tx.data[1] = 200;
-      } else if (btn3 == 4 && atomic_get(&inp.dig_in.states[4]) == 0) { // THO
+      } else if (btn3 == 4 && atomic_get(&inp.dig_in.states[3]) == 1) { // THO
         out.can_tx.data[0] = 200;
         out.can_tx.data[1] = 100;
-      } else if (btn3 == 1 && atomic_get(&inp.dig_in.states[3]) == 0) { // THUT
+      } else if (btn3 == 1 && atomic_get(&inp.dig_in.states[2]) == 1) { // THUT
         out.can_tx.data[0] = 0;
         out.can_tx.data[1] = 100;
-      } else if (btn3 == 8 && atomic_get(&inp.dig_in.states[2]) == 0) { // LEN
+      } else if (btn3 == 8 && atomic_get(&inp.dig_in.states[1]) == 1) { // LEN
         out.can_tx.data[0] = 100;
         out.can_tx.data[1] = 0;
-      } else if (btn3 == 2 && atomic_get(&inp.dig_in.states[1]) == 0) { // XUONG
+      } else if (btn3 == 2 && atomic_get(&inp.dig_in.states[0]) == 1) { // XUONG
         out.can_tx.data[0] = 100;
         out.can_tx.data[1] = 200;
       } else {
@@ -406,24 +430,26 @@ static void ctrl_thread_fn(void *p1, void *p2, void *p3) {
         out.can_tx.data[1] = 100;
       }
 
-      if (btn2 == 4)
-        out.add_rad += pii / 4;
-      // else if (btn3 == 32)
-      //   out.add_rad = 2.0f * pi4;
-      else if (btn2 == 2)
-        out.add_rad -= pii / 4;
-      // else if (btn3 == 128)
-      //   out.add_rad = -2.0f * pi4;
-      (void)btn2; /* reserved */
+      /* --- Quay robot: edge detection, 45 do moi lan nhan --- */
+      {
+        static uint8_t prev_btn2_ctrl = 0;
+        if (btn2 != prev_btn2_ctrl) {
+          if (btn2 == 4)
+            out.add_rad += pii / 4;   /* +45 do */
+          else if (btn2 == 2)
+            out.add_rad -= pii / 4;   /* -45 do */
+        }
+        prev_btn2_ctrl = btn2;
+      }
 
-      out.rad_dh += (out.add_rad - out.rad_dh) * 0.1f;
+      out.rad_dh = out.add_rad;  /* dat huong tuc thi, goc_quay clamp +-20 da limit toc do */
 
       out.goc_quay = inp.imu.goc_tong[0] + (int)out.goc_bu -
                      (int)(out.rad_dh / pii * 180.0f);
-      if (out.goc_quay > 20)
-        out.goc_quay = 20;
-      if (out.goc_quay < -20)
-        out.goc_quay = -20;
+      if (out.goc_quay > 45)
+        out.goc_quay = 45;
+      if (out.goc_quay < -45)
+        out.goc_quay = -45;
 
       float goc_rad =
           ((out.goc_quay + inp.imu.goc_tong[0] + out.goc_bu) * pii) / 180.0f;
@@ -486,6 +512,7 @@ static void ctrl_thread_fn(void *p1, void *p2, void *p3) {
       */
 
       out.can_tx.data[6] = out.db;
+      out.can_tx.data[7] = 100; /* Toc do dong co ID7, 100 = dung yen */
 
       // TxData[2]=Chuan_hoa(X*sin(goc_rad-pi4) + Y*cos(goc_rad-pi4)+100 +
       // goc_quay); TxData[3]=Chuan_hoa(X*sin(goc_rad+pi4) +
@@ -519,9 +546,13 @@ static void ctrl_thread_fn(void *p1, void *p2, void *p3) {
 
     /* CAN TX - non-blocking (K_NO_WAIT), khong doi ACK */
     can_send(can1_dev, &out.can_tx, K_NO_WAIT, NULL, NULL);
+
+    /* Update Digital Outputs */
     for (int i = 0; i < 12; i++) {
       gpio_pin_set_dt(&dig_out_pins[i], out.dig_out.states[i] ? 1 : 0);
     }
+
+    /* Servo duoc dieu khien boi servo_thread rieng, khong update o day */
   }
 }
 
@@ -623,11 +654,12 @@ static void telem_thread_fn(void *p1, void *p2, void *p3) {
     int hdg = inp.imu.goc_ht[0]; /* heading 0-359 */
 
     /* Integer print: nhanh hon snprintf float 10-50x */
-    int len = snprintf(buf, sizeof(buf), "$%d.%d,%d.%d,%d,%d,%d,%d,%d,%d\n",
+    int len = snprintf(buf, sizeof(buf), "$%d.%d,%d.%d,%d,%d,%d,%d,%d,%d,%d,%d\n",
                        x10 / 10, (x10 < 0 ? -x10 : x10) % 10, y10 / 10,
                        (y10 < 0 ? -y10 : y10) % 10, hdg, out.can_tx.data[2],
                        out.can_tx.data[3], out.can_tx.data[4],
-                       out.can_tx.data[5], conn ? 1 : 0);
+                       out.can_tx.data[5], conn ? 1 : 0, 
+                       out.servo.channel, (int)out.servo.angle);
 
     if (len > 0 && len < (int)sizeof(buf)) {
       uart2_send_str(buf);
@@ -636,28 +668,84 @@ static void telem_thread_fn(void *p1, void *p2, void *p3) {
 }
 
 /* ================================================================
- *  test_out_thread - priority 12
- *  Dung de test debug: Gan 1 vao tung chan dig_out roi tat
+ *  servo_thread - 50Hz, priority 7
+ *  Dieu khien servo tren PCA9685 (I2C2) + Digital Output
+ *
+ *  Logic toggle bang btn2 (HC12):
+ *    btn2==8 lan 1: OUT1 (o1) ON,  servo -> 90 do
+ *    btn2==8 lan 2: OUT2 (o2) ON, OUT1 OFF, servo -> 0 do
+ *    Lap lai (toggle giua 2 trang thai)
+ *
+ *  Edge detection: chi toggle khi btn2 chuyen tu !=8 sang ==8
+ *  Ramp: servo di chuyen muot (2 do/cycle = ~1.8s full range)
  * ================================================================ */
-static void test_out_thread_fn(void *p1, void *p2, void *p3) {
+static void servo_thread_fn(void *p1, void *p2, void *p3) {
   ARG_UNUSED(p1);
   ARG_UNUSED(p2);
   ARG_UNUSED(p3);
 
+  uint8_t prev_btn2 = 0;      /* gia tri btn2 cycle truoc (edge detect) */
+  float target_angle = 0.0f;  /* goc dich hien tai */
+  const float SERVO_SPEED = 2.0f; /* do/cycle, 50Hz -> ~1.8s full sweep */
+
   while (1) {
-    /* Bat tung chan dig_out len 1 de kiem tra */
-    for (int i = 0; i < 12; i++) {
-      out.dig_out.states[i] = 1;
-      gpio_pin_set_dt(&dig_out_pins[i], 1); /* Ghi truc tiep ra chan GPIO */
-      k_msleep(50);                         /* Sang 1 giay */
+    k_sem_take(&servo_sem, K_FOREVER);
+
+    if (!device_is_ready(pca_i2c.bus)) {
+      continue;
     }
-    for (int i = 11; i >= 0; i--) {
-      out.dig_out.states[i] = 0;
-      gpio_pin_set_dt(&dig_out_pins[i], 0); /* Tat chan GPIO */
-      k_msleep(50); /* Nghi 0.5 giay truoc khi sang chan tiep theo */
+
+    /* Doc btn2 tu HC12 */
+    uint8_t btn2_val = (uint8_t)atomic_get(&inp.hc12.btn2);
+
+    /* Edge detection: chi xu ly khi btn2 CHUYEN sang 8 (rising edge) */
+    if (btn2_val == 8 && prev_btn2 != 8) {
+      if (out.servo.state == 0 || out.servo.state == 2) {
+        /* -> Trang thai 1: OUT1 ON, servo 90 do */
+        out.servo.state = 1;
+        out.dig_out.states[0] = 1;  /* OUT1 (o1) ON */
+        out.dig_out.states[1] = 0;  /* OUT2 (o2) OFF */
+        target_angle = 90.0f;
+      } else {
+        /* -> Trang thai 2: OUT2 ON, OUT1 OFF, servo 0 do */
+        out.servo.state = 2;
+        out.dig_out.states[0] = 0;  /* OUT1 (o1) OFF */
+        out.dig_out.states[1] = 1;  /* OUT2 (o2) ON */
+        target_angle = 0.0f;
+      }
     }
+    prev_btn2 = btn2_val;
+
+    /* Ramp goc hien tai den goc dich (muot, khong giat) */
+    out.servo.angle = ramp_toward(out.servo.angle, target_angle, SERVO_SPEED);
+
+    /* Ghi ra PCA9685 */
+    SetServoAngle_1(out.servo.channel, out.servo.angle);
   }
 }
+
+/* ================================================================
+ *  test_out_thread - priority 12
+ *  Dung de test debug: Gan 1 vao tung chan dig_out roi tat
+ * ================================================================ */
+// static void test_out_thread_fn(void *p1, void *p2, void *p3) {
+//   ARG_UNUSED(p1);
+//   ARG_UNUSED(p2);
+//   ARG_UNUSED(p3);
+//   while (1) {
+//     /* Bat tung chan dig_out len 1 de kiem tra */
+//     for (int i = 0; i < 12; i++) {
+//       out.dig_out.states[i] = 1;
+//       gpio_pin_set_dt(&dig_out_pins[i], 1); /* Ghi truc tiep ra chan GPIO */
+//       k_msleep(50);                         /* Sang 1 giay */
+//     }
+//     for (int i = 11; i >= 0; i--) {
+//       out.dig_out.states[i] = 0;
+//       gpio_pin_set_dt(&dig_out_pins[i], 0); /* Tat chan GPIO */
+//       k_msleep(50); /* Nghi 0.5 giay truoc khi sang chan tiep theo */
+//     }
+//   }
+// }
 
 /* ================================================================
  *  UART3 IRQ callback - HC12
@@ -707,7 +795,6 @@ static void uart3_irq_cb(const struct device *dev, void *user_data) {
 //   ARG_UNUSED(p1);
 //   ARG_UNUSED(p2);
 //   ARG_UNUSED(p3);
-
 //   while (1) {
 //     int sensor_val = gpio_pin_get_dt(&dig_in_pins[1]);
 //     if (sensor_val == 1) {
@@ -715,7 +802,6 @@ static void uart3_irq_cb(const struct device *dev, void *user_data) {
 //     } else {
 //       inp.sw_en = 0;
 //     }
-
 //   }
 // }
 
@@ -731,11 +817,17 @@ int main(void) {
   if (device_is_ready(btn2.port)) {
     gpio_pin_configure_dt(&btn2, GPIO_INPUT);
   }
+  
   for (int i = 0; i < 10; i++) {
-    if (device_is_ready(dig_in_pins[i].port)) {
-      gpio_pin_configure_dt(&dig_in_pins[i], GPIO_INPUT | GPIO_PULL_DOWN);
+    if (!device_is_ready(dig_in_pins[i].port)) {
+      // printf("ERROR: Port for IN%d not ready!\n", i + 1);
+    }
+    int err = gpio_pin_configure_dt(&dig_in_pins[i], GPIO_INPUT);
+    if (err < 0) {
+      // printf("ERROR: Failed to config IN%d (err %d)\n", i + 1, err);
     }
   }
+
   /* --- Digital Outputs --- */
   for (int i = 0; i < 12; i++) {
     if (device_is_ready(dig_out_pins[i].port)) {
@@ -795,7 +887,6 @@ int main(void) {
   if (device_is_ready(bno_i2c.bus)) {
     uint8_t chip_id = 0;
 
-    // Thu dia chi 0x28
     bno_i2c.addr = 0x28;
     bno055_assignI2C(&bno_i2c);
 
@@ -824,13 +915,13 @@ int main(void) {
     }
 
     /* Debug qua UART2 */
-    char dbg[60];
-    snprintf(dbg, sizeof(dbg), "[BNO] addr=0x%02X id=0x%02X err=%d %s\n",
-             bno_i2c.addr, chip_id, ret, imu_ok ? "OK" : "FAIL");
-    uart2_send_str(dbg);
-  } else {
-    uart2_send_str("[BNO] I2C1 bus NOT ready\n");
-  }
+  //   char dbg[60];
+  //   snprintf(dbg, sizeof(dbg), "[BNO] addr=0x%02X id=0x%02X err=%d %s\n",
+  //            bno_i2c.addr, chip_id, ret, imu_ok ? "OK" : "FAIL");
+  //   uart2_send_str(dbg);
+  // } else {
+  //   uart2_send_str("[BNO] I2C1 bus NOT ready\n");
+  // }
 
   /* --- I2C2 PCA9685 --- */
   if (device_is_ready(pca_i2c.bus)) {
@@ -865,21 +956,26 @@ int main(void) {
                   K_NO_WAIT);
   k_thread_name_set(&telem_thread_data, "telem");
 
-  k_thread_create(&test_out_thread_data, test_out_stack, TEST_OUT_STACK_SIZE,
-                  test_out_thread_fn, NULL, NULL, NULL, TEST_OUT_THREAD_PRIO, 0,
-                  K_NO_WAIT);
+  // k_thread_create(&test_out_thread_data, test_out_stack, TEST_OUT_STACK_SIZE,
+  //                 test_out_thread_fn, NULL, NULL, NULL, TEST_OUT_THREAD_PRIO, 0,
+  //                 K_NO_WAIT);
   k_thread_name_set(&test_out_thread_data, "test_out");
+
+  k_thread_create(&servo_thread_data, servo_stack, SERVO_STACK_SIZE,
+                  servo_thread_fn, NULL, NULL, NULL, SERVO_THREAD_PRIO, 0,
+                  K_NO_WAIT);
+  k_thread_name_set(&servo_thread_data, "servo");
 
   /* --- Start timers (sau khi threads da san sang) --- */
   k_timer_init(&ctrl_timer, ctrl_timer_expiry, NULL);
   k_timer_init(&watchdog_timer, watchdog_timer_expiry, NULL);
   k_timer_init(&adc_timer, adc_timer_expiry, NULL);
-  k_timer_init(&telem_timer, telem_timer_expiry, NULL);
+  k_timer_init(&servo_timer, servo_timer_expiry, NULL);
 
   k_timer_start(&ctrl_timer, K_MSEC(10), K_MSEC(10));       /* 100Hz */
   k_timer_start(&watchdog_timer, K_MSEC(200), K_MSEC(200)); /*   5Hz */
   k_timer_start(&adc_timer, K_MSEC(20), K_MSEC(20));        /*  50Hz */
-  k_timer_start(&telem_timer, K_MSEC(100), K_MSEC(100));    /*  10Hz */
+  k_timer_start(&servo_timer, K_MSEC(20), K_MSEC(20));      /*  50Hz */
 
   /* --- Main loop: LED blink (priority 14, thap nhat) ---
    *   Nhanh 100ms = dang nhan HC12
@@ -898,23 +994,7 @@ int main(void) {
 
     bool conn = (atomic_get(&inp.hc12.conn) != 0);
     k_msleep(conn ? 100 : 500);
-
-    // for (int i = 1; i <= 12; i++) {
-    //   /* doc
-    //   out.op1 = inp.dig_in.states[0] ? 1 : 0;
-    //   out.op2 = inp.dig_in.states[1] ? 1 : 0;
-    //   out.op3 = inp.dig_in.states[2] ? 1 : 0;
-    //   out.op4 = inp.dig_in.states[3] ? 1 : 0;
-    //   out.op5 = inp.dig_in.states[4] ? 1 : 0;
-    //   out.op6 = inp.dig_in.states[5] ? 1 : 0;
-    //   out.op7 = inp.dig_in.states[6] ? 1 : 0;
-    //   out.op8 = inp.dig_in.states[7] ? 1 : 0;
-    //   out.op9 = inp.dig_in.states[8] ? 1 : 0;
-    //   out.op10 = inp.dig_in.states[9] ? 1 : 0;*/
-    //   int db1 = gpio_pin_set_dt(&dig_out_pins[i], 1);
-    //   k_msleep(2000);
-    // }
   }
-
+}
   return 0;
 }

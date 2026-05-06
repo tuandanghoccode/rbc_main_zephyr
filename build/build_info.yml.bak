@@ -1,4 +1,4 @@
 west:
-  command: /home/tuangaooo/zephyrpy/bin/west build -p always -b rbc_mainboard/stm32f407xx
+  command: /home/tuangaooo/.local/bin/west build -b rbc_mainboard .
   topdir: /home/tuangaooo/zephyrproject
   version: 1.5.0

@@ -1,8 +1,8 @@
 # 0 "/home/tuangaooo/zephyrproject/zephyr/misc/empty_file.c"
 # 0 "<built-in>"
 # 0 "<command-line>"
-# 1 "/home/tuangaooo/zephyrproject/rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts" 1
-# 9 "/home/tuangaooo/zephyrproject/rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts"
+# 1 "/home/tuangaooo/zephyrproject/rbc_main_zephyr/boards/rbc_mainboard/rbc_mainboard.dts" 1
+# 9 "/home/tuangaooo/zephyrproject/rbc_main_zephyr/boards/rbc_mainboard/rbc_mainboard.dts"
 /dts-v1/;
 # 1 "/home/tuangaooo/zephyrproject/zephyr/dts/arm/st/f4/stm32f407Xg.dtsi" 1 3 4
 
@@ -228,11 +228,13 @@
 
    #address-cells = <1>;
    #size-cells = <1>;
+   ranges;
 
    flash0: flash@8000000 {
     compatible = "st,stm32f4-nv-flash", "st,stm32-nv-flash",
           "soc-nv-flash";
-
+    #address-cells = <1>;
+    #size-cells = <1>;
     write-block-size = <1>;
 
     max-erase-time = <4000>;
@@ -243,7 +245,7 @@
     reg = <0x1fff7800 512>;
     status = "disabled";
    };
-# 146 "/home/tuangaooo/zephyrproject/zephyr/dts/arm/st/f4/stm32f4.dtsi" 3 4
+# 148 "/home/tuangaooo/zephyrproject/zephyr/dts/arm/st/f4/stm32f4.dtsi" 3 4
    flash@1fff7a00 {
     compatible = "st,stm32-nvm-otp";
     reg = <0x1fff7a00 256>;
@@ -382,7 +384,7 @@
    compatible = "st,stm32-window-watchdog";
    reg = <0x40002c00 0x400>;
    clocks = <&rcc (0x040) (1 << 11)>;
-   interrupts = <0 7>;
+   interrupts = <0 0>;
    status = "disabled";
   };
 
@@ -455,7 +457,7 @@
    #size-cells = <0>;
    reg = <0x40013000 0x400>;
    clocks = <&rcc (0x044) (1 << 12)>;
-   interrupts = <35 5>;
+   interrupts = <35 0>;
    st,spi-data-width = "limited-8-16-bit";
    status = "disabled";
   };
@@ -847,7 +849,7 @@
    #size-cells = <0>;
    reg = <0x40003800 0x400>;
    clocks = <&rcc (0x040) (1 << 14)>;
-   interrupts = <36 5>;
+   interrupts = <36 0>;
    st,spi-data-width = "limited-8-16-bit";
    status = "disabled";
   };
@@ -858,7 +860,7 @@
    #size-cells = <0>;
    reg = <0x40003c00 0x400>;
    clocks = <&rcc (0x040) (1 << 15)>;
-   interrupts = <51 5>;
+   interrupts = <51 0>;
    st,spi-data-width = "limited-8-16-bit";
    status = "disabled";
   };
@@ -869,7 +871,7 @@
    #size-cells = <0>;
    reg = <0x40013400 0x400>;
    clocks = <&rcc (0x044) (1 << 13)>;
-   interrupts = <84 5>;
+   interrupts = <84 0>;
    st,spi-data-width = "limited-8-16-bit";
    status = "disabled";
   };
@@ -880,7 +882,7 @@
    #size-cells = <0>;
    reg = <0x40003800 0x400>;
    clocks = <&rcc (0x040) (1 << 14)>;
-   interrupts = <36 5>;
+   interrupts = <36 0>;
    dmas = <&dma1 4 0 ((1 & 0x1) << 10) 3U>,
           <&dma1 3 0 ((1 & 0x1) << 10) 3U>;
    dma-names = "tx", "rx";
@@ -893,7 +895,7 @@
    #size-cells = <0>;
    reg = <0x40003c00 0x400>;
    clocks = <&rcc (0x040) (1 << 15)>;
-   interrupts = <51 5>;
+   interrupts = <51 0>;
    dmas = <&dma1 5 0 ((1 & 0x1) << 10) 3U>,
           <&dma1 0 0 ((1 & 0x1) << 10) 3U>;
    dma-names = "tx", "rx";
@@ -1207,20 +1209,16 @@
  soc {
   compatible = "st,stm32f407", "st,stm32f4", "simple-bus";
 
-  ethernet@40028000 {
+  mac: ethernet@40028000 {
+   compatible = "st,stm32-ethernet";
    reg = <0x40028000 0x8000>;
-   compatible = "st,stm32-ethernet-controller";
    clock-names = "stm-eth", "mac-clk-tx", "mac-clk-rx", "mac-clk-ptp";
    clocks = <&rcc (0x030) (1 << 25)>,
      <&rcc (0x030) (1 << 26)>,
      <&rcc (0x030) (1 << 27)>,
      <&rcc (0x030) (1 << 28)>;
-
-   mac: ethernet {
-    compatible = "st,stm32-ethernet";
-    interrupts = <61 0>;
-    status = "disabled";
-   };
+   interrupts = <61 0>;
+   status = "disabled";
 
    mdio: mdio {
     compatible = "st,stm32-mdio";
@@ -1248,11 +1246,12 @@
   flash-controller@40023c00 {
    flash0: flash@8000000 {
     reg = <0x08000000 ((1024) * 1024)>;
+    ranges = <0 0x8000000 ((1024) * 1024)>;
    };
   };
  };
 };
-# 11 "/home/tuangaooo/zephyrproject/rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts" 2
+# 11 "/home/tuangaooo/zephyrproject/rbc_main_zephyr/boards/rbc_mainboard/rbc_mainboard.dts" 2
 # 1 "/home/tuangaooo/zephyrproject/modules/hal/stm32/dts/st/f4/stm32f407v(e-g)tx-pinctrl.dtsi" 1 3 4
 
 
@@ -2981,9 +2980,9 @@
  };
 
 };
-# 12 "/home/tuangaooo/zephyrproject/rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts" 2
+# 12 "/home/tuangaooo/zephyrproject/rbc_main_zephyr/boards/rbc_mainboard/rbc_mainboard.dts" 2
 # 1 "/home/tuangaooo/zephyrproject/zephyr/include/zephyr/dt-bindings/input/input-event-codes.h" 1 3 4
-# 13 "/home/tuangaooo/zephyrproject/rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts" 2
+# 13 "/home/tuangaooo/zephyrproject/rbc_main_zephyr/boards/rbc_mainboard/rbc_mainboard.dts" 2
 
 
 / {
@@ -3054,52 +3053,52 @@
   compatible = "gpio-keys";
 
   in1: input_1 {
-   gpios = <&gpiob 8 (0 << 0)>;
+   gpios = <&gpioc 10 (1 << 0)>;
    label = "IN1";
    zephyr,code = <3>;
   };
   in2: input_2 {
-   gpios = <&gpiob 9 (0 << 0)>;
+   gpios = <&gpioc 11 (1 << 0)>;
    label = "IN2";
    zephyr,code = <4>;
   };
   in3: input_3 {
-   gpios = <&gpioe 0 (0 << 0)>;
+   gpios = <&gpioc 12 (1 << 0)>;
    label = "IN3";
    zephyr,code = <5>;
   };
   in4: input_4 {
-   gpios = <&gpioe 1 (0 << 0)>;
+   gpios = <&gpiod 7 (1 << 0)>;
    label = "IN4";
    zephyr,code = <6>;
   };
   in5: input_5 {
-   gpios = <&gpioe 2 (0 << 0)>;
+   gpios = <&gpiob 4 (1 << 0)>;
    label = "IN5";
    zephyr,code = <7>;
   };
   in6: input_6 {
-   gpios = <&gpioe 3 (0 << 0)>;
+   gpios = <&gpiob 5 (1 << 0)>;
    label = "IN6";
    zephyr,code = <8>;
   };
   in7: input_7 {
-   gpios = <&gpioc 0 (0 << 0)>;
+   gpios = <&gpiob 8 (1 << 0)>;
    label = "IN7";
    zephyr,code = <9>;
   };
   in8: input_8 {
-   gpios = <&gpioc 1 (0 << 0)>;
+   gpios = <&gpiob 9 (1 << 0)>;
    label = "IN8";
    zephyr,code = <10>;
   };
   in9: input_9 {
-   gpios = <&gpioc 2 (0 << 0)>;
+   gpios = <&gpioe 0 (1 << 0)>;
    label = "IN9";
    zephyr,code = <30>;
   };
   in10: input_10 {
-   gpios = <&gpioc 3 (0 << 0)>;
+   gpios = <&gpioe 1 (1 << 0)>;
    label = "IN10";
    zephyr,code = <48>;
   };
@@ -3131,8 +3130,8 @@
   o8: out_8 { gpios = <&gpioe 13 (1 << 0)>; label = "O8"; };
   o9: out_9 { gpios = <&gpioe 14 (1 << 0)>; label = "O9"; };
   o10: out_10 { gpios = <&gpioe 15 (1 << 0)>; label = "O10";};
-  o11: out_11 { gpios = <&gpiod 14 (1 << 0)>; label = "O11";};
-  o12: out_12 { gpios = <&gpiod 15 (1 << 0)>; label = "O12";};
+  o11: out_11 { gpios = <&gpioc 3 (1 << 0)>; label = "O11";};
+  o12: out_12 { gpios = <&gpioe 2 (1 << 0)>; label = "O12";};
 
 
   out_pb0: misc_pb0 { gpios = <&gpiob 0 (0 << 0)>; label = "PB0 OUT"; };
@@ -3168,7 +3167,7 @@
   sw1 = &btn2;
  };
 };
-# 205 "/home/tuangaooo/zephyrproject/rbc_r1/boards/rbc_mainboard/rbc_mainboard.dts"
+# 205 "/home/tuangaooo/zephyrproject/rbc_main_zephyr/boards/rbc_mainboard/rbc_mainboard.dts"
 &clk_hse {
  clock-frequency = <(((8) * 1000) * 1000)>;
  status = "okay";
